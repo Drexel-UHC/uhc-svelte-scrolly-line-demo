@@ -5,36 +5,29 @@
   { # Dependencies ---------------------------------------------------------------
     library(tidyverse)
     library(geojsonio)  
-    library(geoarrow)
-    library(glue)
-    library(curl)  
-    library(palmerpenguins)
+    library(jsonlite)
   }
-  
-  { ## UHC seeds ----------------------------------------------------
-    
-    uhc_api = 'https://github.com/Drexel-UHC/data-science/raw/main/etl/clean' 
-    sf_county_seed =  glue("{uhc_api}/boundaries/county.json") %>% topojson_read()
-    sf_place_seed =  glue("{uhc_api}/boundaries/place.json") %>% topojson_read()
-    curl_download(glue("{uhc_api}/df_demographics.parquet") , "processed/df_demographics.parquet")
-    curl_download(glue("{uhc_api}/xwalk_state.parquet") , "processed/xwalk_state.parquet")
-    df_demographics = arrow::read_parquet('processed/df_demographics.parquet')
-    xwalk_state = arrow::read_parquet('processed/xwalk_state.parquet')
-    
-  }
-  
 }
 
 
- 
+{ # Line Data ---------------------------------------------------------------
+  
+  df_line_raw = read_csv("../src/data/data_line.csv")
+  
+  df_line_raw %>% 
+    pivot_wider(names_from = group, values_from = value) %>% 
+    write.csv("../src/data/data_line_wide.csv")
+}
 
 
 
- 
+
+
+
 { # Outputs --------------------------------------------
   
   { # Penguins ----------------------------------------------------------------
-   
+    
     df_penguins = penguins %>% drop_na()
     
     df_penguins %>% write_csv("../public/data/data_penguins.csv")
@@ -43,7 +36,7 @@
   
   
   { ## Spatial -----------------------------------------------------------------
-
+    
     region_tmp = 'Northeast'
     division_tmp =  "Middle Atlantic"
     
@@ -175,7 +168,7 @@
       df_data_county %>% write_csv("../public/data/data_county.csv")
       
     }  
-}
+  }
   { # Longitudinal --------------------------------------------------------
     
     df_us = read.csv("raw/NCHS_-_Death_rates_and_life_expectancy_at_birth.csv") %>% as_tibble() %>% 
