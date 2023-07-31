@@ -9,7 +9,6 @@
   import { setContext, onMount } from 'svelte';
   import { getMotion } from './utils.js';
   import { themes } from './config.js';
-  import data from './data/data_line.js';
   import UHCHeader from './layout/UHCHeader.svelte';
   import UHCFooter from './layout/UHCFooter.svelte';
   import Header from './layout/Header.svelte';
@@ -25,7 +24,7 @@
   // 2. Project sepecific imports
   import { getData, setColors, getBreaks, getColor } from './utils.js';
   import { colors } from './config.js';
-  import { ScatterChart, LineChart } from '@onsvisual/svelte-charts';
+  import { LineChart } from '@onsvisual/svelte-charts';
 
   // # ============================================================================ #
   // 3. Core config
@@ -41,6 +40,7 @@
   const threshold = 0.65;
 
   //// State
+
   let animation = getMotion(); // Set animation preference depending on browser preference
   let hover = true;
   let hovered = null;
@@ -50,32 +50,39 @@
   let selectedScatter = null;
   let id = {}; // Object to hold visible section IDs of Scroller components
   let idPrev = {}; // Object to keep track of previous IDs, to compare for changes
-  let barchart1 = {
-    options: ['apples', 'bananas', 'cherries', 'dates'],
-    selected: 'apples',
+  onMount(() => {
+    idPrev = { ...id };
+  });
+  console.log(id);
+  // # ============================================================================ #
+  // 5. Project Configs
+  // THese will change across projects
+
+  // # ============================================================================ #
+  //   5.1 Scrolly actions
+  let yKey = 'cherries';
+  let dataKey;
+  let actions = {
+    chart: {
+      chart01: () => {
+        dataKey = data;
+        yKey = 'cherries';
+      },
+      chart02: () => {
+        dataKey = data;
+        yKey = 'apples';
+      },
+    },
   };
-  let barchart2 = {
-    options: ['stacked', 'comparison', 'barcode', 'grouped'],
-    selected: 'stacked',
-  };
-  let linechart = {
-    stacked: true,
-    line: true,
-    area: true,
-    transparent: true,
-  };
-  let beeswarm = {
-    yKey: false,
-    zKey: false,
-    rKey: true,
-  };
-  const doHover = (e) => (hovered = e.detail.id);
-  const doSelect = (e) => (selected = e.detail.id);
-  const doHoverScatter = (e) => (hoveredScatter = e.detail.id);
-  const doSelectScatter = (e) => (selectedScatter = e.detail.id);
+
+  // # ============================================================================ #
+  //   5.4 State
 
   //// Code to run Scroller actions when new caption IDs come into view
   function runActions(codes = []) {
+    console.log(
+      'runActionsrunActionsrunActionsrunActionsrunActionsrunActionsrunActions'
+    );
     codes.forEach((code) => {
       if (id[code] != idPrev[code]) {
         if (actions[code][id[code]]) {
@@ -85,38 +92,22 @@
       }
     });
   }
-  $: id && runActions(Object.keys(actions)); // Run above code when 'id' object changes
-
-  // # ============================================================================ #
-  // 5. Project Configs
-  // THese will change across projects
-
-  // # ============================================================================ #
-  //   5.1 Scrolly actions
-  let actions = {
-    chart: {
-      chart01: () => {
-        xKey = 'area';
-        yKey = null;
-        zKey = null;
-        rKey = null;
-        explore = false;
-      },
-    },
-  };
-  // # ============================================================================ #
-  //   5.2 Constants
-
-  // # ============================================================================ #
-  //   5.3 Data
-
-  // # ============================================================================ #
-
-  // # ============================================================================ #
-  //   5.4 State
+  console.log(id);
+  $: {
+    if (id) {
+      console.log(`id change!!!!!!!`);
+      console.log(id);
+      runActions(Object.keys(actions));
+    }
+  } // Run above code when 'id' object changes
 
   // # ============================================================================ #
   //   5.5 Initialisation code
+  let data = null;
+  getData(`./data/data_line_wide.csv`).then((arr) => {
+    data = arr;
+    dataKey = data;
+  });
 </script>
 
 <!-- 
@@ -131,7 +122,7 @@
 
 <UHCHeader filled={true} center={false} />
 
-<Header
+<!-- <Header
   bgcolor="#206095"
   bgfixed={true}
   theme="dark"
@@ -155,7 +146,7 @@
   <div style="margin-top: 90px;">
     <Arrow color="white" {animation}>Scroll to begin</Arrow>
   </div>
-</Header>
+</Header> -->
 <!-- 
   # ============================================================================ #
   #  Intro
@@ -167,23 +158,6 @@
     aperiam autem doloremque, sapiente est facere quidem praesentium expedita
     rerum reprehenderit esse fuga, animi pariatur itaque ullam optio minima eum?
   </p>
-  <LineChart
-    data={data.filter((d) => d.group == barchart1.selected)}
-    xKey="year"
-    yKey="value"
-    areaOpacity={0.3}
-    title=""
-    {animation}
-  >
-    <div slot="options" class="controls small">
-      {#each barchart1.options as option}
-        <label
-          ><input type="radio" bind:group={barchart1.selected} value={option} />
-          {option}</label
-        >
-      {/each}
-    </div>
-  </LineChart>
 </Section>
 
 <Divider />
@@ -193,45 +167,24 @@
   #  Scrolly 1
 -->
 
-<!-- <Scroller {threshold} bind:id={id['chart']} splitscreen={true}>
+<Scroller {threshold} bind:id={id['chart']} splitscreen={true}>
   <div slot="background">
     <figure>
       <div class="col-wide height-full">
-        {#if data.district.indicators && metadata.region.lookup}
-          <div class="chart">
-            <ScatterChart
-              height="calc(100vh - 150px)"
-              data={data.district.indicators.map((d) => ({
-                ...d,
-                parent_name: metadata.region.lookup[d.parent].name,
-              }))}
-              colors={explore ? ['lightgrey'] : colors.cat}
-              {xKey}
+        <div class="chart">
+          {#if dataKey && id && yKey}
+            <LineChart
+              data={dataKey}
+              height={500}
+              xKey="year"
+              area={false}
               {yKey}
-              {zKey}
-              {rKey}
-              idKey="code"
-              labelKey="name"
-              r={[3, 10]}
-              xScale="log"
-              xTicks={[10, 100, 1000, 10000]}
-              xFormatTick={(d) => d.toLocaleString()}
-              xSuffix=" sq.km"
-              yFormatTick={(d) => d.toLocaleString()}
-              legend={zKey != null}
-              labels
-              select={explore}
-              selected={explore ? selected : null}
-              hover
-              {hovered}
-              highlighted={explore ? chartHighlighted : []}
-              colorSelect="#206095"
-              colorHighlight="#999"
-              overlayFill
+              areaOpacity={0.3}
+              title=""
               {animation}
             />
-          </div>
-        {/if}
+          {/if}
+        </div>
       </div>
     </figure>
   </div>
@@ -240,38 +193,25 @@
     <section data-id="chart01">
       <div class="col-medium">
         <p>
-          This chart shows the <strong>area in square miles</strong> of each county
-          in the North East census region. Each circle represents one county. The
-          scale is logarithmic.
+          <strong>apples</strong> Lorem ipsum dolor sit amet consectetur, adipisicing
+          elit. Quibusdam praesentium deserunt consequuntur eum et non ipsa alias
+          sit odio totam, omnis veritatis tempore necessitatibus reiciendis, saepe
+          illum eius expedita quae?
         </p>
       </div>
     </section>
     <section data-id="chart02">
       <div class="col-medium">
         <p>
-          The radius of each circle shows the <strong>total population</strong> of
-          the county.
-        </p>
-      </div>
-    </section>
-    <section data-id="chart03">
-      <div class="col-medium">
-        <p>
-          The vertical axis shows the <strong>density</strong> of the county in people
-          per square miles.
-        </p>
-      </div>
-    </section>
-    <section data-id="chart04">
-      <div class="col-medium">
-        <p>
-          The colour of each circle shows the <strong>state</strong> that the county
-          is within.
+          <strong>cherries</strong>Lorem ipsum dolor sit amet consectetur,
+          adipisicing elit. Quibusdam praesentium deserunt consequuntur eum et
+          non ipsa alias sit odio totam, omnis veritatis tempore necessitatibus
+          reiciendis, saepe illum eius expedita quae?
         </p>
       </div>
     </section>
   </div>
-</Scroller> -->
+</Scroller>
 
 <Divider />
 
