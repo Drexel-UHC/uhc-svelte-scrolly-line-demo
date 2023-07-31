@@ -9,6 +9,7 @@
   import { setContext, onMount } from 'svelte';
   import { getMotion } from './utils.js';
   import { themes } from './config.js';
+  import data from './data/data_line.js';
   import UHCHeader from './layout/UHCHeader.svelte';
   import UHCFooter from './layout/UHCFooter.svelte';
   import Header from './layout/Header.svelte';
@@ -24,7 +25,7 @@
   // 2. Project sepecific imports
   import { getData, setColors, getBreaks, getColor } from './utils.js';
   import { colors } from './config.js';
-  import { ScatterChart } from '@onsvisual/svelte-charts';
+  import { ScatterChart, LineChart } from '@onsvisual/svelte-charts';
 
   // # ============================================================================ #
   // 3. Core config
@@ -41,11 +42,37 @@
 
   //// State
   let animation = getMotion(); // Set animation preference depending on browser preference
+  let hover = true;
+  let hovered = null;
+  let hoveredScatter = null;
+  let select = true;
+  let selected = null;
+  let selectedScatter = null;
   let id = {}; // Object to hold visible section IDs of Scroller components
   let idPrev = {}; // Object to keep track of previous IDs, to compare for changes
-  onMount(() => {
-    idPrev = { ...id };
-  });
+  let barchart1 = {
+    options: ['apples', 'bananas', 'cherries', 'dates'],
+    selected: 'apples',
+  };
+  let barchart2 = {
+    options: ['stacked', 'comparison', 'barcode', 'grouped'],
+    selected: 'stacked',
+  };
+  let linechart = {
+    stacked: true,
+    line: true,
+    area: true,
+    transparent: true,
+  };
+  let beeswarm = {
+    yKey: false,
+    zKey: false,
+    rKey: true,
+  };
+  const doHover = (e) => (hovered = e.detail.id);
+  const doSelect = (e) => (selected = e.detail.id);
+  const doHoverScatter = (e) => (hoveredScatter = e.detail.id);
+  const doSelectScatter = (e) => (selectedScatter = e.detail.id);
 
   //// Code to run Scroller actions when new caption IDs come into view
   function runActions(codes = []) {
@@ -75,127 +102,21 @@
         rKey = null;
         explore = false;
       },
-      chart02: () => {
-        xKey = 'area';
-        yKey = null;
-        zKey = null;
-        rKey = 'pop';
-        explore = false;
-      },
-      chart03: () => {
-        xKey = 'area';
-        yKey = 'density';
-        zKey = null;
-        rKey = 'pop';
-        explore = false;
-      },
-      chart04: () => {
-        xKey = 'area';
-        yKey = 'density';
-        zKey = 'parent_name';
-        rKey = 'pop';
-        explore = false;
-      },
     },
   };
   // # ============================================================================ #
   //   5.2 Constants
-  const dataset_named = [
-    { original: 'region', file: 'state' },
-    { original: 'district', file: 'county' },
-  ];
 
   // # ============================================================================ #
   //   5.3 Data
-  let data = { district: {}, region: {} };
-  let metadata = { district: {}, region: {} };
-  let geojson;
+
   // # ============================================================================ #
 
   // # ============================================================================ #
   //   5.4 State
-  let hovered; // Hovered district (chart or map)
-  let selected; // Selected district (chart or map)
-  $: region =
-    selected && metadata.district.lookup
-      ? metadata.district.lookup[selected].parent
-      : null; // Gets region code for 'selected'
-  $: chartHighlighted =
-    metadata.district.array && region
-      ? metadata.district.array
-          .filter((d) => d.parent == region)
-          .map((d) => d.code)
-      : []; // Array of district codes in 'region'
-  let xKey = 'area'; // xKey for scatter chart
-  let yKey = null; // yKey for scatter chart
-  let zKey = null; // zKey (color) for scatter chart
-  let rKey = null; // rKey (radius) for scatter chart
-  let explore = false; // Allows chart/map interactivity to be toggled on/off
 
   // # ============================================================================ #
   //   5.5 Initialisation code
-  dataset_named.forEach((dataset) => {
-    const geo = dataset.original;
-    const uhc_geo = dataset.file;
-
-    getData(`./data/data_${uhc_geo}.csv`).then((arr) => {
-      let meta = arr.map((d) => ({
-        code: d.code,
-        name: d.name,
-        parent: d.parent ? d.parent : null,
-      }));
-      let lookup = {};
-
-      meta.forEach((d) => {
-        lookup[d.code] = d;
-      });
-
-      // bug here
-      metadata[geo].array = meta;
-      metadata[geo].lookup = lookup;
-
-      let indicators = arr.map((d, i) => ({
-        ...meta[i],
-        area: d.area,
-        pop: d['2020'],
-        density: d.density,
-        age_med: d.age_med,
-      }));
-
-      if (geo == 'district') {
-        ['density', 'age_med'].forEach((key) => {
-          let values = indicators.map((d) => d[key]).sort((a, b) => a - b);
-          let breaks = getBreaks(values);
-          indicators.forEach(
-            (d, i) =>
-              (indicators[i][key + '_color'] = getColor(
-                d[key],
-                breaks,
-                colors.seq
-              ))
-          );
-        });
-      }
-      data[geo].indicators = indicators;
-
-      let years = [
-        2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020,
-      ];
-
-      let timeseries = [];
-      arr.forEach((d) => {
-        years.forEach((year) => {
-          timeseries.push({
-            code: d.code,
-            name: d.name,
-            value: d[year],
-            year,
-          });
-        });
-      });
-      data[geo].timeseries = timeseries;
-    });
-  });
 </script>
 
 <!-- 
@@ -240,15 +161,29 @@
   #  Intro
 -->
 <Section>
-  <h2>Introduction</h2>
-  <p>
-    Epsom Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque
-    minima, quisquam autem fuga unde id vitae expedita iusto blanditiis.
-    Necessitatibus dignissimos labore non atque alias quasi. Quaerat quis cum
-    architecto.
+  <h2>Line Chart</h2>
+  <p style="padding-bottom: 1rem;">
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit commodi
+    aperiam autem doloremque, sapiente est facere quidem praesentium expedita
+    rerum reprehenderit esse fuga, animi pariatur itaque ullam optio minima eum?
   </p>
-
-  <blockquote class="text-indent">"A quotation."&mdash;A. Person</blockquote>
+  <LineChart
+    data={data.filter((d) => d.group == barchart1.selected)}
+    xKey="year"
+    yKey="value"
+    areaOpacity={0.3}
+    title=""
+    {animation}
+  >
+    <div slot="options" class="controls small">
+      {#each barchart1.options as option}
+        <label
+          ><input type="radio" bind:group={barchart1.selected} value={option} />
+          {option}</label
+        >
+      {/each}
+    </div>
+  </LineChart>
 </Section>
 
 <Divider />
@@ -258,7 +193,7 @@
   #  Scrolly 1
 -->
 
-<Scroller {threshold} bind:id={id['chart']} splitscreen={true}>
+<!-- <Scroller {threshold} bind:id={id['chart']} splitscreen={true}>
   <div slot="background">
     <figure>
       <div class="col-wide height-full">
@@ -336,7 +271,7 @@
       </div>
     </section>
   </div>
-</Scroller>
+</Scroller> -->
 
 <Divider />
 
