@@ -61,7 +61,8 @@
     codes.forEach((code) => {
       if (id[code] != idPrev[code]) {
         // if caption id changes then run then run following code to update chart
-        step = console.log(
+
+        console.log(
           ' -----------------------------Action Update -----------------------------'
         );
         console.log(id[code]);
@@ -69,11 +70,14 @@
         console.log(actions);
         console.log(actions[code]);
         console.log(actions[code][id[code]]);
+
         if (actions[code][id[code]]) {
           console.log('within');
           actions[code][id[code]]();
         }
         idPrev[code] = id[code];
+        step = id[code];
+        console.log(`step: ${step}`);
       }
     });
   }
@@ -89,7 +93,7 @@
 
   // # ============================================================================ #
   //   5.1 Scrolly actions *********
-  let step = 'none';
+  let step = 'chart01';
   let data; // initializes async in 5.5
   // let yKey = 'apples';
   let yMin = 0;
@@ -98,21 +102,13 @@
     chart: {
       chart01: () => {
         data = data.filter((d) => selected_groups.includes(d.group));
-        groupTmp = 'apples';
         yMin = 0;
         // zKey = null;
       },
       chart02: () => {
         data = data.filter((d) => selected_groups.includes(d.group));
-        groupTmp = 'apples';
         yMin = 65;
         // zKey = null;
-      },
-      chart03: () => {
-        data = data.filter((d) => selected_groups.includes(d.group));
-        groupTmp = 'apples';
-        yMin = 65;
-        // zKey = 'groups';
       },
     },
   };
@@ -231,13 +227,6 @@
         </p>
       </div>
     </section>
-    <section data-id="chart03">
-      <div class="col-medium">
-        <p>
-          <strong>Add a group in the line chart</strong>
-        </p>
-      </div>
-    </section>
   </div>
 </Scroller>
 
@@ -264,6 +253,9 @@
 -->
 
 <UHCFooter />
+<div class="stickDev">
+  step: {step}
+</div>
 
 <!-- 
   # ============================================================================ #
@@ -279,6 +271,13 @@
   }
   select {
     max-width: 350px;
+  }
+  .stickDev {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    background-color: white;
+    padding: 10px;
   }
   .chart {
     margin-top: 45px;
