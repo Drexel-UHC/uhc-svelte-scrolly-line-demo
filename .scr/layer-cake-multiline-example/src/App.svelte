@@ -1,3 +1,7 @@
+<!-- 
+# ============================================================================ #
+# <script>
+ -->
 <script>
   import { LayerCake, ScaledSvg, Html } from 'layercake';
   import { scaleOrdinal } from 'd3-scale';
@@ -16,7 +20,10 @@
   const xKey = 'month';
   const yKey = 'value';
   const zKey = 'fruit';
-
+  let barchart1 = {
+    options: ['apples', 'bananas', 'cherries', 'dates'],
+    selected: 'apples',
+  };
   const seriesNames = Object.keys(data[0]).filter((d) => d !== xKey);
   const seriesColors = ['#ffe4b8', '#ffb3c0', '#ff7ac7', '#ff00cc'];
 
@@ -50,10 +57,30 @@
       return memo.concat(group.values);
     }, []);
 
+  console;
+
   const formatTickX = timeFormat('%b. %e');
   const formatTickY = (d) => format(`.${precisionFixed(d)}s`)(d);
 </script>
 
+<!-- 
+# ============================================================================ #
+# <markup>
+ -->
+
+<div class="stickDev">
+  {#each barchart1.selected as select}
+    {select}
+  {/each}
+</div>
+<div class="controls small">
+  {#each barchart1.options as option}
+    <label
+      ><input type="radio" bind:group={barchart1.selected} value={option} />
+      {option}</label
+    >
+  {/each}
+</div>
 <div class="chart-container">
   <LayerCake
     ssr={true}
@@ -86,6 +113,11 @@
   </LayerCake>
 </div>
 
+<!-- 
+# ============================================================================ #
+# <style>
+ -->
+
 <style>
   /*
 		The wrapper div needs to have an explicit width and height in CSS.
@@ -96,5 +128,19 @@
   .chart-container {
     width: 100%;
     height: 100%;
+  }
+  .controls > label {
+    display: inline;
+    margin-right: 8px;
+  }
+  .small {
+    font-size: 0.8em;
+  }
+  .stickDev {
+    position: fixed;
+    bottom: 100;
+    right: 0;
+    background-color: white;
+    padding: 10px;
   }
 </style>
