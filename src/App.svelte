@@ -58,9 +58,6 @@
   // Scroll Updater
   function runActions(codes = []) {
     //// Code to run Scroller actions when new caption IDs come into view
-    console.log(
-      'runActionsrunActionsrunActionsrunActionsrunActionsrunActionsrunActions'
-    );
     codes.forEach((code) => {
       if (id[code] != idPrev[code]) {
         if (actions[code][id[code]]) {
@@ -81,23 +78,27 @@
   // THese will change across projects
 
   // # ============================================================================ #
-  //   5.1 Scrolly actions
-  let yKey = 'cherries';
-  let data;
-  let dataKey;
+  //   5.1 Scrolly actions *********
+  let data; // initializes async in 5.5
+  let dataKey; // initializes async in 5.5
+  let yKey = 'apples';
+  let yMin = 0;
   let actions = {
     chart: {
       chart01: () => {
         dataKey = data;
-        yKey = 'cherries';
+        yKey = 'apples';
+        yMin = 0;
       },
       chart02: () => {
         dataKey = data;
         yKey = 'apples';
+        yMin = 65;
       },
       chart03: () => {
-        dataKey = data;
+        dataKey = data.filter((d) => d.year >= 2010);
         yKey = 'apples';
+        yMin = 65;
       },
     },
   };
@@ -108,13 +109,11 @@
   // # ============================================================================ #
   //   5.5 Initialisation code (get data)
 
-  getData(`./data/data_line_wide.csv`).then((arr) => {
+  // getData(`./data/data_line_wide.csv`).then((arr) => {
+  getData(`./data/data_le_wide.csv`).then((arr) => {
     data = arr;
     dataKey = arr;
   });
-
-  console.log('Original Data');
-  console.log(data);
 </script>
 
 <!-- 
@@ -126,7 +125,7 @@
   # ============================================================================ #
   #  Header
 -->
-
+<!-- 
 <UHCHeader filled={true} center={false} />
 
 <Header
@@ -153,25 +152,25 @@
   <div style="margin-top: 90px;">
     <Arrow color="white" {animation}>Scroll to begin</Arrow>
   </div>
-</Header>
+</Header> -->
 <!-- 
   # ============================================================================ #
   #  Intro
 -->
-<Section>
+<!-- <Section>
   <h2>Line Chart</h2>
   <p style="padding-bottom: 1rem;">
     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit commodi
     aperiam autem doloremque, sapiente est facere quidem praesentium expedita
     rerum reprehenderit esse fuga, animi pariatur itaque ullam optio minima eum?
   </p>
-</Section>
+</Section> -->
 
 <Divider />
 
 <!-- 
   # ============================================================================ #
-  #  Scrolly 1
+  #  Scrolly 1 ******************
 -->
 
 <Scroller {threshold} bind:id={id['chart']} splitscreen={true}>
@@ -179,13 +178,15 @@
     <figure>
       <div class="col-wide height-full">
         <div class="chart">
-          {#if dataKey && id && yKey}
+          {#if dataKey && id && yKey && yMin >= 0}
             <LineChart
               data={dataKey}
               height={500}
               xKey="year"
               area={false}
               {yKey}
+              {yMin}
+              yMax={85}
               areaOpacity={0.3}
               {animation}
             />
@@ -199,22 +200,24 @@
     <section data-id="chart01">
       <div class="col-medium">
         <p>
-          Here is value of <strong>apples</strong> over time in USD.
+          Trend of the cost of <strong>apples</strong> over time.
         </p>
       </div>
     </section>
     <section data-id="chart02">
       <div class="col-medium">
         <p>
-          Here is value of <strong>cherries</strong> over time in USD. (<em
-            >This transition demostrate changing data across actions</em
-          >)
+          Let <strong>zoom in on y-axis</strong> range of interest to better visualize
+          the data.
         </p>
       </div>
     </section>
     <section data-id="chart03">
       <div class="col-medium">
-        <p>Modification of x-axis to zoom in on years of interest</p>
+        <p>
+          <strong>Transition x-axis</strong> to zoom in on years of interest
+        </p>
+        (<em>How to change x-axis range across steps.</em>)
       </div>
     </section>
   </div>
