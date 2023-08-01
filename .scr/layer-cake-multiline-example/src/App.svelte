@@ -9,6 +9,20 @@
     options: ['apples', 'bananas', 'cherries', 'dates'],
     selected: ['apples'],
   };
+
+  function toggleSelection(option) {
+    const index = selection.selected.indexOf(option);
+    if (index >= 0) {
+      // Option is currently selected, so remove it from the array
+      selection.selected = [
+        ...selection.selected.slice(0, index),
+        ...selection.selected.slice(index + 1),
+      ];
+    } else {
+      // Option is not currently selected, so add it to the array
+      selection.selected = [...selection.selected, option];
+    }
+  }
 </script>
 
 <!-- 
@@ -22,11 +36,15 @@
   {/each}
 </div>
 <div class="controls small">
-  {#each selection.options as option}
-    <label
-      ><input type="radio" bind:group={selection.selected} value={option} />
-      {option}</label
-    >
+  {#each selection.options as option (option)}
+    <label>
+      <input
+        type="checkbox"
+        checked={selection.selected.includes(option)}
+        on:change={() => toggleSelection(option)}
+      />
+      {option}
+    </label>
   {/each}
 </div>
 <MyChart {selection} />
