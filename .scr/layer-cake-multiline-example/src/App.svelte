@@ -5,7 +5,7 @@
 <script>
   import MyChart from './components/layer-cake/MyChart.svelte';
 
-  let barchart1 = {
+  let selection = {
     options: ['apples', 'bananas', 'cherries', 'dates'],
     selected: 'apples',
   };
@@ -17,19 +17,19 @@
  -->
 
 <div class="stickDev">
-  {#each barchart1.selected as select}
+  {#each selection.selected as select}
     {select}
   {/each}
 </div>
 <div class="controls small">
-  {#each barchart1.options as option}
+  {#each selection.options as option}
     <label
-      ><input type="radio" bind:group={barchart1.selected} value={option} />
+      ><input type="radio" bind:group={selection.selected} value={option} />
       {option}</label
     >
   {/each}
 </div>
-<MyChart />
+<MyChart {selection} />
 
 <!-- 
 # ============================================================================ #

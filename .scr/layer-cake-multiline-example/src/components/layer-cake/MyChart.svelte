@@ -3,6 +3,8 @@
 # <script>
  -->
 <script>
+  export let selection;
+
   import { LayerCake, ScaledSvg, Html } from 'layercake';
   import { scaleOrdinal } from 'd3-scale';
   import { timeParse, timeFormat } from 'd3-time-format';
@@ -62,6 +64,12 @@
 # ============================================================================ #
 # <markup>
  -->
+
+<div style="color: red;">
+  {#each selection.selected as select}
+    {select}
+  {/each}
+</div>
 
 <div class="chart-container">
   <LayerCake
