@@ -14,8 +14,8 @@
   import AxisX from './AxisX-html.svelte';
   import AxisY from './AxisY-html.svelte';
 
-  import data from './fruit.js';
-
+  import data_all from './fruit.js';
+  let data = data_all;
   /* --------------------------------------------
    * Set what is our x key to separate it from the other series
    */
@@ -58,6 +58,9 @@
 
   const formatTickX = timeFormat('%b. %e');
   const formatTickY = (d) => format(`.${precisionFixed(d)}s`)(d);
+
+  console.log(dataLong);
+  console.log(flatten(dataLong));
 </script>
 
 <!-- 
