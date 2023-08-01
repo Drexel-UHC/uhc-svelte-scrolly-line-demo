@@ -30,11 +30,6 @@
 # <markup>
  -->
 
-<div class="stickDev">
-  {#each selection.selected as select}
-    {select}
-  {/each}
-</div>
 <div class="controls small">
   {#each selection.options as option (option)}
     <label>
