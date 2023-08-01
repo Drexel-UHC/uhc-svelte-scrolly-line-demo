@@ -62,15 +62,18 @@
     
     { # Tidy + export -----------------------------------------------------------
 
-      df_le_wide = df_data %>% 
+      df_le = df_data %>% 
         rename(value = 'le') %>%
         mutate(group = group %>% recode(
           'Boston' = 'apples',
           'Chicago' = 'dates',
           'US' = 'cherries',
           'Philadelphia' = 'flowers' )) %>% 
+        arrange(group,year, value)
+      df_le_wide = df_le %>% 
         pivot_wider(names_from = group, values_from = value)
-      df_le_wide %>% write.csv("../public/data/data_le_wide.csv")
+      df_le %>% write.csv("../public/data/data_le.csv", row.names = F)
+      df_le_wide %>% write.csv("../public/data/data_le_wide.csv", row.names = F)
       
     }
     

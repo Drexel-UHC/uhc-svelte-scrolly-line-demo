@@ -96,7 +96,7 @@
         yMin = 65;
       },
       chart03: () => {
-        dataKey = data.filter((d) => d.year >= 2010);
+        dataKey = data;
         yKey = 'apples';
         yMin = 65;
       },
@@ -110,6 +110,10 @@
   //   5.5 Initialisation code (get data)
 
   // getData(`./data/data_line_wide.csv`).then((arr) => {
+  getData(`./data/data_le.csv`).then((arr) => {
+    console.log('flat data');
+    console.log(arr);
+  });
   getData(`./data/data_le_wide.csv`).then((arr) => {
     data = arr;
     dataKey = arr;
@@ -215,9 +219,8 @@
     <section data-id="chart03">
       <div class="col-medium">
         <p>
-          <strong>Transition x-axis</strong> to zoom in on years of interest
+          <strong>Add a group in the line chart</strong>
         </p>
-        (<em>How to change x-axis range across steps.</em>)
       </div>
     </section>
   </div>
