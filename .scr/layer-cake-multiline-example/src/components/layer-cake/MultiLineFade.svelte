@@ -25,14 +25,7 @@
         })
         .join('L');
     // console.log(results);
-    return (
-      'M' +
-      values
-        .map((d) => {
-          return $xGet(d) + ',' + $yGet(d);
-        })
-        .join('L')
-    );
+    return results;
   };
   console.log('RUN ----- MultiLine.svelte');
 </script>

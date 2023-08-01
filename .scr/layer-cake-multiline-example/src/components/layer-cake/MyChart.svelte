@@ -10,7 +10,8 @@
   import { timeParse, timeFormat } from 'd3-time-format';
   import { format, precisionFixed } from 'd3-format';
 
-  import MultiLine from './MultiLine.svelte';
+  // import MultiLine from './MultiLineFade.svelte';
+  import MultiLine from './MultiLineFade.svelte';
   import AxisX from './AxisX-html.svelte';
   import AxisY from './AxisY-html.svelte';
 
