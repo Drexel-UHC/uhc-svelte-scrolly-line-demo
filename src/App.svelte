@@ -54,32 +54,10 @@
     idPrev = { ...id };
   });
   console.log(id);
-  // # ============================================================================ #
-  // 5. Project Configs
-  // THese will change across projects
 
-  // # ============================================================================ #
-  //   5.1 Scrolly actions
-  let yKey = 'cherries';
-  let dataKey;
-  let actions = {
-    chart: {
-      chart01: () => {
-        dataKey = data;
-        yKey = 'cherries';
-      },
-      chart02: () => {
-        dataKey = data;
-        yKey = 'apples';
-      },
-    },
-  };
-
-  // # ============================================================================ #
-  //   5.4 State
-
-  //// Code to run Scroller actions when new caption IDs come into view
+  // Scroll Updater
   function runActions(codes = []) {
+    //// Code to run Scroller actions when new caption IDs come into view
     console.log(
       'runActionsrunActionsrunActionsrunActionsrunActionsrunActionsrunActions'
     );
@@ -92,22 +70,51 @@
       }
     });
   }
-  console.log(id);
   $: {
+    // Run above code when 'id' object changes
     if (id) {
-      console.log(`id change!!!!!!!`);
-      console.log(id);
       runActions(Object.keys(actions));
     }
-  } // Run above code when 'id' object changes
+  }
+  // # ============================================================================ #
+  // 5. Project Configs
+  // THese will change across projects
 
   // # ============================================================================ #
-  //   5.5 Initialisation code
-  let data = null;
+  //   5.1 Scrolly actions
+  let yKey = 'cherries';
+  let data;
+  let dataKey;
+  let actions = {
+    chart: {
+      chart01: () => {
+        dataKey = data;
+        yKey = 'cherries';
+      },
+      chart02: () => {
+        dataKey = data;
+        yKey = 'apples';
+      },
+      chart03: () => {
+        dataKey = data;
+        yKey = 'apples';
+      },
+    },
+  };
+
+  // # ============================================================================ #
+  //   5.4 State
+
+  // # ============================================================================ #
+  //   5.5 Initialisation code (get data)
+
   getData(`./data/data_line_wide.csv`).then((arr) => {
     data = arr;
-    dataKey = data;
+    dataKey = arr;
   });
+
+  console.log('Original Data');
+  console.log(data);
 </script>
 
 <!-- 
@@ -122,7 +129,7 @@
 
 <UHCHeader filled={true} center={false} />
 
-<!-- <Header
+<Header
   bgcolor="#206095"
   bgfixed={true}
   theme="dark"
@@ -146,7 +153,7 @@
   <div style="margin-top: 90px;">
     <Arrow color="white" {animation}>Scroll to begin</Arrow>
   </div>
-</Header> -->
+</Header>
 <!-- 
   # ============================================================================ #
   #  Intro
@@ -180,7 +187,6 @@
               area={false}
               {yKey}
               areaOpacity={0.3}
-              title=""
               {animation}
             />
           {/if}
@@ -193,21 +199,22 @@
     <section data-id="chart01">
       <div class="col-medium">
         <p>
-          <strong>apples</strong> Lorem ipsum dolor sit amet consectetur, adipisicing
-          elit. Quibusdam praesentium deserunt consequuntur eum et non ipsa alias
-          sit odio totam, omnis veritatis tempore necessitatibus reiciendis, saepe
-          illum eius expedita quae?
+          Here is value of <strong>apples</strong> over time in USD.
         </p>
       </div>
     </section>
     <section data-id="chart02">
       <div class="col-medium">
         <p>
-          <strong>cherries</strong>Lorem ipsum dolor sit amet consectetur,
-          adipisicing elit. Quibusdam praesentium deserunt consequuntur eum et
-          non ipsa alias sit odio totam, omnis veritatis tempore necessitatibus
-          reiciendis, saepe illum eius expedita quae?
+          Here is value of <strong>cherries</strong> over time in USD. (<em
+            >This transition demostrate changing data across actions</em
+          >)
         </p>
+      </div>
+    </section>
+    <section data-id="chart03">
+      <div class="col-medium">
+        <p>Modification of x-axis to zoom in on years of interest</p>
       </div>
     </section>
   </div>
