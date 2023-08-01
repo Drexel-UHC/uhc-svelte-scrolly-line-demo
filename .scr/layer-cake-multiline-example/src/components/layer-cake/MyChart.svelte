@@ -15,8 +15,8 @@
   import AxisY from './AxisY-html.svelte';
 
   import data_all from './fruit.js';
-  let data = data_all;
 
+  let data;
   let xKey;
   let yKey;
   let zKey;
@@ -29,6 +29,9 @@
   let formatTickY;
 
   $: {
+    // Subset data reactively
+    data = data_all;
+
     /* --------------------------------------------
      * Set what is our x key to separate it from the other series
      */
