@@ -55,13 +55,13 @@
     console.log(`--- MyCharts (${selection.selected})---`);
 
     seriesNames = seriesAll
-      .filter((d) => d.name === selection.selected)
+      .filter((d) => selection.selected.includes(d.name))
       .map((d) => d.name);
     seriesColors = seriesAll
-      .filter((d) => d.name === selection.selected)
+      .filter((d) => selection.selected.includes(d.name))
       .map((d) => d.color);
 
-    dataLong = dataLongAll.filter((d) => d[zKey] === selection.selected);
+    dataLong = dataLongAll.filter((d) => selection.selected.includes(d[zKey]));
 
     console.log(selection);
     console.log(dataLong);

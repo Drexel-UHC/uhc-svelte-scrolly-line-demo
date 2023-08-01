@@ -7,7 +7,7 @@
 
   let selection = {
     options: ['apples', 'bananas', 'cherries', 'dates'],
-    selected: 'apples',
+    selected: ['apples'],
   };
 </script>
 
