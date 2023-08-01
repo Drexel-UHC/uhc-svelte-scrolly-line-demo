@@ -97,27 +97,26 @@
   let data; // initializes async in 5.5
   // let yKey = 'apples';
   let yMin = 0;
-  let groupTmp = 'apples';
-  let custom;
+  let all_groups = ['apples', 'cherries', 'dates', 'flowers'];
+  let selected_groups = ['apples', 'cherries', 'dates'];
+  let custom = all_groups;
+
   let actions = {
     chart: {
       chart01: () => {
-        data = data.filter((d) => selected_groups.includes(d.group));
+        data = data;
         yMin = 0;
-        custom = null;
-        // zKey = null;
+        custom = selected_groups;
       },
       chart02: () => {
-        data = data.filter((d) => selected_groups.includes(d.group));
+        data = data;
         yMin = 65;
-        custom = null;
-        // zKey = null;
+        custom = selected_groups;
       },
       chart03: () => {
-        data = data.filter((d) => selected_groups.includes(d.group));
+        data = data;
         yMin = 65;
-        custom = 'dates';
-        // zKey = null;
+        custom = all_groups;
       },
     },
   };
@@ -133,7 +132,6 @@
   //   console.log('flat data');
   //   console.log(arr);
   // });
-  let selected_groups = ['apples', 'cherries'];
   getData(`./data/data_le.csv`).then((arr) => {
     data = arr;
   });
@@ -203,7 +201,7 @@
         <div class="chart">
           {#if data && id && yMin >= 0}
             <LineChart
-              data={data.filter((d) => selected_groups.includes(d.group))}
+              {data}
               height={500}
               xKey="year"
               area={false}
