@@ -98,16 +98,25 @@
   // let yKey = 'apples';
   let yMin = 0;
   let groupTmp = 'apples';
+  let custom;
   let actions = {
     chart: {
       chart01: () => {
         data = data.filter((d) => selected_groups.includes(d.group));
         yMin = 0;
+        custom = null;
         // zKey = null;
       },
       chart02: () => {
         data = data.filter((d) => selected_groups.includes(d.group));
         yMin = 65;
+        custom = null;
+        // zKey = null;
+      },
+      chart03: () => {
+        data = data.filter((d) => selected_groups.includes(d.group));
+        yMin = 65;
+        custom = 'dates';
         // zKey = null;
       },
     },
@@ -199,6 +208,7 @@
               xKey="year"
               area={false}
               yKey="value"
+              {custom}
               {yMin}
               yMax={85}
               areaOpacity={0.3}
@@ -224,6 +234,13 @@
         <p>
           Let <strong>zoom in on y-axis</strong> range of interest to better visualize
           the data.
+        </p>
+      </div>
+    </section>
+    <section data-id="chart03">
+      <div class="col-medium">
+        <p>
+          <strong>try animating in and out data?</strong>
         </p>
       </div>
     </section>
