@@ -14,68 +14,55 @@
   import AxisX from './AxisX-html.svelte';
   import AxisY from './AxisY-html.svelte';
 
-  import data_all from './fruit.js';
+  import data from './fruit.js';
 
-  let data;
-  let xKey;
-  let yKey;
-  let zKey;
+  // # ============================================================================ #
+  // #   Import Data
+  const seriesNamesAll = Object.keys(data[0]).filter((d) => d !== xKey);
+  const seriesColorsAll = ['#ffe4b8', '#ffb3c0', '#ff7ac7', '#ff00cc'];
+  const seriesAll = seriesNamesAll.map((name, index) => {
+    return { name: name, color: seriesColorsAll[index] };
+  });
+
+  const dataLongAll = seriesNamesAll.map((key) => {
+    return {
+      [zKey]: key,
+      values: data.map((d) => {
+        d[xKey] = typeof d[xKey] === 'string' ? parseDate(d[xKey]) : d[xKey]; // Conditional required for sapper
+        return {
+          [yKey]: +d[key],
+          [xKey]: d[xKey],
+        };
+      }),
+    };
+  });
+
+  const xKey = 'month';
+  const yKey = 'value';
+  const zKey = 'fruit';
   let seriesNames;
   let seriesColors;
-  let parseDate;
+  const parseDate = timeParse('%Y-%m-%d');
+  const flatten = (data) =>
+    data.reduce((memo, group) => {
+      return memo.concat(group.values);
+    }, []);
   let dataLong;
-  let flatten;
-  let formatTickX;
-  let formatTickY;
+  let formatTickX = timeFormat('%b. %e');
+  let formatTickY = (d) => format(`.${precisionFixed(d)}s`)(d);
 
   $: {
-    // Subset data reactively
-    data = data_all;
+    console.log(`--- MyCharts (${selection.selected})---`);
 
-    /* --------------------------------------------
-     * Set what is our x key to separate it from the other series
-     */
-    xKey = 'month';
-    yKey = 'value';
-    zKey = 'fruit';
+    seriesNames = seriesAll
+      .filter((d) => d.name === selection.selected)
+      .map((d) => d.name);
+    seriesColors = seriesAll
+      .filter((d) => d.name === selection.selected)
+      .map((d) => d.color);
 
-    seriesNames = Object.keys(data[0]).filter((d) => d !== xKey);
-    seriesColors = ['#ffe4b8', '#ffb3c0', '#ff7ac7', '#ff00cc'];
+    dataLong = dataLongAll.filter((d) => d[zKey] === selection.selected);
 
-    parseDate = timeParse('%Y-%m-%d');
-
-    /* --------------------------------------------
-     * Create a "long" format that is a grouped series of data points
-     * Layer Cake uses this data structure and the key names
-     * set in xKey, yKey and zKey to map your data into each scale.
-     */
-    dataLong = seriesNames.map((key) => {
-      return {
-        [zKey]: key,
-        values: data.map((d) => {
-          d[xKey] = typeof d[xKey] === 'string' ? parseDate(d[xKey]) : d[xKey]; // Conditional required for sapper
-          return {
-            [yKey]: +d[key],
-            [xKey]: d[xKey],
-          };
-        }),
-      };
-    });
-
-    /* --------------------------------------------
-     * Make a flat array of the `values` of our nested series
-     * we can pluck the field set from `yKey` from each item
-     * in the array to measure the full extents
-     */
-    flatten = (data) =>
-      data.reduce((memo, group) => {
-        return memo.concat(group.values);
-      }, []);
-
-    formatTickX = timeFormat('%b. %e');
-    formatTickY = (d) => format(`.${precisionFixed(d)}s`)(d);
-
-    console.log(' --- MyCharts ---');
     console.log(selection);
     console.log(dataLong);
     console.log(flatten(dataLong));
