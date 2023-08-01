@@ -61,11 +61,13 @@
     codes.forEach((code) => {
       if (id[code] != idPrev[code]) {
         // if caption id changes then run then run following code to update chart
-        console.log(
+        step = console.log(
           ' -----------------------------Action Update -----------------------------'
         );
         console.log(id[code]);
         console.log(idPrev[code]);
+        console.log(actions);
+        console.log(actions[code]);
         console.log(actions[code][id[code]]);
         if (actions[code][id[code]]) {
           console.log('within');
@@ -87,27 +89,28 @@
 
   // # ============================================================================ #
   //   5.1 Scrolly actions *********
+  let step = 'none';
   let data; // initializes async in 5.5
   // let yKey = 'apples';
   let yMin = 0;
-  // let zKey = null;
+  let groupTmp = 'apples';
   let actions = {
     chart: {
       chart01: () => {
-        data = data;
-        // yKey = 'apples';
+        data = data.filter((d) => selected_groups.includes(d.group));
+        groupTmp = 'apples';
         yMin = 0;
         // zKey = null;
       },
       chart02: () => {
-        data = data;
-        // yKey = 'apples';
+        data = data.filter((d) => selected_groups.includes(d.group));
+        groupTmp = 'apples';
         yMin = 65;
         // zKey = null;
       },
       chart03: () => {
-        data = data;
-        // yKey = 'apples';
+        data = data.filter((d) => selected_groups.includes(d.group));
+        groupTmp = 'apples';
         yMin = 65;
         // zKey = 'groups';
       },
@@ -125,6 +128,7 @@
   //   console.log('flat data');
   //   console.log(arr);
   // });
+  let selected_groups = ['apples', 'cherries'];
   getData(`./data/data_le.csv`).then((arr) => {
     data = arr;
   });
@@ -194,7 +198,7 @@
         <div class="chart">
           {#if data && id && yMin >= 0}
             <LineChart
-              {data}
+              data={data.filter((d) => selected_groups.includes(d.group))}
               height={500}
               xKey="year"
               area={false}
