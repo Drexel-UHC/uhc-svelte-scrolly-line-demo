@@ -60,7 +60,15 @@
     //// Code to run Scroller actions when new caption IDs come into view
     codes.forEach((code) => {
       if (id[code] != idPrev[code]) {
+        // if caption id changes then run then run following code to update chart
+        console.log(
+          ' -----------------------------Action Update -----------------------------'
+        );
+        console.log(id[code]);
+        console.log(idPrev[code]);
+        console.log(actions[code][id[code]]);
         if (actions[code][id[code]]) {
+          console.log('within');
           actions[code][id[code]]();
         }
         idPrev[code] = id[code];
@@ -80,25 +88,28 @@
   // # ============================================================================ #
   //   5.1 Scrolly actions *********
   let data; // initializes async in 5.5
-  let dataKey; // initializes async in 5.5
-  let yKey = 'apples';
+  // let yKey = 'apples';
   let yMin = 0;
+  // let zKey = null;
   let actions = {
     chart: {
       chart01: () => {
-        dataKey = data;
-        yKey = 'apples';
+        data = data;
+        // yKey = 'apples';
         yMin = 0;
+        // zKey = null;
       },
       chart02: () => {
-        dataKey = data;
-        yKey = 'apples';
+        data = data;
+        // yKey = 'apples';
         yMin = 65;
+        // zKey = null;
       },
       chart03: () => {
-        dataKey = data;
-        yKey = 'apples';
+        data = data;
+        // yKey = 'apples';
         yMin = 65;
+        // zKey = 'groups';
       },
     },
   };
@@ -110,13 +121,12 @@
   //   5.5 Initialisation code (get data)
 
   // getData(`./data/data_line_wide.csv`).then((arr) => {
+  // getData(`./data/data_le.csv`).then((arr) => {
+  //   console.log('flat data');
+  //   console.log(arr);
+  // });
   getData(`./data/data_le.csv`).then((arr) => {
-    console.log('flat data');
-    console.log(arr);
-  });
-  getData(`./data/data_le_wide.csv`).then((arr) => {
     data = arr;
-    dataKey = arr;
   });
 </script>
 
@@ -182,17 +192,18 @@
     <figure>
       <div class="col-wide height-full">
         <div class="chart">
-          {#if dataKey && id && yKey && yMin >= 0}
+          {#if data && id && yMin >= 0}
             <LineChart
-              data={dataKey}
+              {data}
               height={500}
               xKey="year"
               area={false}
-              {yKey}
+              yKey="value"
               {yMin}
               yMax={85}
               areaOpacity={0.3}
               {animation}
+              zKey="group"
             />
           {/if}
         </div>
