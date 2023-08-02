@@ -47,18 +47,21 @@
   }
 
   $: {
-    console.log(`*********************** Line ${$custom.step}`);
-    console.log(`$custom`);
-    console.log($custom.groups_selected);
-    coord_needs_update = $coords.length != $custom.customData.length;
+    console.log(`************* Line ${$custom.step}`);
+    console.log($custom.customData);
+    // const changed_data = $coords.length != $custom.customData.length;
+    // coord_needs_update = changed_data;
   }
 
   $: {
-    if (coord_needs_update) {
-      setCoords($custom.customData, $custom, $x, $y, $r, $width);
-    }
+    // console.log('REFRESH COORDS REACTIVELY');
+    // setCoords($custom.customData, $custom, $x, $y, $r, $width);
   }
-
+  let debounceTimer;
+  let debounceValue = 200;
+  $: {
+    debouncedSetCoords($custom.customData, $custom, $x, $y, $r, $width);
+  }
   // Function to make SVG path
   const makePath = (group) => {
     let path =
@@ -105,94 +108,7 @@
     prevWidth = width;
 
     let newcoords;
-    if (type == 'bar') {
-      newcoords = data.map((d, i) =>
-        d.map((e, j) => {
-          return {
-            x:
-              mode == 'default' ||
-              mode == 'grouped' ||
-              ((mode == 'comparison' || mode == 'stacked') && i == 0)
-                ? 0
-                : mode == 'stacked'
-                ? x(data[i - 1][j])
-                : x(e),
-            y:
-              mode == 'grouped'
-                ? $yGet(e) + i * (1 / data.length) * $yScale.bandwidth()
-                : $yGet(e),
-            w:
-              mode == 'default' ||
-              mode == 'grouped' ||
-              ((mode == 'comparison' || mode == 'stacked') && i == 0)
-                ? x(e)
-                : mode == 'stacked'
-                ? x(e) - x(data[i - 1][j])
-                : 0,
-            h:
-              mode == 'grouped'
-                ? $yScale.bandwidth() / data.length
-                : $yScale.bandwidth(),
-          };
-        })
-      );
-    } else if (type == 'column') {
-      newcoords = data.map((d, i) =>
-        d.map((e, j) => {
-          return {
-            x:
-              mode == 'grouped' && $xScale.bandwidth
-                ? $xGet(e) + i * (1 / data.length) * $xScale.bandwidth()
-                : mode == 'grouped'
-                ? $xGet(e)[0] +
-                  i * (1 / data.length) * Math.max(0, $xGet(e)[1] - $xGet(e)[0])
-                : $xScale.bandwidth
-                ? $xGet(e)
-                : $xGet(e)[0],
-            y: y(e),
-            w:
-              mode == 'grouped' && $xScale.bandwidth
-                ? $xScale.bandwidth() / data.length
-                : mode == 'grouped'
-                ? Math.max(0, $xGet(e)[1] - $xGet(e)[0]) / data.length
-                : $xScale.bandwidth
-                ? $xScale.bandwidth()
-                : Math.max(0, $xGet(e)[1] - $xGet(e)[0]),
-            h:
-              mode == 'default' ||
-              mode == 'grouped' ||
-              ((mode == 'comparison' || mode == 'stacked') && i == 0)
-                ? y(e)
-                : mode == 'stacked'
-                ? y(e) - y(data[i - 1][j])
-                : 0,
-          };
-        })
-      );
-    } else if (type == 'scatter') {
-      let rVal = (d) => (r ? $rGet(d) : $rRange[0]);
-      newcoords = y
-        ? data.map((d) => ({ x: x(d), y: y(d), r: rVal(d) }))
-        : new AccurateBeeswarm(
-            data,
-            (d) => rVal(d),
-            (d) => $xGet(d),
-            padding,
-            $yRange[0] / 2
-          )
-            .calculateYPositions()
-            .map((d) => ({
-              x: $xScale.invert(d.x),
-              y: $yScale.invert(d.y),
-              r: d.r,
-            }));
-    } else if (type == 'line') {
-      // console.log('data for new coords');
-      // console.log(data);
-      // data.map((d, i) => {
-      //   console.log(i);
-      //   console.log(d);
-      // });
+    if (type == 'line') {
       newcoords = data.map((d) =>
         d.map((e) => {
           return {
@@ -207,9 +123,44 @@
     console.log(newcoords);
     console.log(`///////////////  END setCoords()  Line.svelte ${custom.step}`);
   }
+
+  function debouncedSetCoords(data, custom, x, y, r, width) {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(() => {
+      console.log(
+        `///////////////  Start setCoords()  Line.svelte ${custom.step}`
+      );
+      console.log(`original coords`);
+      console.log($coords);
+      let mode = custom.mode;
+      let padding = custom.padding;
+      let duration =
+        custom.animation && width == prevWidth ? custom.duration : 0;
+
+      prevWidth = width;
+
+      let newcoords;
+      if (type == 'line') {
+        newcoords = data.map((d) =>
+          d.map((e) => {
+            return {
+              x: x(e),
+              y: y(e),
+            };
+          })
+        );
+      }
+      coords.set(newcoords, { duration });
+      console.log(`new coords`);
+      console.log(newcoords);
+      console.log(
+        `///////////////  END setCoords()  Line.svelte ${custom.step}`
+      );
+    }, debounceValue); // Debounce time: 200 milliseconds (adjust as needed)
+  }
 </script>
 
-{#if $coords.length == $custom.groups_selected.length}
+{#if $coords}
   <g class="line-group">
     {#each $coords as group, i}
       <path
