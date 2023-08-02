@@ -24,7 +24,7 @@
   // 2. Project sepecific imports
   import { getData, setColors, getBreaks, getColor } from './utils.js';
   import { colors } from './config.js';
-  import { LineChart } from '@onsvisual/svelte-charts';
+  import { LineChart } from '../scripts/svelte-charts/src/charts/Line.svelte';
 
   // # ============================================================================ #
   // 3. Core config
@@ -53,7 +53,6 @@
   onMount(() => {
     idPrev = { ...id };
   });
-  console.log(id);
 
   // Scroll Updater
   function runActions(codes = []) {
@@ -62,22 +61,21 @@
       if (id[code] != idPrev[code]) {
         // if caption id changes then run then run following code to update chart
 
-        console.log(
-          ' -----------------------------Action Update -----------------------------'
-        );
-        console.log(id[code]);
-        console.log(idPrev[code]);
-        console.log(actions);
-        console.log(actions[code]);
-        console.log(actions[code][id[code]]);
+        // console.log(
+        //   ' -----------------------------Action Update -----------------------------'
+        // );
+        // console.log(id[code]);
+        // console.log(idPrev[code]);
+        // console.log(actions);
+        // console.log(actions[code]);
+        // console.log(actions[code][id[code]]);
 
         if (actions[code][id[code]]) {
-          console.log('within');
+          // console.log('within');
           actions[code][id[code]]();
         }
         idPrev[code] = id[code];
         step = id[code];
-        console.log(`step: ${step}`);
       }
     });
   }
@@ -97,26 +95,28 @@
   let data; // initializes async in 5.5
   // let yKey = 'apples';
   let yMin = 0;
-  let all_groups = ['apples', 'cherries', 'dates', 'flowers'];
-  let selected_groups = ['apples', 'cherries', 'dates'];
-  let custom = all_groups;
-
+  let groups_all = ['apples', 'cherries', 'dates', 'flowers'];
+  let groups_subset = ['apples', 'cherries', 'dates'];
+  let groups_selected = groups_subset;
   let actions = {
     chart: {
       chart01: () => {
         data = data;
         yMin = 0;
-        custom = selected_groups;
+        groups_selected = groups_subset;
+        step = 'chart01';
       },
       chart02: () => {
         data = data;
         yMin = 65;
-        custom = selected_groups;
+        groups_selected = groups_subset;
+        step = 'chart02';
       },
       chart03: () => {
         data = data;
         yMin = 65;
-        custom = all_groups;
+        groups_selected = groups_all;
+        step = 'chart03';
       },
     },
   };
@@ -206,7 +206,8 @@
               xKey="year"
               area={false}
               yKey="value"
-              {custom}
+              {groups_selected}
+              {step}
               {yMin}
               yMax={85}
               areaOpacity={0.3}
