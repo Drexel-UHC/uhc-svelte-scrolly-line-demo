@@ -43,20 +43,15 @@
   // Initialize coord if needed
 
   if (!$coords) {
+    console.log(`!$coords`);
     setCoords($custom.customData, $custom, $x, $y, $r, $width);
   }
 
   $: {
     console.log(`************* Line ${$custom.step}`);
     console.log($custom.customData);
-    // const changed_data = $coords.length != $custom.customData.length;
-    // coord_needs_update = changed_data;
   }
 
-  $: {
-    // console.log('REFRESH COORDS REACTIVELY');
-    // setCoords($custom.customData, $custom, $x, $y, $r, $width);
-  }
   let debounceTimer;
   let debounceValue = 200;
   $: {
@@ -128,7 +123,7 @@
     clearTimeout(debounceTimer);
     debounceTimer = setTimeout(() => {
       console.log(
-        `///////////////  Start setCoords()  Line.svelte ${custom.step}`
+        `///////////////  Start debounced-setCoords()  Line.svelte ${custom.step}`
       );
       console.log(`original coords`);
       console.log($coords);
@@ -154,7 +149,7 @@
       console.log(`new coords`);
       console.log(newcoords);
       console.log(
-        `///////////////  END setCoords()  Line.svelte ${custom.step}`
+        `///////////////  END debounced-setCoords()  Line.svelte ${custom.step}`
       );
     }, debounceValue); // Debounce time: 200 milliseconds (adjust as needed)
   }
