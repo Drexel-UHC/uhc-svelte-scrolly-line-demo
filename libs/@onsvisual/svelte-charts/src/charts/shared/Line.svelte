@@ -39,12 +39,14 @@
   let type = $custom.type;
   let prevWidth = $width;
   let coord_needs_update = false;
+  let debounceTimer;
+  let debounceValue = 200;
 
   // Initialize coord if needed
 
   if (!$coords) {
     console.log(`!$coords`);
-    setCoords($custom.customData, $custom, $x, $y, $r, $width);
+    debouncedSetCoords($custom.customData, $custom, $x, $y, $r, $width);
   }
 
   $: {
@@ -52,8 +54,6 @@
     console.log($custom.customData);
   }
 
-  let debounceTimer;
-  let debounceValue = 200;
   $: {
     debouncedSetCoords($custom.customData, $custom, $x, $y, $r, $width);
   }
@@ -89,34 +89,6 @@
         event: e,
       });
     }
-  }
-  function setCoords(data, custom, x, y, r, width) {
-    console.log(
-      `///////////////  Start setCoords()  Line.svelte ${custom.step}`
-    );
-    console.log(`original coords`);
-    console.log($coords);
-    let mode = custom.mode;
-    let padding = custom.padding;
-    let duration = custom.animation && width == prevWidth ? custom.duration : 0;
-
-    prevWidth = width;
-
-    let newcoords;
-    if (type == 'line') {
-      newcoords = data.map((d) =>
-        d.map((e) => {
-          return {
-            x: x(e),
-            y: y(e),
-          };
-        })
-      );
-    }
-    coords.set(newcoords, { duration });
-    console.log(`new coords`);
-    console.log(newcoords);
-    console.log(`///////////////  END setCoords()  Line.svelte ${custom.step}`);
   }
 
   function debouncedSetCoords(data, custom, x, y, r, width) {
