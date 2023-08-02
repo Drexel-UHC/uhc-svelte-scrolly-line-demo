@@ -24,7 +24,7 @@
   // 2. Project sepecific imports
   import { getData, setColors, getBreaks, getColor } from './utils.js';
   import { colors } from './config.js';
-  import { LineChart } from '../scripts/svelte-charts/src/charts/Line.svelte';
+  import { LineChart } from '../libs/@onsvisual/svelte-charts';
 
   // # ============================================================================ #
   // 3. Core config
