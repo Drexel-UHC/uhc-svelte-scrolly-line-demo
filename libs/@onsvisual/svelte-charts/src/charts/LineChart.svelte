@@ -103,6 +103,9 @@
     return arr;
   }
 
+  // # ============================================================================ #
+  // #   yDomain updates
+
   // Functions to animate yDomain
   const yDomSet = (data, mode, yKey, yMax) =>
     yMax
@@ -126,7 +129,9 @@
   const yDomain = tweened(yDom, tweenOptions);
   $: yDomUpdate(data, mode, yKey, yMax);
 
-  // Function to update zDomain
+  // # ============================================================================ #
+  // #   zDomain updates
+
   $: zDomain = zKey ? data.map((d) => d.group).filter(distinct) : null;
 
   // Create a data series for each zKey (group)
