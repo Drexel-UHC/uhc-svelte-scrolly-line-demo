@@ -80,6 +80,7 @@
   $: {
     console.log(` ******************* LineChart ${step}  `);
     console.log(groups_selected);
+    console.log(groupedData);
   }
 
   const tweenOptions = {
@@ -132,13 +133,6 @@
     mode == 'stacked'
       ? stackData(data, zDomain, yKey, zKey)
       : groupData(data, zDomain, zKey);
-
-  // console.log(data);
-  // console.log(height);
-  // console.log(animation);
-  // console.log(duration);
-  // console.log(xKey);
-  // console.log(yKey);
 </script>
 
 {#if title}

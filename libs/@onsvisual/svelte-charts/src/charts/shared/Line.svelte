@@ -38,12 +38,31 @@
     : '#206095';
   let type = $custom.type;
   let prevWidth = $width;
-  let coord_needs_update = false;
+  let groups_selected = $custom.groups_selected;
   let debounceTimer;
   let debounceValue = 100;
+  let coords_subset;
 
   $: {
     debouncedSetCoords($data, $custom, $x, $y, $r, $width);
+  }
+
+  $: {
+    groups_selected = $custom.groups_selected;
+    if ($coords) {
+      console.log('*** Path subset logic here:');
+      console.log(`groups_selected`);
+      console.log(groups_selected);
+      if (groups_selected.includes('flowers')) {
+        console.log(`groups_selected has flowers`);
+        coords_subset = $coords;
+      } else {
+        console.log(`groups_selected does not have flowers`);
+        coords_subset = $coords.slice(0, 3);
+      }
+      console.log(`coords_subset`);
+      console.log(coords_subset);
+    }
   }
   // Function to make SVG path
   const makePath = (group) => {
@@ -79,9 +98,22 @@
     }
   }
 
+  function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+      const later = () => {
+        clearTimeout(timeout);
+        func(...args);
+      };
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+    };
+  }
+  const debouncedLog = debounce((val) => console.log(val), 200);
   function debouncedSetCoords(data, custom, x, y, r, width) {
     clearTimeout(debounceTimer);
     debounceTimer = setTimeout(() => {
+      console.log('debouncedSetCoords() fires');
       let mode = custom.mode;
       let padding = custom.padding;
       let duration =
@@ -105,10 +137,10 @@
   }
 </script>
 
-{#if $coords}
+{#if coords_subset}
   <g class="line-group">
-    {#each $coords as group, i}
-      <path
+    {#each coords_subset as group, i}
+      <!-- <path
         class="path-hover"
         d={makePath(group)}
         on:mouseover={(e) => doHover(e, $data[i])}
@@ -116,7 +148,7 @@
         on:focus={(e) => doHover(e, $data[i])}
         on:blur={(e) => doHover(e, null)}
         on:click={(e) => doSelect(e, $data[i])}
-      />
+      /> -->
       <path
         class="path-line"
         d={makePath(group)}
@@ -124,7 +156,7 @@
         stroke-width={lineWidth}
       />
     {/each}
-
+    <!-- 
     {#if idKey && (hover || selected || highlighted[0])}
       {#each $coords as group, i}
         {#if [hovered, selected, ...highlighted].includes($data[i][0][idKey])}
@@ -140,7 +172,7 @@
           />
         {/if}
       {/each}
-    {/if}
+    {/if} -->
   </g>
 {/if}
 
