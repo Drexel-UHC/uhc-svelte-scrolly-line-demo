@@ -38,6 +38,7 @@
     : '#206095';
   let type = $custom.type;
   let prevWidth = $width;
+  let groups_all = $custom.groups_all;
   let groups_selected = $custom.groups_selected;
   let debounceTimer;
   let debounceValue = 100;
@@ -47,14 +48,24 @@
     debouncedSetCoords($data, $custom, $x, $y, $r, $width);
   }
 
+  // Path subset logic here
   $: {
     groups_selected = $custom.groups_selected;
+    console.log(groups_all);
+    console.log(groups_selected);
+    const index_to_include = groups_all
+      .map((item, index) => (groups_selected.includes(item) ? index : -1))
+      .filter((index) => index !== -1);
+    console.log(index_to_include);
     if ($coords) {
-      if (groups_selected.includes('flowers')) {
-        coords_subset = $coords;
-      } else {
-        coords_subset = $coords.slice(0, 3);
-      }
+      coords_subset = index_to_include.map((index) => $coords[index]);
+      // console.log(`coords_subset_dev`);
+      // console.log(coords_subset_dev);
+      // if (groups_selected.includes('flowers')) {
+      //   coords_subset = $coords;
+      // } else {
+      //   coords_subset = $coords.slice(0, 3);
+      // }
     }
   }
   // Function to make SVG path

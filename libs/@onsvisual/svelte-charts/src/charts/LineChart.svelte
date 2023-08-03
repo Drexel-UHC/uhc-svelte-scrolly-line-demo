@@ -74,8 +74,10 @@
   export let colorHighlight = '#206095';
 
   // custom
+  export let groups_all;
   export let groups_selected;
   export let step;
+  console.log(data);
 
   $: {
     console.log(` ******************* LineChart ${step}  `);
@@ -166,6 +168,7 @@
       colorHighlight,
       animation,
       duration,
+      groups_all: groups_all,
       groups_selected: groups_selected,
       step: step,
     }}

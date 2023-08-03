@@ -95,6 +95,7 @@
   let data; // initializes async in 5.5
   // let yKey = 'apples';
   let yMin = 0;
+  // In this fake data. flowers = 'philly' and apples = 'us average'
   let groups_all = ['apples', 'cherries', 'dates', 'flowers'];
   let groups_w_abnormal = ['apples', 'cherries', 'flowers'];
   let groups_normal = ['apples', 'cherries', 'dates'];
@@ -118,6 +119,12 @@
         yMin = 65;
         groups_selected = groups_all;
         step = 'chart03';
+      },
+      chart04: () => {
+        data = data;
+        yMin = 65;
+        groups_selected = ['apples', 'flowers'];
+        step = 'chart04';
       },
     },
   };
@@ -207,6 +214,7 @@
               xKey="year"
               area={false}
               yKey="value"
+              {groups_all}
               {groups_selected}
               {step}
               {yMin}
@@ -225,7 +233,7 @@
     <section data-id="chart01">
       <div class="col-medium">
         <p>
-          Trend of the cost of <strong>apples</strong> over time.
+          Trend of the cost of <strong>some fruits</strong> over time.
         </p>
       </div>
     </section>
@@ -240,7 +248,14 @@
     <section data-id="chart03">
       <div class="col-medium">
         <p>
-          <strong>try animating in and out data?</strong>
+          We can <strong>add data</strong> to introduce a new group.
+        </p>
+      </div>
+    </section>
+    <section data-id="chart04">
+      <div class="col-medium">
+        <p>
+          We can <strong>remove data</strong> to emphasize a narrative.
         </p>
       </div>
     </section>
