@@ -61,17 +61,7 @@
       coords_subset = index_to_include.map((index) => $coords[index]);
       colors_subset = index_to_include.map((index) => $zRange[index]);
     }
-    console.log(index_to_include);
-    console.log(coords_subset);
-    console.log(colors_subset);
   }
-
-  // $: {
-  //   console.log(`$config.z`);
-  //   console.log($config.z);
-  //   console.log(`$config.zRange`);
-  //   console.log($config.zRange);
-  // }
 
   // Function to make SVG path
   const makePath = (group) => {

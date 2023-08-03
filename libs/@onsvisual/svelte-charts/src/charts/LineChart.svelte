@@ -30,6 +30,8 @@
   export let yFormatTick = (d) => d;
   export let yMax = null;
   export let yMin = 0;
+  export let xMax = null;
+  export let xMin = null;
   export let xAxis = true;
   export let yAxis = true;
   export let xTicks = 4;
@@ -98,11 +100,24 @@
     });
     return arr;
   }
+  // # ============================================================================ #
+  // #   xDomain updates
+  const xDomSet = (data, mode, xKey, xMin, xMax) => {
+    console.log(`xDomSet() call: xMin: ${xMin}, xMax: ${xMax}`);
+    const vec__all_x_values = data.map((d) => d[xKey]).filter(distinct);
+    const new_x_max = xMax ? xMax : Math.max(...vec__all_x_values);
+    const new_x_min = xMax
+      ? xMax
+      : Math.min(...data.map((d) => d[xKey]).filter(distinct));
+    const newXDom = [new_x_min, new_x_max];
+    console.log(`newXDom`);
+    console.log(newXDom);
+    return newXDom;
+  };
 
+  let newXDom = xDomSet(data, mode, xKey, xMin, xMax);
   // # ============================================================================ #
   // #   yDomain updates
-
-  // Functions to animate yDomain
   const yDomSet = (data, mode, yKey, yMax) =>
     yMax
       ? [yMin, yMax]
@@ -116,6 +131,8 @@
       : [yMin, Math.max(...data.map((d) => d[yKey]))];
   function yDomUpdate(data, mode, yKey, yMax) {
     let newYDom = yDomSet(data, mode, yKey, yMax);
+    console.log(`newYDom`);
+    console.log(newYDom);
     if (newYDom[0] != yDom[0] || newYDom[1] != yDom[1]) {
       yDomain.set(newYDom, { duration: animation ? duration : 0 });
       yDom = newYDom;
