@@ -114,8 +114,19 @@
     console.log(newXDom);
     return newXDom;
   };
+  //  function xDomUpdate(data, mode, yKey, yMax) {
+  //     let newYDom = yDomSet(data, mode, yKey, yMax);
+  //     console.log(`newYDom`);
+  //     console.log(newYDom);
+  //     if (newYDom[0] != yDom[0] || newYDom[1] != yDom[1]) {
+  //       yDomain.set(newYDom, { duration: animation ? duration : 0 });
+  //       yDom = newYDom;
+  //     }
+  //   }
+  let xDom = xDomSet(data, mode, xKey, xMin, xMax);
+  const xDomain = tweened(xDom, tweenOptions);
+  // $: xDomUpdate(data, mode, xKey, xMin, xMax);
 
-  let newXDom = xDomSet(data, mode, xKey, xMin, xMax);
   // # ============================================================================ #
   // #   yDomain updates
   const yDomSet = (data, mode, yKey, yMax) =>
@@ -168,6 +179,7 @@
     x={xKey}
     y={yKey}
     z={zKey}
+    xDomain={$xDomain}
     yDomain={$yDomain}
     yScale={yScale == 'log' ? scaleSymlog() : scaleLinear()}
     zScale={scaleOrdinal()}
