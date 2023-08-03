@@ -50,18 +50,11 @@
   $: {
     groups_selected = $custom.groups_selected;
     if ($coords) {
-      console.log('*** Path subset logic here:');
-      console.log(`groups_selected`);
-      console.log(groups_selected);
       if (groups_selected.includes('flowers')) {
-        console.log(`groups_selected has flowers`);
         coords_subset = $coords;
       } else {
-        console.log(`groups_selected does not have flowers`);
         coords_subset = $coords.slice(0, 3);
       }
-      console.log(`coords_subset`);
-      console.log(coords_subset);
     }
   }
   // Function to make SVG path
@@ -140,7 +133,7 @@
 {#if coords_subset}
   <g class="line-group">
     {#each coords_subset as group, i}
-      <!-- <path
+      <path
         class="path-hover"
         d={makePath(group)}
         on:mouseover={(e) => doHover(e, $data[i])}
@@ -148,7 +141,7 @@
         on:focus={(e) => doHover(e, $data[i])}
         on:blur={(e) => doHover(e, null)}
         on:click={(e) => doSelect(e, $data[i])}
-      /> -->
+      />
       <path
         class="path-line"
         d={makePath(group)}
@@ -157,7 +150,7 @@
         transition:fade={{ delay: 0, duration: 300 }}
       />
     {/each}
-    <!-- 
+
     {#if idKey && (hover || selected || highlighted[0])}
       {#each $coords as group, i}
         {#if [hovered, selected, ...highlighted].includes($data[i][0][idKey])}
@@ -173,7 +166,7 @@
           />
         {/if}
       {/each}
-    {/if} -->
+    {/if}
   </g>
 {/if}
 
