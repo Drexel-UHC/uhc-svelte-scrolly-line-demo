@@ -291,15 +291,12 @@
           We can also <strong>focus on certain ranges on the x-axis</strong> which
           in this case is years.
         </p>
-        <p>
-          Here between 1980 and 2000. THe price of grocery increase, both on
-          average and for flowers.
-        </p>
+        <p>Between 1980 and 2000 tHe price of flowers increases steadily.</p>
       </div>
     </section>
     <section data-id="chart06">
       <div class="col-medium">
-        <p>The trend of flowers changes after 2000 and starts to stagnate.</p>
+        <p>Flower prices starts to stagnate after the year 2000.</p>
       </div>
     </section>
     <section data-id="chart07">
