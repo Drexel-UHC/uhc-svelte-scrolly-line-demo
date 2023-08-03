@@ -96,11 +96,13 @@
   let groups_normal = groups_all.filter((d) => d != 'flowers');
   let groups_selected = groups_normal;
   let xMax;
+  let yMax = 85;
   let actions = {
     chart: {
       chart01: () => {
         data = data;
         yMin = 0;
+        yMax = 85;
         groups_selected = groups_normal;
         step = 'chart01';
         xMax = null;
@@ -108,6 +110,7 @@
       chart02: () => {
         data = data;
         yMin = 65;
+        yMax = 85;
         groups_selected = groups_normal;
         step = 'chart02';
         xMax = null;
@@ -115,6 +118,7 @@
       chart03: () => {
         data = data;
         yMin = 65;
+        yMax = 85;
         groups_selected = groups_all;
         step = 'chart03';
         xMax = null;
@@ -122,16 +126,34 @@
       chart04: () => {
         data = data;
         yMin = 65;
-        groups_selected = ['apples', 'flowers'];
+        yMax = 85;
+        groups_selected = ['flowers'];
         step = 'chart04';
         xMax = null;
       },
       chart05: () => {
         data = data;
-        yMin = 65;
-        groups_selected = ['apples', 'flowers'];
+        yMin = 70;
+        yMax = 75;
+        groups_selected = ['flowers'];
         step = 'chart04';
         xMax = 1998;
+      },
+      chart06: () => {
+        data = data;
+        yMin = 70;
+        yMax = 75;
+        groups_selected = ['flowers'];
+        step = 'chart04';
+        xMax = 2008;
+      },
+      chart07: () => {
+        data = data;
+        yMin = 70;
+        yMax = 75;
+        groups_selected = ['flowers'];
+        step = 'chart04';
+        xMax = null;
       },
     },
   };
@@ -221,7 +243,7 @@
               {groups_selected}
               {step}
               {yMin}
-              yMax={85}
+              {yMax}
               {xMax}
               areaOpacity={0.3}
               {animation}
@@ -269,6 +291,20 @@
           We can also <strong>focus on certain ranges on the x-axis</strong> which
           in this case is years.
         </p>
+        <p>
+          Here between 1980 and 2000. THe price of grocery increase, both on
+          average and for flowers.
+        </p>
+      </div>
+    </section>
+    <section data-id="chart06">
+      <div class="col-medium">
+        <p>The trend of flowers changes after 2000 and starts to stagnate.</p>
+      </div>
+    </section>
+    <section data-id="chart07">
+      <div class="col-medium">
+        <p>In fact after 2010, flowers prices start dropping.</p>
       </div>
     </section>
   </div>
