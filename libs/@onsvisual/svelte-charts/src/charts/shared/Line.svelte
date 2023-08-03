@@ -1,6 +1,6 @@
 <script>
   import { getContext, createEventDispatcher } from 'svelte';
-
+  import { fade } from 'svelte/transition';
   let {
     data,
     xScale,
@@ -154,6 +154,7 @@
         d={makePath(group)}
         stroke={$config.z ? $zGet($data[i][0]) : $config.zRange[0]}
         stroke-width={lineWidth}
+        transition:fade={{ delay: 0, duration: 300 }}
       />
     {/each}
     <!-- 
