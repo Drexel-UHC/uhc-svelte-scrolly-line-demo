@@ -60,18 +60,7 @@
     codes.forEach((code) => {
       if (id[code] != idPrev[code]) {
         // if caption id changes then run then run following code to update chart
-
-        // console.log(
-        //   ' -----------------------------Action Update -----------------------------'
-        // );
-        // console.log(id[code]);
-        // console.log(idPrev[code]);
-        // console.log(actions);
-        // console.log(actions[code]);
-        // console.log(actions[code][id[code]]);
-
         if (actions[code][id[code]]) {
-          // console.log('within');
           actions[code][id[code]]();
         }
         idPrev[code] = id[code];
@@ -105,8 +94,8 @@
   let colors_all = groups_template.map((d) => d.color);
   let groups_all = groups_template.map((d) => d.group);
   let groups_normal = groups_all.filter((d) => d != 'flowers');
-
   let groups_selected = groups_normal;
+  let xMax;
   let actions = {
     chart: {
       chart01: () => {
@@ -133,6 +122,13 @@
         groups_selected = ['apples', 'flowers'];
         step = 'chart04';
       },
+      chart05: () => {
+        data = data;
+        yMin = 65;
+        groups_selected = ['apples', 'flowers'];
+        step = 'chart04';
+        xMax = 1998;
+      },
     },
   };
 
@@ -142,11 +138,6 @@
   // # ============================================================================ #
   //   5.5 Initialisation code (get data)
 
-  // getData(`./data/data_line_wide.csv`).then((arr) => {
-  // getData(`./data/data_le.csv`).then((arr) => {
-  //   console.log('flat data');
-  //   console.log(arr);
-  // });
   getData(`./data/data_le.csv`).then((arr) => {
     data = arr;
   });
@@ -227,6 +218,7 @@
               {step}
               {yMin}
               yMax={85}
+              {xMax}
               areaOpacity={0.3}
               {animation}
               zKey="group"
@@ -264,6 +256,14 @@
       <div class="col-medium">
         <p>
           We can <strong>remove data</strong> to emphasize a narrative.
+        </p>
+      </div>
+    </section>
+    <section data-id="chart05">
+      <div class="col-medium">
+        <p>
+          We can also <strong>focus on certain ranges on the x-axis</strong> which
+          in this case is years.
         </p>
       </div>
     </section>
