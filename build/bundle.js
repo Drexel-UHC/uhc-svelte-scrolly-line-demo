@@ -10807,19 +10807,19 @@ var app = (function () {
 
     function get_each_context(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[56] = list[i];
-    	child_ctx[58] = i;
+    	child_ctx[57] = list[i];
+    	child_ctx[59] = i;
     	return child_ctx;
     }
 
     function get_each_context_1(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[56] = list[i];
-    	child_ctx[58] = i;
+    	child_ctx[57] = list[i];
+    	child_ctx[59] = i;
     	return child_ctx;
     }
 
-    // (144:0) {#if coords_subset}
+    // (139:0) {#if coords_subset}
     function create_if_block$5(ctx) {
     	let g;
     	let each_1_anchor;
@@ -10836,7 +10836,7 @@ var app = (function () {
     		each_blocks[i] = null;
     	});
 
-    	let if_block = /*idKey*/ ctx[21] && (/*hover*/ ctx[3] || /*selected*/ ctx[1] || /*highlighted*/ ctx[4][0]) && create_if_block_1$2(ctx);
+    	let if_block = /*idKey*/ ctx[19] && (/*hover*/ ctx[3] || /*selected*/ ctx[1] || /*highlighted*/ ctx[4][0]) && create_if_block_1$2(ctx);
 
     	const block = {
     		c: function create() {
@@ -10849,7 +10849,7 @@ var app = (function () {
     			each_1_anchor = empty();
     			if (if_block) if_block.c();
     			attr_dev(g, "class", "line-group");
-    			add_location(g, file$d, 144, 2, 3661);
+    			add_location(g, file$d, 139, 2, 3425);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, g, anchor);
@@ -10863,7 +10863,7 @@ var app = (function () {
     			current = true;
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty[0] & /*makePath, coords_subset, $config, $zGet, $data, lineWidth, doHover, doSelect*/ 234881988) {
+    			if (dirty[0] & /*makePath, coords_subset, colors_subset, lineWidth, doHover, $data, doSelect*/ 58720708) {
     				each_value_1 = /*coords_subset*/ ctx[7];
     				validate_each_argument(each_value_1);
     				let i;
@@ -10891,7 +10891,7 @@ var app = (function () {
     				check_outros();
     			}
 
-    			if (/*idKey*/ ctx[21] && (/*hover*/ ctx[3] || /*selected*/ ctx[1] || /*highlighted*/ ctx[4][0])) {
+    			if (/*idKey*/ ctx[19] && (/*hover*/ ctx[3] || /*selected*/ ctx[1] || /*highlighted*/ ctx[4][0])) {
     				if (if_block) {
     					if_block.p(ctx, dirty);
     				} else {
@@ -10933,14 +10933,14 @@ var app = (function () {
     		block,
     		id: create_if_block$5.name,
     		type: "if",
-    		source: "(144:0) {#if coords_subset}",
+    		source: "(139:0) {#if coords_subset}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (146:4) {#each coords_subset as group, i}
+    // (141:4) {#each coords_subset as group, i}
     function create_each_block_1(ctx) {
     	let path0;
     	let path0_d_value;
@@ -10953,15 +10953,15 @@ var app = (function () {
     	let dispose;
 
     	function mouseover_handler(...args) {
-    		return /*mouseover_handler*/ ctx[35](/*i*/ ctx[58], ...args);
+    		return /*mouseover_handler*/ ctx[34](/*i*/ ctx[59], ...args);
     	}
 
     	function focus_handler(...args) {
-    		return /*focus_handler*/ ctx[37](/*i*/ ctx[58], ...args);
+    		return /*focus_handler*/ ctx[36](/*i*/ ctx[59], ...args);
     	}
 
     	function click_handler(...args) {
-    		return /*click_handler*/ ctx[39](/*i*/ ctx[58], ...args);
+    		return /*click_handler*/ ctx[38](/*i*/ ctx[59], ...args);
     	}
 
     	const block = {
@@ -10969,17 +10969,13 @@ var app = (function () {
     			path0 = svg_element("path");
     			path1 = svg_element("path");
     			attr_dev(path0, "class", "path-hover svelte-1gezi8j");
-    			attr_dev(path0, "d", path0_d_value = /*makePath*/ ctx[25](/*group*/ ctx[56]));
-    			add_location(path0, file$d, 146, 6, 3730);
+    			attr_dev(path0, "d", path0_d_value = /*makePath*/ ctx[23](/*group*/ ctx[57]));
+    			add_location(path0, file$d, 141, 6, 3494);
     			attr_dev(path1, "class", "path-line svelte-1gezi8j");
-    			attr_dev(path1, "d", path1_d_value = /*makePath*/ ctx[25](/*group*/ ctx[56]));
-
-    			attr_dev(path1, "stroke", path1_stroke_value = /*$config*/ ctx[8].z
-    			? /*$zGet*/ ctx[9](/*$data*/ ctx[6][/*i*/ ctx[58]][0])
-    			: /*$config*/ ctx[8].zRange[0]);
-
+    			attr_dev(path1, "d", path1_d_value = /*makePath*/ ctx[23](/*group*/ ctx[57]));
+    			attr_dev(path1, "stroke", path1_stroke_value = /*colors_subset*/ ctx[8][/*i*/ ctx[59]]);
     			attr_dev(path1, "stroke-width", /*lineWidth*/ ctx[2]);
-    			add_location(path1, file$d, 155, 6, 4051);
+    			add_location(path1, file$d, 150, 6, 3815);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, path0, anchor);
@@ -10989,9 +10985,9 @@ var app = (function () {
     			if (!mounted) {
     				dispose = [
     					listen_dev(path0, "mouseover", mouseover_handler, false, false, false),
-    					listen_dev(path0, "mouseleave", /*mouseleave_handler*/ ctx[36], false, false, false),
+    					listen_dev(path0, "mouseleave", /*mouseleave_handler*/ ctx[35], false, false, false),
     					listen_dev(path0, "focus", focus_handler, false, false, false),
-    					listen_dev(path0, "blur", /*blur_handler*/ ctx[38], false, false, false),
+    					listen_dev(path0, "blur", /*blur_handler*/ ctx[37], false, false, false),
     					listen_dev(path0, "click", click_handler, false, false, false)
     				];
 
@@ -11001,17 +10997,15 @@ var app = (function () {
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
 
-    			if (!current || dirty[0] & /*coords_subset*/ 128 && path0_d_value !== (path0_d_value = /*makePath*/ ctx[25](/*group*/ ctx[56]))) {
+    			if (!current || dirty[0] & /*coords_subset*/ 128 && path0_d_value !== (path0_d_value = /*makePath*/ ctx[23](/*group*/ ctx[57]))) {
     				attr_dev(path0, "d", path0_d_value);
     			}
 
-    			if (!current || dirty[0] & /*coords_subset*/ 128 && path1_d_value !== (path1_d_value = /*makePath*/ ctx[25](/*group*/ ctx[56]))) {
+    			if (!current || dirty[0] & /*coords_subset*/ 128 && path1_d_value !== (path1_d_value = /*makePath*/ ctx[23](/*group*/ ctx[57]))) {
     				attr_dev(path1, "d", path1_d_value);
     			}
 
-    			if (!current || dirty[0] & /*$config, $zGet, $data*/ 832 && path1_stroke_value !== (path1_stroke_value = /*$config*/ ctx[8].z
-    			? /*$zGet*/ ctx[9](/*$data*/ ctx[6][/*i*/ ctx[58]][0])
-    			: /*$config*/ ctx[8].zRange[0])) {
+    			if (!current || dirty[0] & /*colors_subset*/ 256 && path1_stroke_value !== (path1_stroke_value = /*colors_subset*/ ctx[8][/*i*/ ctx[59]])) {
     				attr_dev(path1, "stroke", path1_stroke_value);
     			}
 
@@ -11047,14 +11041,14 @@ var app = (function () {
     		block,
     		id: create_each_block_1.name,
     		type: "each",
-    		source: "(146:4) {#each coords_subset as group, i}",
+    		source: "(141:4) {#each coords_subset as group, i}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (165:4) {#if idKey && (hover || selected || highlighted[0])}
+    // (160:4) {#if idKey && (hover || selected || highlighted[0])}
     function create_if_block_1$2(ctx) {
     	let each_1_anchor;
     	let each_value = /*$coords*/ ctx[5];
@@ -11081,7 +11075,7 @@ var app = (function () {
     			insert_dev(target, each_1_anchor, anchor);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty[0] & /*makePath, $coords, $data, idKey, hovered, colorHover, selected, colorSelect, colorHighlight, lineWidth, highlighted*/ 65011831) {
+    			if (dirty[0] & /*makePath, $coords, $data, idKey, hovered, colorHover, selected, colorSelect, colorHighlight, lineWidth, highlighted*/ 16253047) {
     				each_value = /*$coords*/ ctx[5];
     				validate_each_argument(each_value);
     				let i;
@@ -11115,14 +11109,14 @@ var app = (function () {
     		block,
     		id: create_if_block_1$2.name,
     		type: "if",
-    		source: "(165:4) {#if idKey && (hover || selected || highlighted[0])}",
+    		source: "(160:4) {#if idKey && (hover || selected || highlighted[0])}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (167:8) {#if [hovered, selected, ...highlighted].includes($data[i][0][idKey])}
+    // (162:8) {#if [hovered, selected, ...highlighted].includes($data[i][0][idKey])}
     function create_if_block_2(ctx) {
     	let path;
     	let path_d_value;
@@ -11133,30 +11127,30 @@ var app = (function () {
     		c: function create() {
     			path = svg_element("path");
     			attr_dev(path, "class", "path-overlay svelte-1gezi8j");
-    			attr_dev(path, "d", path_d_value = /*makePath*/ ctx[25](/*group*/ ctx[56]));
+    			attr_dev(path, "d", path_d_value = /*makePath*/ ctx[23](/*group*/ ctx[57]));
 
-    			attr_dev(path, "stroke", path_stroke_value = /*$data*/ ctx[6][/*i*/ ctx[58]][0][/*idKey*/ ctx[21]] == /*hovered*/ ctx[0]
-    			? /*colorHover*/ ctx[22]
-    			: /*$data*/ ctx[6][/*i*/ ctx[58]][0][/*idKey*/ ctx[21]] == /*selected*/ ctx[1]
-    				? /*colorSelect*/ ctx[23]
-    				: /*colorHighlight*/ ctx[24]);
+    			attr_dev(path, "stroke", path_stroke_value = /*$data*/ ctx[6][/*i*/ ctx[59]][0][/*idKey*/ ctx[19]] == /*hovered*/ ctx[0]
+    			? /*colorHover*/ ctx[20]
+    			: /*$data*/ ctx[6][/*i*/ ctx[59]][0][/*idKey*/ ctx[19]] == /*selected*/ ctx[1]
+    				? /*colorSelect*/ ctx[21]
+    				: /*colorHighlight*/ ctx[22]);
 
     			attr_dev(path, "stroke-width", path_stroke_width_value = /*lineWidth*/ ctx[2] + 1.5);
-    			add_location(path, file$d, 167, 10, 4480);
+    			add_location(path, file$d, 162, 10, 4210);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, path, anchor);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty[0] & /*$coords*/ 32 && path_d_value !== (path_d_value = /*makePath*/ ctx[25](/*group*/ ctx[56]))) {
+    			if (dirty[0] & /*$coords*/ 32 && path_d_value !== (path_d_value = /*makePath*/ ctx[23](/*group*/ ctx[57]))) {
     				attr_dev(path, "d", path_d_value);
     			}
 
-    			if (dirty[0] & /*$data, hovered, selected*/ 67 && path_stroke_value !== (path_stroke_value = /*$data*/ ctx[6][/*i*/ ctx[58]][0][/*idKey*/ ctx[21]] == /*hovered*/ ctx[0]
-    			? /*colorHover*/ ctx[22]
-    			: /*$data*/ ctx[6][/*i*/ ctx[58]][0][/*idKey*/ ctx[21]] == /*selected*/ ctx[1]
-    				? /*colorSelect*/ ctx[23]
-    				: /*colorHighlight*/ ctx[24])) {
+    			if (dirty[0] & /*$data, hovered, selected*/ 67 && path_stroke_value !== (path_stroke_value = /*$data*/ ctx[6][/*i*/ ctx[59]][0][/*idKey*/ ctx[19]] == /*hovered*/ ctx[0]
+    			? /*colorHover*/ ctx[20]
+    			: /*$data*/ ctx[6][/*i*/ ctx[59]][0][/*idKey*/ ctx[19]] == /*selected*/ ctx[1]
+    				? /*colorSelect*/ ctx[21]
+    				: /*colorHighlight*/ ctx[22])) {
     				attr_dev(path, "stroke", path_stroke_value);
     			}
 
@@ -11173,16 +11167,16 @@ var app = (function () {
     		block,
     		id: create_if_block_2.name,
     		type: "if",
-    		source: "(167:8) {#if [hovered, selected, ...highlighted].includes($data[i][0][idKey])}",
+    		source: "(162:8) {#if [hovered, selected, ...highlighted].includes($data[i][0][idKey])}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (166:6) {#each $coords as group, i}
+    // (161:6) {#each $coords as group, i}
     function create_each_block(ctx) {
-    	let show_if = [/*hovered*/ ctx[0], /*selected*/ ctx[1], .../*highlighted*/ ctx[4]].includes(/*$data*/ ctx[6][/*i*/ ctx[58]][0][/*idKey*/ ctx[21]]);
+    	let show_if = [/*hovered*/ ctx[0], /*selected*/ ctx[1], .../*highlighted*/ ctx[4]].includes(/*$data*/ ctx[6][/*i*/ ctx[59]][0][/*idKey*/ ctx[19]]);
     	let if_block_anchor;
     	let if_block = show_if && create_if_block_2(ctx);
 
@@ -11196,7 +11190,7 @@ var app = (function () {
     			insert_dev(target, if_block_anchor, anchor);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty[0] & /*hovered, selected, highlighted, $data*/ 83) show_if = [/*hovered*/ ctx[0], /*selected*/ ctx[1], .../*highlighted*/ ctx[4]].includes(/*$data*/ ctx[6][/*i*/ ctx[58]][0][/*idKey*/ ctx[21]]);
+    			if (dirty[0] & /*hovered, selected, highlighted, $data*/ 83) show_if = [/*hovered*/ ctx[0], /*selected*/ ctx[1], .../*highlighted*/ ctx[4]].includes(/*$data*/ ctx[6][/*i*/ ctx[59]][0][/*idKey*/ ctx[19]]);
 
     			if (show_if) {
     				if (if_block) {
@@ -11221,7 +11215,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(166:6) {#each $coords as group, i}",
+    		source: "(161:6) {#each $coords as group, i}",
     		ctx
     	});
 
@@ -11313,6 +11307,7 @@ var app = (function () {
     function instance$e($$self, $$props, $$invalidate) {
     	let $yScale;
     	let $xScale;
+    	let $zRange;
     	let $coords;
     	let $custom;
     	let $width;
@@ -11320,31 +11315,27 @@ var app = (function () {
     	let $y;
     	let $x;
     	let $data;
-    	let $config;
-    	let $zGet;
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('Line', slots, []);
-    	let { data, xScale, yScale, zGet, config, custom, x, y, r, xGet, yGet, rGet, yRange, rRange, width } = getContext('LayerCake');
+    	let { data, xScale, yScale, zGet, config, custom, x, y, r, zRange, xGet, yGet, rGet, yRange, rRange, width } = getContext('LayerCake');
     	validate_store(data, 'data');
     	component_subscribe($$self, data, value => $$invalidate(6, $data = value));
     	validate_store(xScale, 'xScale');
-    	component_subscribe($$self, xScale, value => $$invalidate(43, $xScale = value));
+    	component_subscribe($$self, xScale, value => $$invalidate(42, $xScale = value));
     	validate_store(yScale, 'yScale');
-    	component_subscribe($$self, yScale, value => $$invalidate(42, $yScale = value));
-    	validate_store(zGet, 'zGet');
-    	component_subscribe($$self, zGet, value => $$invalidate(9, $zGet = value));
-    	validate_store(config, 'config');
-    	component_subscribe($$self, config, value => $$invalidate(8, $config = value));
+    	component_subscribe($$self, yScale, value => $$invalidate(41, $yScale = value));
     	validate_store(custom, 'custom');
-    	component_subscribe($$self, custom, value => $$invalidate(30, $custom = value));
+    	component_subscribe($$self, custom, value => $$invalidate(29, $custom = value));
     	validate_store(x, 'x');
-    	component_subscribe($$self, x, value => $$invalidate(34, $x = value));
+    	component_subscribe($$self, x, value => $$invalidate(33, $x = value));
     	validate_store(y, 'y');
-    	component_subscribe($$self, y, value => $$invalidate(33, $y = value));
+    	component_subscribe($$self, y, value => $$invalidate(32, $y = value));
     	validate_store(r, 'r');
-    	component_subscribe($$self, r, value => $$invalidate(32, $r = value));
+    	component_subscribe($$self, r, value => $$invalidate(31, $r = value));
+    	validate_store(zRange, 'zRange');
+    	component_subscribe($$self, zRange, value => $$invalidate(28, $zRange = value));
     	validate_store(width, 'width');
-    	component_subscribe($$self, width, value => $$invalidate(31, $width = value));
+    	component_subscribe($$self, width, value => $$invalidate(30, $width = value));
     	const dispatch = createEventDispatcher();
     	let { lineWidth = 2.5 } = $$props;
     	let { hover = false } = $$props;
@@ -11371,10 +11362,8 @@ var app = (function () {
     	let debounceTimer;
     	let debounceValue = 100;
     	let coords_subset;
+    	let colors_subset = $zRange;
 
-    	// } else {
-    	//   coords_subset = $coords.slice(0, 3);
-    	// }
     	// Function to make SVG path
     	const makePath = group => {
     		let path = 'M' + group.map(d => {
@@ -11444,7 +11433,7 @@ var app = (function () {
     		if ('lineWidth' in $$props) $$invalidate(2, lineWidth = $$props.lineWidth);
     		if ('hover' in $$props) $$invalidate(3, hover = $$props.hover);
     		if ('hovered' in $$props) $$invalidate(0, hovered = $$props.hovered);
-    		if ('select' in $$props) $$invalidate(28, select = $$props.select);
+    		if ('select' in $$props) $$invalidate(26, select = $$props.select);
     		if ('selected' in $$props) $$invalidate(1, selected = $$props.selected);
     		if ('highlighted' in $$props) $$invalidate(4, highlighted = $$props.highlighted);
     	};
@@ -11462,6 +11451,7 @@ var app = (function () {
     		x,
     		y,
     		r,
+    		zRange,
     		xGet,
     		yGet,
     		rGet,
@@ -11488,6 +11478,7 @@ var app = (function () {
     		debounceTimer,
     		debounceValue,
     		coords_subset,
+    		colors_subset,
     		makePath,
     		doHover,
     		doSelect,
@@ -11496,52 +11487,53 @@ var app = (function () {
     		debouncedSetCoords,
     		$yScale,
     		$xScale,
+    		$zRange,
     		$coords,
     		$custom,
     		$width,
     		$r,
     		$y,
     		$x,
-    		$data,
-    		$config,
-    		$zGet
+    		$data
     	});
 
     	$$self.$inject_state = $$props => {
-    		if ('data' in $$props) $$invalidate(10, data = $$props.data);
-    		if ('xScale' in $$props) $$invalidate(11, xScale = $$props.xScale);
-    		if ('yScale' in $$props) $$invalidate(12, yScale = $$props.yScale);
-    		if ('zGet' in $$props) $$invalidate(13, zGet = $$props.zGet);
-    		if ('config' in $$props) $$invalidate(14, config = $$props.config);
-    		if ('custom' in $$props) $$invalidate(15, custom = $$props.custom);
-    		if ('x' in $$props) $$invalidate(16, x = $$props.x);
-    		if ('y' in $$props) $$invalidate(17, y = $$props.y);
-    		if ('r' in $$props) $$invalidate(18, r = $$props.r);
+    		if ('data' in $$props) $$invalidate(9, data = $$props.data);
+    		if ('xScale' in $$props) $$invalidate(10, xScale = $$props.xScale);
+    		if ('yScale' in $$props) $$invalidate(11, yScale = $$props.yScale);
+    		if ('zGet' in $$props) zGet = $$props.zGet;
+    		if ('config' in $$props) config = $$props.config;
+    		if ('custom' in $$props) $$invalidate(12, custom = $$props.custom);
+    		if ('x' in $$props) $$invalidate(13, x = $$props.x);
+    		if ('y' in $$props) $$invalidate(14, y = $$props.y);
+    		if ('r' in $$props) $$invalidate(15, r = $$props.r);
+    		if ('zRange' in $$props) $$invalidate(16, zRange = $$props.zRange);
     		if ('xGet' in $$props) xGet = $$props.xGet;
     		if ('yGet' in $$props) yGet = $$props.yGet;
     		if ('rGet' in $$props) rGet = $$props.rGet;
     		if ('yRange' in $$props) yRange = $$props.yRange;
     		if ('rRange' in $$props) rRange = $$props.rRange;
-    		if ('width' in $$props) $$invalidate(19, width = $$props.width);
+    		if ('width' in $$props) $$invalidate(17, width = $$props.width);
     		if ('lineWidth' in $$props) $$invalidate(2, lineWidth = $$props.lineWidth);
     		if ('hover' in $$props) $$invalidate(3, hover = $$props.hover);
     		if ('hovered' in $$props) $$invalidate(0, hovered = $$props.hovered);
-    		if ('select' in $$props) $$invalidate(28, select = $$props.select);
+    		if ('select' in $$props) $$invalidate(26, select = $$props.select);
     		if ('selected' in $$props) $$invalidate(1, selected = $$props.selected);
     		if ('highlighted' in $$props) $$invalidate(4, highlighted = $$props.highlighted);
-    		if ('coords' in $$props) $$invalidate(20, coords = $$props.coords);
+    		if ('coords' in $$props) $$invalidate(18, coords = $$props.coords);
     		if ('step' in $$props) step = $$props.step;
-    		if ('idKey' in $$props) $$invalidate(21, idKey = $$props.idKey);
-    		if ('colorHover' in $$props) $$invalidate(22, colorHover = $$props.colorHover);
-    		if ('colorSelect' in $$props) $$invalidate(23, colorSelect = $$props.colorSelect);
-    		if ('colorHighlight' in $$props) $$invalidate(24, colorHighlight = $$props.colorHighlight);
+    		if ('idKey' in $$props) $$invalidate(19, idKey = $$props.idKey);
+    		if ('colorHover' in $$props) $$invalidate(20, colorHover = $$props.colorHover);
+    		if ('colorSelect' in $$props) $$invalidate(21, colorSelect = $$props.colorSelect);
+    		if ('colorHighlight' in $$props) $$invalidate(22, colorHighlight = $$props.colorHighlight);
     		if ('type' in $$props) type = $$props.type;
     		if ('prevWidth' in $$props) prevWidth = $$props.prevWidth;
-    		if ('groups_all' in $$props) $$invalidate(52, groups_all = $$props.groups_all);
-    		if ('groups_selected' in $$props) $$invalidate(29, groups_selected = $$props.groups_selected);
+    		if ('groups_all' in $$props) $$invalidate(53, groups_all = $$props.groups_all);
+    		if ('groups_selected' in $$props) $$invalidate(27, groups_selected = $$props.groups_selected);
     		if ('debounceTimer' in $$props) debounceTimer = $$props.debounceTimer;
     		if ('debounceValue' in $$props) debounceValue = $$props.debounceValue;
     		if ('coords_subset' in $$props) $$invalidate(7, coords_subset = $$props.coords_subset);
+    		if ('colors_subset' in $$props) $$invalidate(8, colors_subset = $$props.colors_subset);
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -11549,27 +11541,23 @@ var app = (function () {
     	}
 
     	$$self.$$.update = () => {
-    		if ($$self.$$.dirty[0] & /*$data, $custom*/ 1073741888 | $$self.$$.dirty[1] & /*$x, $y, $r, $width*/ 15) {
+    		if ($$self.$$.dirty[0] & /*$data, $custom, $width*/ 1610612800 | $$self.$$.dirty[1] & /*$x, $y, $r*/ 7) {
     			 {
     				debouncedSetCoords($data, $custom, $x, $y, $r, $width);
     			}
     		}
 
-    		if ($$self.$$.dirty[0] & /*$custom, groups_selected, $coords*/ 1610612768) {
+    		if ($$self.$$.dirty[0] & /*$custom, groups_selected, $coords, $zRange*/ 939524128) {
     			// Path subset logic here
     			 {
-    				$$invalidate(29, groups_selected = $custom.groups_selected);
-    				console.log(groups_all);
-    				console.log(groups_selected);
+    				$$invalidate(27, groups_selected = $custom.groups_selected);
     				const index_to_include = groups_all.map((item, index) => groups_selected.includes(item) ? index : -1).filter(index => index !== -1);
-    				console.log(index_to_include);
 
     				if ($coords) {
     					$$invalidate(7, coords_subset = index_to_include.map(index => $coords[index]));
-    				} // console.log(`coords_subset_dev`);
-    				// console.log(coords_subset_dev);
-    			} // if (groups_selected.includes('flowers')) {
-    			//   coords_subset = $coords;
+    					$$invalidate(8, colors_subset = index_to_include.map(index => $zRange[index]));
+    				}
+    			}
     		}
     	};
 
@@ -11582,17 +11570,15 @@ var app = (function () {
     		$coords,
     		$data,
     		coords_subset,
-    		$config,
-    		$zGet,
+    		colors_subset,
     		data,
     		xScale,
     		yScale,
-    		zGet,
-    		config,
     		custom,
     		x,
     		y,
     		r,
+    		zRange,
     		width,
     		coords,
     		idKey,
@@ -11604,6 +11590,7 @@ var app = (function () {
     		doSelect,
     		select,
     		groups_selected,
+    		$zRange,
     		$custom,
     		$width,
     		$r,
@@ -11631,7 +11618,7 @@ var app = (function () {
     				lineWidth: 2,
     				hover: 3,
     				hovered: 0,
-    				select: 28,
+    				select: 26,
     				selected: 1,
     				highlighted: 4
     			},
@@ -14505,7 +14492,7 @@ var app = (function () {
     const get_options_slot_changes = dirty => ({});
     const get_options_slot_context = ctx => ({});
 
-    // (145:0) {#if title}
+    // (170:0) {#if title}
     function create_if_block_8(ctx) {
     	let title_1;
     	let current;
@@ -14529,7 +14516,7 @@ var app = (function () {
     		p: function update(ctx, dirty) {
     			const title_1_changes = {};
 
-    			if (dirty[0] & /*title*/ 131072 | dirty[1] & /*$$scope*/ 33554432) {
+    			if (dirty[0] & /*title*/ 131072 | dirty[1] & /*$$scope*/ 536870912) {
     				title_1_changes.$$scope = { dirty, ctx };
     			}
 
@@ -14553,14 +14540,14 @@ var app = (function () {
     		block,
     		id: create_if_block_8.name,
     		type: "if",
-    		source: "(145:0) {#if title}",
+    		source: "(170:0) {#if title}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (146:2) <Title>
+    // (171:2) <Title>
     function create_default_slot_3(ctx) {
     	let t;
 
@@ -14583,21 +14570,21 @@ var app = (function () {
     		block,
     		id: create_default_slot_3.name,
     		type: "slot",
-    		source: "(146:2) <Title>",
+    		source: "(171:2) <Title>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (182:4) {#if width > 80}
+    // (208:4) {#if width > 80}
     function create_if_block_2$2(ctx) {
     	let t0;
     	let svg;
     	let t1;
     	let current;
-    	const back_slot_template = /*#slots*/ ctx[51].back;
-    	const back_slot = create_slot(back_slot_template, ctx, /*$$scope*/ ctx[56], get_back_slot_context);
+    	const back_slot_template = /*#slots*/ ctx[55].back;
+    	const back_slot = create_slot(back_slot_template, ctx, /*$$scope*/ ctx[60], get_back_slot_context);
 
     	svg = new Svg({
     			props: {
@@ -14608,8 +14595,8 @@ var app = (function () {
     			$$inline: true
     		});
 
-    	const front_slot_template = /*#slots*/ ctx[51].front;
-    	const front_slot = create_slot(front_slot_template, ctx, /*$$scope*/ ctx[56], get_front_slot_context);
+    	const front_slot_template = /*#slots*/ ctx[55].front;
+    	const front_slot = create_slot(front_slot_template, ctx, /*$$scope*/ ctx[60], get_front_slot_context);
 
     	const block = {
     		c: function create() {
@@ -14636,15 +14623,15 @@ var app = (function () {
     		},
     		p: function update(ctx, dirty) {
     			if (back_slot) {
-    				if (back_slot.p && (!current || dirty[1] & /*$$scope*/ 33554432)) {
+    				if (back_slot.p && (!current || dirty[1] & /*$$scope*/ 536870912)) {
     					update_slot_base(
     						back_slot,
     						back_slot_template,
     						ctx,
-    						/*$$scope*/ ctx[56],
+    						/*$$scope*/ ctx[60],
     						!current
-    						? get_all_dirty_from_scope(/*$$scope*/ ctx[56])
-    						: get_slot_changes(back_slot_template, /*$$scope*/ ctx[56], dirty, get_back_slot_changes),
+    						? get_all_dirty_from_scope(/*$$scope*/ ctx[60])
+    						: get_slot_changes(back_slot_template, /*$$scope*/ ctx[60], dirty, get_back_slot_changes),
     						get_back_slot_context
     					);
     				}
@@ -14653,22 +14640,22 @@ var app = (function () {
     			const svg_changes = {};
     			if (dirty[0] & /*interactive*/ 536870912) svg_changes.pointerEvents = /*interactive*/ ctx[29];
 
-    			if (dirty[0] & /*hovered, selected, labels, lineWidth, line, mode, areaOpacity, area, yTicks, yFormatTick, yAxis, xTicks, snapTicks, xPrefix, xAxis*/ 1408364547 | dirty[1] & /*$$scope, select, hover, highlighted, yPrefix, ySuffix, xSuffix*/ 33554607) {
+    			if (dirty[0] & /*hovered, selected, labels, lineWidth, line, mode, areaOpacity, area, yTicks, yFormatTick, yAxis, xTicks, snapTicks, xPrefix, xAxis*/ 1408364547 | dirty[1] & /*$$scope, select, hover, highlighted, yPrefix, ySuffix, xSuffix*/ 536871087) {
     				svg_changes.$$scope = { dirty, ctx };
     			}
 
     			svg.$set(svg_changes);
 
     			if (front_slot) {
-    				if (front_slot.p && (!current || dirty[1] & /*$$scope*/ 33554432)) {
+    				if (front_slot.p && (!current || dirty[1] & /*$$scope*/ 536870912)) {
     					update_slot_base(
     						front_slot,
     						front_slot_template,
     						ctx,
-    						/*$$scope*/ ctx[56],
+    						/*$$scope*/ ctx[60],
     						!current
-    						? get_all_dirty_from_scope(/*$$scope*/ ctx[56])
-    						: get_slot_changes(front_slot_template, /*$$scope*/ ctx[56], dirty, get_front_slot_changes),
+    						? get_all_dirty_from_scope(/*$$scope*/ ctx[60])
+    						: get_slot_changes(front_slot_template, /*$$scope*/ ctx[60], dirty, get_front_slot_changes),
     						get_front_slot_context
     					);
     				}
@@ -14700,14 +14687,14 @@ var app = (function () {
     		block,
     		id: create_if_block_2$2.name,
     		type: "if",
-    		source: "(182:4) {#if width > 80}",
+    		source: "(208:4) {#if width > 80}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (187:8) {#if xAxis}
+    // (213:8) {#if xAxis}
     function create_if_block_7(ctx) {
     	let axisx;
     	let current;
@@ -14756,14 +14743,14 @@ var app = (function () {
     		block,
     		id: create_if_block_7.name,
     		type: "if",
-    		source: "(187:8) {#if xAxis}",
+    		source: "(213:8) {#if xAxis}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (190:8) {#if yAxis}
+    // (216:8) {#if yAxis}
     function create_if_block_6(ctx) {
     	let axisy;
     	let current;
@@ -14812,14 +14799,14 @@ var app = (function () {
     		block,
     		id: create_if_block_6.name,
     		type: "if",
-    		source: "(190:8) {#if yAxis}",
+    		source: "(216:8) {#if yAxis}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (198:8) {#if area}
+    // (224:8) {#if area}
     function create_if_block_5(ctx) {
     	let area_1;
     	let current;
@@ -14864,14 +14851,14 @@ var app = (function () {
     		block,
     		id: create_if_block_5.name,
     		type: "if",
-    		source: "(198:8) {#if area}",
+    		source: "(224:8) {#if area}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (201:8) {#if line}
+    // (227:8) {#if line}
     function create_if_block_4$1(ctx) {
     	let line_1;
     	let updating_selected;
@@ -14879,11 +14866,11 @@ var app = (function () {
     	let current;
 
     	function line_1_selected_binding(value) {
-    		/*line_1_selected_binding*/ ctx[52](value);
+    		/*line_1_selected_binding*/ ctx[56](value);
     	}
 
     	function line_1_hovered_binding(value) {
-    		/*line_1_hovered_binding*/ ctx[53](value);
+    		/*line_1_hovered_binding*/ ctx[57](value);
     	}
 
     	let line_1_props = {
@@ -14904,8 +14891,8 @@ var app = (function () {
     	line_1 = new Line({ props: line_1_props, $$inline: true });
     	binding_callbacks.push(() => bind(line_1, 'selected', line_1_selected_binding));
     	binding_callbacks.push(() => bind(line_1, 'hovered', line_1_hovered_binding));
-    	line_1.$on("hover", /*hover_handler*/ ctx[54]);
-    	line_1.$on("select", /*select_handler*/ ctx[55]);
+    	line_1.$on("hover", /*hover_handler*/ ctx[58]);
+    	line_1.$on("select", /*select_handler*/ ctx[59]);
 
     	const block = {
     		c: function create() {
@@ -14954,14 +14941,14 @@ var app = (function () {
     		block,
     		id: create_if_block_4$1.name,
     		type: "if",
-    		source: "(201:8) {#if line}",
+    		source: "(227:8) {#if line}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (213:8) {#if labels}
+    // (239:8) {#if labels}
     function create_if_block_3$1(ctx) {
     	let labels_1;
     	let current;
@@ -15006,14 +14993,14 @@ var app = (function () {
     		block,
     		id: create_if_block_3$1.name,
     		type: "if",
-    		source: "(213:8) {#if labels}",
+    		source: "(239:8) {#if labels}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (186:6) <Svg pointerEvents={interactive}>
+    // (212:6) <Svg pointerEvents={interactive}>
     function create_default_slot_2(ctx) {
     	let t0;
     	let t1;
@@ -15026,8 +15013,8 @@ var app = (function () {
     	let if_block2 = /*area*/ ctx[23] && create_if_block_5(ctx);
     	let if_block3 = /*line*/ ctx[22] && create_if_block_4$1(ctx);
     	let if_block4 = /*labels*/ ctx[20] && create_if_block_3$1(ctx);
-    	const svg_slot_template = /*#slots*/ ctx[51].svg;
-    	const svg_slot = create_slot(svg_slot_template, ctx, /*$$scope*/ ctx[56], get_svg_slot_context);
+    	const svg_slot_template = /*#slots*/ ctx[55].svg;
+    	const svg_slot = create_slot(svg_slot_template, ctx, /*$$scope*/ ctx[60], get_svg_slot_context);
 
     	const block = {
     		c: function create() {
@@ -15178,15 +15165,15 @@ var app = (function () {
     			}
 
     			if (svg_slot) {
-    				if (svg_slot.p && (!current || dirty[1] & /*$$scope*/ 33554432)) {
+    				if (svg_slot.p && (!current || dirty[1] & /*$$scope*/ 536870912)) {
     					update_slot_base(
     						svg_slot,
     						svg_slot_template,
     						ctx,
-    						/*$$scope*/ ctx[56],
+    						/*$$scope*/ ctx[60],
     						!current
-    						? get_all_dirty_from_scope(/*$$scope*/ ctx[56])
-    						: get_slot_changes(svg_slot_template, /*$$scope*/ ctx[56], dirty, get_svg_slot_changes),
+    						? get_all_dirty_from_scope(/*$$scope*/ ctx[60])
+    						: get_slot_changes(svg_slot_template, /*$$scope*/ ctx[60], dirty, get_svg_slot_changes),
     						get_svg_slot_context
     					);
     				}
@@ -15230,18 +15217,18 @@ var app = (function () {
     		block,
     		id: create_default_slot_2.name,
     		type: "slot",
-    		source: "(186:6) <Svg pointerEvents={interactive}>",
+    		source: "(212:6) <Svg pointerEvents={interactive}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (153:2) <LayerCake      {padding}      x={xKey}      y={yKey}      z={zKey}      yDomain={$yDomain}      yScale={yScale == 'log' ? scaleSymlog() : scaleLinear()}      zScale={scaleOrdinal()}      {zDomain}      zRange={colors}      data={groupedData}      flatData={data}      custom={{        type: 'line',        mode,        idKey,        labelKey,        coords,        colorSelect,        colorHover,        colorHighlight,        animation,        duration,        groups_all: groups_all,        groups_selected: groups_selected,        step: step,      }}      let:width    >
+    // (178:2) <LayerCake      {padding}      x={xKey}      y={yKey}      z={zKey}      xDomain={$xDomain}      yDomain={$yDomain}      yScale={yScale == 'log' ? scaleSymlog() : scaleLinear()}      zScale={scaleOrdinal()}      {zDomain}      zRange={colors}      data={groupedData}      flatData={data}      custom={{        type: 'line',        mode,        idKey,        labelKey,        coords,        colorSelect,        colorHover,        colorHighlight,        animation,        duration,        groups_all: groups_all,        groups_selected: groups_selected,        step: step,      }}      let:width    >
     function create_default_slot_1(ctx) {
     	let if_block_anchor;
     	let current;
-    	let if_block = /*width*/ ctx[63] > 80 && create_if_block_2$2(ctx);
+    	let if_block = /*width*/ ctx[70] > 80 && create_if_block_2$2(ctx);
 
     	const block = {
     		c: function create() {
@@ -15254,11 +15241,11 @@ var app = (function () {
     			current = true;
     		},
     		p: function update(ctx, dirty) {
-    			if (/*width*/ ctx[63] > 80) {
+    			if (/*width*/ ctx[70] > 80) {
     				if (if_block) {
     					if_block.p(ctx, dirty);
 
-    					if (dirty[2] & /*width*/ 2) {
+    					if (dirty[2] & /*width*/ 256) {
     						transition_in(if_block, 1);
     					}
     				} else {
@@ -15296,14 +15283,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_1.name,
     		type: "slot",
-    		source: "(153:2) <LayerCake      {padding}      x={xKey}      y={yKey}      z={zKey}      yDomain={$yDomain}      yScale={yScale == 'log' ? scaleSymlog() : scaleLinear()}      zScale={scaleOrdinal()}      {zDomain}      zRange={colors}      data={groupedData}      flatData={data}      custom={{        type: 'line',        mode,        idKey,        labelKey,        coords,        colorSelect,        colorHover,        colorHighlight,        animation,        duration,        groups_all: groups_all,        groups_selected: groups_selected,        step: step,      }}      let:width    >",
+    		source: "(178:2) <LayerCake      {padding}      x={xKey}      y={yKey}      z={zKey}      xDomain={$xDomain}      yDomain={$yDomain}      yScale={yScale == 'log' ? scaleSymlog() : scaleLinear()}      zScale={scaleOrdinal()}      {zDomain}      zRange={colors}      data={groupedData}      flatData={data}      custom={{        type: 'line',        mode,        idKey,        labelKey,        coords,        colorSelect,        colorHover,        colorHighlight,        animation,        duration,        groups_all: groups_all,        groups_selected: groups_selected,        step: step,      }}      let:width    >",
     		ctx
     	});
 
     	return block;
     }
 
-    // (222:0) {#if legend && zDomain}
+    // (248:0) {#if legend && zDomain}
     function create_if_block_1$6(ctx) {
     	let legend_1;
     	let current;
@@ -15352,14 +15339,14 @@ var app = (function () {
     		block,
     		id: create_if_block_1$6.name,
     		type: "if",
-    		source: "(222:0) {#if legend && zDomain}",
+    		source: "(248:0) {#if legend && zDomain}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (225:0) {#if footer}
+    // (251:0) {#if footer}
     function create_if_block$b(ctx) {
     	let footer_1;
     	let current;
@@ -15383,7 +15370,7 @@ var app = (function () {
     		p: function update(ctx, dirty) {
     			const footer_1_changes = {};
 
-    			if (dirty[0] & /*footer*/ 262144 | dirty[1] & /*$$scope*/ 33554432) {
+    			if (dirty[0] & /*footer*/ 262144 | dirty[1] & /*$$scope*/ 536870912) {
     				footer_1_changes.$$scope = { dirty, ctx };
     			}
 
@@ -15407,14 +15394,14 @@ var app = (function () {
     		block,
     		id: create_if_block$b.name,
     		type: "if",
-    		source: "(225:0) {#if footer}",
+    		source: "(251:0) {#if footer}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (226:2) <Footer>
+    // (252:2) <Footer>
     function create_default_slot(ctx) {
     	let t;
 
@@ -15437,7 +15424,7 @@ var app = (function () {
     		block,
     		id: create_default_slot.name,
     		type: "slot",
-    		source: "(226:2) <Footer>",
+    		source: "(252:2) <Footer>",
     		ctx
     	});
 
@@ -15454,8 +15441,8 @@ var app = (function () {
     	let if_block2_anchor;
     	let current;
     	let if_block0 = /*title*/ ctx[17] && create_if_block_8(ctx);
-    	const options_slot_template = /*#slots*/ ctx[51].options;
-    	const options_slot = create_slot(options_slot_template, ctx, /*$$scope*/ ctx[56], get_options_slot_context);
+    	const options_slot_template = /*#slots*/ ctx[55].options;
+    	const options_slot = create_slot(options_slot_template, ctx, /*$$scope*/ ctx[60], get_options_slot_context);
 
     	layercake = new LayerCake({
     			props: {
@@ -15463,7 +15450,8 @@ var app = (function () {
     				x: /*xKey*/ ctx[6],
     				y: /*yKey*/ ctx[7],
     				z: /*zKey*/ ctx[8],
-    				yDomain: /*$yDomain*/ ctx[45],
+    				xDomain: /*$xDomain*/ ctx[45],
+    				yDomain: /*$yDomain*/ ctx[46],
     				yScale: /*yScale*/ ctx[11] == 'log'
     				? symlog$1()
     				: linear$2(),
@@ -15477,7 +15465,7 @@ var app = (function () {
     					mode: /*mode*/ ctx[24],
     					idKey: /*idKey*/ ctx[9],
     					labelKey: /*labelKey*/ ctx[10],
-    					coords: /*coords*/ ctx[46],
+    					coords: /*coords*/ ctx[47],
     					colorSelect: /*colorSelect*/ ctx[37],
     					colorHover: /*colorHover*/ ctx[35],
     					colorHighlight: /*colorHighlight*/ ctx[39],
@@ -15490,8 +15478,8 @@ var app = (function () {
     				$$slots: {
     					default: [
     						create_default_slot_1,
-    						({ width }) => ({ 63: width }),
-    						({ width }) => [0, 0, width ? 2 : 0]
+    						({ width }) => ({ 70: width }),
+    						({ width }) => [0, 0, width ? 256 : 0]
     					]
     				},
     				$$scope: { ctx }
@@ -15521,7 +15509,7 @@ var app = (function () {
     			? /*height*/ ctx[3] + 'px'
     			: /*height*/ ctx[3]);
 
-    			add_location(div, file$l, 148, 0, 4370);
+    			add_location(div, file$l, 173, 0, 5505);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -15569,15 +15557,15 @@ var app = (function () {
     			}
 
     			if (options_slot) {
-    				if (options_slot.p && (!current || dirty[1] & /*$$scope*/ 33554432)) {
+    				if (options_slot.p && (!current || dirty[1] & /*$$scope*/ 536870912)) {
     					update_slot_base(
     						options_slot,
     						options_slot_template,
     						ctx,
-    						/*$$scope*/ ctx[56],
+    						/*$$scope*/ ctx[60],
     						!current
-    						? get_all_dirty_from_scope(/*$$scope*/ ctx[56])
-    						: get_slot_changes(options_slot_template, /*$$scope*/ ctx[56], dirty, get_options_slot_changes),
+    						? get_all_dirty_from_scope(/*$$scope*/ ctx[60])
+    						: get_slot_changes(options_slot_template, /*$$scope*/ ctx[60], dirty, get_options_slot_changes),
     						get_options_slot_context
     					);
     				}
@@ -15588,7 +15576,8 @@ var app = (function () {
     			if (dirty[0] & /*xKey*/ 64) layercake_changes.x = /*xKey*/ ctx[6];
     			if (dirty[0] & /*yKey*/ 128) layercake_changes.y = /*yKey*/ ctx[7];
     			if (dirty[0] & /*zKey*/ 256) layercake_changes.z = /*zKey*/ ctx[8];
-    			if (dirty[1] & /*$yDomain*/ 16384) layercake_changes.yDomain = /*$yDomain*/ ctx[45];
+    			if (dirty[1] & /*$xDomain*/ 16384) layercake_changes.xDomain = /*$xDomain*/ ctx[45];
+    			if (dirty[1] & /*$yDomain*/ 32768) layercake_changes.yDomain = /*$yDomain*/ ctx[46];
 
     			if (dirty[0] & /*yScale*/ 2048) layercake_changes.yScale = /*yScale*/ ctx[11] == 'log'
     			? symlog$1()
@@ -15604,7 +15593,7 @@ var app = (function () {
     				mode: /*mode*/ ctx[24],
     				idKey: /*idKey*/ ctx[9],
     				labelKey: /*labelKey*/ ctx[10],
-    				coords: /*coords*/ ctx[46],
+    				coords: /*coords*/ ctx[47],
     				colorSelect: /*colorSelect*/ ctx[37],
     				colorHover: /*colorHover*/ ctx[35],
     				colorHighlight: /*colorHighlight*/ ctx[39],
@@ -15615,7 +15604,7 @@ var app = (function () {
     				step: /*step*/ ctx[42]
     			};
 
-    			if (dirty[0] & /*interactive, hovered, selected, labels, lineWidth, line, mode, areaOpacity, area, yTicks, yFormatTick, yAxis, xTicks, snapTicks, xPrefix, xAxis*/ 1945235459 | dirty[1] & /*$$scope, select, hover, highlighted, yPrefix, ySuffix, xSuffix*/ 33554607 | dirty[2] & /*width*/ 2) {
+    			if (dirty[0] & /*interactive, hovered, selected, labels, lineWidth, line, mode, areaOpacity, area, yTicks, yFormatTick, yAxis, xTicks, snapTicks, xPrefix, xAxis*/ 1945235459 | dirty[1] & /*$$scope, select, hover, highlighted, yPrefix, ySuffix, xSuffix*/ 536871087 | dirty[2] & /*width*/ 256) {
     				layercake_changes.$$scope = { dirty, ctx };
     			}
 
@@ -15719,6 +15708,7 @@ var app = (function () {
     function instance$m($$self, $$props, $$invalidate) {
     	let zDomain;
     	let groupedData;
+    	let $xDomain;
     	let $yDomain;
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('LineChart', slots, ['options','back','svg','front']);
@@ -15735,6 +15725,8 @@ var app = (function () {
     	let { yFormatTick = d => d } = $$props;
     	let { yMax = null } = $$props;
     	let { yMin = 0 } = $$props;
+    	let { xMax = null } = $$props;
+    	let { xMin = null } = $$props;
     	let { xAxis = true } = $$props;
     	let { yAxis = true } = $$props;
     	let { xTicks = 4 } = $$props;
@@ -15782,7 +15774,6 @@ var app = (function () {
     	let { groups_all } = $$props;
     	let { groups_selected } = $$props;
     	let { step } = $$props;
-    	console.log(data);
     	const tweenOptions = { duration, easing: cubicInOut };
     	const coords = tweened(undefined, tweenOptions);
     	const distinct = (d, i, arr) => arr.indexOf(d) == i;
@@ -15800,8 +15791,42 @@ var app = (function () {
     	}
 
     	// # ============================================================================ #
+    	// #   xDomain updates
+    	const xDomSet = (data, mode, xKey, xMin, xMax) => {
+    		// console.log(`xDomSet() call: xMin: ${xMin}, xMax: ${xMax}`);
+    		const vec__all_x_values = data.map(d => d[xKey]).filter(distinct);
+
+    		const new_x_max = xMax ? xMax : Math.max(...vec__all_x_values);
+
+    		const new_x_min = xMin
+    		? xMin
+    		: Math.min(...data.map(d => d[xKey]).filter(distinct));
+
+    		const newXDom = [new_x_min, new_x_max];
+
+    		// console.log(`newXDom`);
+    		// console.log(newXDom);
+    		return newXDom;
+    	};
+
+    	function xDomUpdate(data, mode, xKey, xMin, xMax) {
+    		let newXDom = xDomSet(data, mode, xKey, xMin, xMax);
+    		console.log(`newXDom`);
+    		console.log(newXDom);
+
+    		if (newXDom[0] != xDom[0] || newXDom[1] != xDom[1]) {
+    			xDomain.set(newXDom, { duration: animation ? duration : 0 });
+    			xDom = newXDom;
+    		}
+    	}
+
+    	let xDom = xDomSet(data, mode, xKey, xMin, xMax);
+    	const xDomain = tweened(xDom, tweenOptions);
+    	validate_store(xDomain, 'xDomain');
+    	component_subscribe($$self, xDomain, value => $$invalidate(45, $xDomain = value));
+
+    	// # ============================================================================ #
     	// #   yDomain updates
-    	// Functions to animate yDomain
     	const yDomSet = (data, mode, yKey, yMax) => yMax
     	? [yMin, yMax]
     	: mode == 'stacked' && yKey
@@ -15813,6 +15838,8 @@ var app = (function () {
 
     	function yDomUpdate(data, mode, yKey, yMax) {
     		let newYDom = yDomSet(data, mode, yKey, yMax);
+    		console.log(`newYDom`);
+    		console.log(newYDom);
 
     		if (newYDom[0] != yDom[0] || newYDom[1] != yDom[1]) {
     			yDomain.set(newYDom, { duration: animation ? duration : 0 });
@@ -15823,7 +15850,7 @@ var app = (function () {
     	let yDom = yDomSet(data, mode, yKey, yMax);
     	const yDomain = tweened(yDom, tweenOptions);
     	validate_store(yDomain, 'yDomain');
-    	component_subscribe($$self, yDomain, value => $$invalidate(45, $yDomain = value));
+    	component_subscribe($$self, yDomain, value => $$invalidate(46, $yDomain = value));
 
     	const writable_props = [
     		'data',
@@ -15839,6 +15866,8 @@ var app = (function () {
     		'yFormatTick',
     		'yMax',
     		'yMin',
+    		'xMax',
+    		'xMin',
     		'xAxis',
     		'yAxis',
     		'xTicks',
@@ -15908,8 +15937,10 @@ var app = (function () {
     		if ('labelKey' in $$props) $$invalidate(10, labelKey = $$props.labelKey);
     		if ('yScale' in $$props) $$invalidate(11, yScale = $$props.yScale);
     		if ('yFormatTick' in $$props) $$invalidate(12, yFormatTick = $$props.yFormatTick);
-    		if ('yMax' in $$props) $$invalidate(48, yMax = $$props.yMax);
-    		if ('yMin' in $$props) $$invalidate(49, yMin = $$props.yMin);
+    		if ('yMax' in $$props) $$invalidate(50, yMax = $$props.yMax);
+    		if ('yMin' in $$props) $$invalidate(51, yMin = $$props.yMin);
+    		if ('xMax' in $$props) $$invalidate(52, xMax = $$props.xMax);
+    		if ('xMin' in $$props) $$invalidate(53, xMin = $$props.xMin);
     		if ('xAxis' in $$props) $$invalidate(13, xAxis = $$props.xAxis);
     		if ('yAxis' in $$props) $$invalidate(14, yAxis = $$props.yAxis);
     		if ('xTicks' in $$props) $$invalidate(15, xTicks = $$props.xTicks);
@@ -15924,7 +15955,7 @@ var app = (function () {
     		if ('mode' in $$props) $$invalidate(24, mode = $$props.mode);
     		if ('areaOpacity' in $$props) $$invalidate(25, areaOpacity = $$props.areaOpacity);
     		if ('padding' in $$props) $$invalidate(26, padding = $$props.padding);
-    		if ('color' in $$props) $$invalidate(50, color = $$props.color);
+    		if ('color' in $$props) $$invalidate(54, color = $$props.color);
     		if ('colors' in $$props) $$invalidate(27, colors = $$props.colors);
     		if ('lineWidth' in $$props) $$invalidate(28, lineWidth = $$props.lineWidth);
     		if ('interactive' in $$props) $$invalidate(29, interactive = $$props.interactive);
@@ -15943,7 +15974,7 @@ var app = (function () {
     		if ('groups_all' in $$props) $$invalidate(40, groups_all = $$props.groups_all);
     		if ('groups_selected' in $$props) $$invalidate(41, groups_selected = $$props.groups_selected);
     		if ('step' in $$props) $$invalidate(42, step = $$props.step);
-    		if ('$$scope' in $$props) $$invalidate(56, $$scope = $$props.$$scope);
+    		if ('$$scope' in $$props) $$invalidate(60, $$scope = $$props.$$scope);
     	};
 
     	$$self.$capture_state = () => ({
@@ -15978,6 +16009,8 @@ var app = (function () {
     		yFormatTick,
     		yMax,
     		yMin,
+    		xMax,
+    		xMin,
     		xAxis,
     		yAxis,
     		xTicks,
@@ -16015,12 +16048,17 @@ var app = (function () {
     		coords,
     		distinct,
     		getTotals,
+    		xDomSet,
+    		xDomUpdate,
+    		xDom,
+    		xDomain,
     		yDomSet,
     		yDomUpdate,
     		yDom,
     		yDomain,
     		zDomain,
     		groupedData,
+    		$xDomain,
     		$yDomain
     	});
 
@@ -16036,8 +16074,10 @@ var app = (function () {
     		if ('labelKey' in $$props) $$invalidate(10, labelKey = $$props.labelKey);
     		if ('yScale' in $$props) $$invalidate(11, yScale = $$props.yScale);
     		if ('yFormatTick' in $$props) $$invalidate(12, yFormatTick = $$props.yFormatTick);
-    		if ('yMax' in $$props) $$invalidate(48, yMax = $$props.yMax);
-    		if ('yMin' in $$props) $$invalidate(49, yMin = $$props.yMin);
+    		if ('yMax' in $$props) $$invalidate(50, yMax = $$props.yMax);
+    		if ('yMin' in $$props) $$invalidate(51, yMin = $$props.yMin);
+    		if ('xMax' in $$props) $$invalidate(52, xMax = $$props.xMax);
+    		if ('xMin' in $$props) $$invalidate(53, xMin = $$props.xMin);
     		if ('xAxis' in $$props) $$invalidate(13, xAxis = $$props.xAxis);
     		if ('yAxis' in $$props) $$invalidate(14, yAxis = $$props.yAxis);
     		if ('xTicks' in $$props) $$invalidate(15, xTicks = $$props.xTicks);
@@ -16052,7 +16092,7 @@ var app = (function () {
     		if ('mode' in $$props) $$invalidate(24, mode = $$props.mode);
     		if ('areaOpacity' in $$props) $$invalidate(25, areaOpacity = $$props.areaOpacity);
     		if ('padding' in $$props) $$invalidate(26, padding = $$props.padding);
-    		if ('color' in $$props) $$invalidate(50, color = $$props.color);
+    		if ('color' in $$props) $$invalidate(54, color = $$props.color);
     		if ('colors' in $$props) $$invalidate(27, colors = $$props.colors);
     		if ('lineWidth' in $$props) $$invalidate(28, lineWidth = $$props.lineWidth);
     		if ('interactive' in $$props) $$invalidate(29, interactive = $$props.interactive);
@@ -16071,6 +16111,7 @@ var app = (function () {
     		if ('groups_all' in $$props) $$invalidate(40, groups_all = $$props.groups_all);
     		if ('groups_selected' in $$props) $$invalidate(41, groups_selected = $$props.groups_selected);
     		if ('step' in $$props) $$invalidate(42, step = $$props.step);
+    		if ('xDom' in $$props) xDom = $$props.xDom;
     		if ('yDom' in $$props) yDom = $$props.yDom;
     		if ('zDomain' in $$props) $$invalidate(43, zDomain = $$props.zDomain);
     		if ('groupedData' in $$props) $$invalidate(44, groupedData = $$props.groupedData);
@@ -16081,6 +16122,21 @@ var app = (function () {
     	}
 
     	$$self.$$.update = () => {
+    		if ($$self.$$.dirty[1] & /*step, xMin, xMax*/ 6293504) {
+    			 {
+    				console.log(` ******************* LineChart ${step}  `);
+    				console.log(`xMin: ${xMin}, xMax: ${xMax}`);
+    			}
+    		}
+
+    		if ($$self.$$.dirty[0] & /*data, mode, xKey*/ 16777284 | $$self.$$.dirty[1] & /*xMin, xMax*/ 6291456) {
+    			 xDomUpdate(data, mode, xKey, xMin, xMax);
+    		}
+
+    		if ($$self.$$.dirty[0] & /*data, mode, yKey*/ 16777348 | $$self.$$.dirty[1] & /*yMax*/ 524288) {
+    			 yDomUpdate(data, mode, yKey, yMax);
+    		}
+
     		if ($$self.$$.dirty[0] & /*zKey, data*/ 260) {
     			// # ============================================================================ #
     			// #   zDomain updates
@@ -16092,18 +16148,6 @@ var app = (function () {
     			 $$invalidate(44, groupedData = mode == 'stacked'
     			? stackData(data, zDomain, yKey, zKey)
     			: groupData(data, zDomain, zKey));
-    		}
-
-    		if ($$self.$$.dirty[1] & /*step, groups_selected, groupedData*/ 11264) {
-    			 {
-    				console.log(` ******************* LineChart ${step}  `);
-    				console.log(groups_selected);
-    				console.log(groupedData);
-    			}
-    		}
-
-    		if ($$self.$$.dirty[0] & /*data, mode, yKey*/ 16777348 | $$self.$$.dirty[1] & /*yMax*/ 131072) {
-    			 yDomUpdate(data, mode, yKey, yMax);
     		}
     	};
 
@@ -16153,11 +16197,15 @@ var app = (function () {
     		step,
     		zDomain,
     		groupedData,
+    		$xDomain,
     		$yDomain,
     		coords,
+    		xDomain,
     		yDomain,
     		yMax,
     		yMin,
+    		xMax,
+    		xMin,
     		color,
     		slots,
     		line_1_selected_binding,
@@ -16190,8 +16238,10 @@ var app = (function () {
     				labelKey: 10,
     				yScale: 11,
     				yFormatTick: 12,
-    				yMax: 48,
-    				yMin: 49,
+    				yMax: 50,
+    				yMin: 51,
+    				xMax: 52,
+    				xMin: 53,
     				xAxis: 13,
     				yAxis: 14,
     				xTicks: 15,
@@ -16206,7 +16256,7 @@ var app = (function () {
     				mode: 24,
     				areaOpacity: 25,
     				padding: 26,
-    				color: 50,
+    				color: 54,
     				colors: 27,
     				lineWidth: 28,
     				interactive: 29,
@@ -16357,7 +16407,7 @@ var app = (function () {
     	}
 
     	get yMax() {
-    		return this.$$.ctx[48];
+    		return this.$$.ctx[50];
     	}
 
     	set yMax(yMax) {
@@ -16366,11 +16416,29 @@ var app = (function () {
     	}
 
     	get yMin() {
-    		return this.$$.ctx[49];
+    		return this.$$.ctx[51];
     	}
 
     	set yMin(yMin) {
     		this.$$set({ yMin });
+    		flush();
+    	}
+
+    	get xMax() {
+    		return this.$$.ctx[52];
+    	}
+
+    	set xMax(xMax) {
+    		this.$$set({ xMax });
+    		flush();
+    	}
+
+    	get xMin() {
+    		return this.$$.ctx[53];
+    	}
+
+    	set xMin(xMin) {
+    		this.$$set({ xMin });
     		flush();
     	}
 
@@ -16501,7 +16569,7 @@ var app = (function () {
     	}
 
     	get color() {
-    		return this.$$.ctx[50];
+    		return this.$$.ctx[54];
     	}
 
     	set color(color) {
@@ -16677,7 +16745,7 @@ var app = (function () {
     const { Object: Object_1$1 } = globals;
     const file$m = "src\\App.svelte";
 
-    // (210:10) {#if data && id && yMin >= 0}
+    // (234:10) {#if data && id && yMin >= 0}
     function create_if_block$c(ctx) {
     	let linechart;
     	let current;
@@ -16689,13 +16757,15 @@ var app = (function () {
     				xKey: "year",
     				area: false,
     				yKey: "value",
-    				groups_all: /*groups_all*/ ctx[6],
+    				colors: /*colors_all*/ ctx[8],
+    				groups_all: /*groups_all*/ ctx[9],
     				groups_selected: /*groups_selected*/ ctx[4],
     				step: /*step*/ ctx[1],
     				yMin: /*yMin*/ ctx[3],
-    				yMax: 85,
+    				yMax: /*yMax*/ ctx[6],
+    				xMax: /*xMax*/ ctx[5],
     				areaOpacity: 0.3,
-    				animation: /*animation*/ ctx[5],
+    				animation: /*animation*/ ctx[7],
     				zKey: "group"
     			},
     			$$inline: true
@@ -16715,6 +16785,8 @@ var app = (function () {
     			if (dirty & /*groups_selected*/ 16) linechart_changes.groups_selected = /*groups_selected*/ ctx[4];
     			if (dirty & /*step*/ 2) linechart_changes.step = /*step*/ ctx[1];
     			if (dirty & /*yMin*/ 8) linechart_changes.yMin = /*yMin*/ ctx[3];
+    			if (dirty & /*yMax*/ 64) linechart_changes.yMax = /*yMax*/ ctx[6];
+    			if (dirty & /*xMax*/ 32) linechart_changes.xMax = /*xMax*/ ctx[5];
     			linechart.$set(linechart_changes);
     		},
     		i: function intro(local) {
@@ -16735,14 +16807,14 @@ var app = (function () {
     		block,
     		id: create_if_block$c.name,
     		type: "if",
-    		source: "(210:10) {#if data && id && yMin >= 0}",
+    		source: "(234:10) {#if data && id && yMin >= 0}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (206:2) 
+    // (230:2) 
     function create_background_slot(ctx) {
     	let div2;
     	let figure;
@@ -16759,12 +16831,12 @@ var app = (function () {
     			div0 = element("div");
     			if (if_block) if_block.c();
     			attr_dev(div0, "class", "chart svelte-11mmfbg");
-    			add_location(div0, file$m, 208, 8, 6706);
+    			add_location(div0, file$m, 232, 8, 7108);
     			attr_dev(div1, "class", "col-wide height-full");
-    			add_location(div1, file$m, 207, 6, 6662);
-    			add_location(figure, file$m, 206, 4, 6646);
+    			add_location(div1, file$m, 231, 6, 7064);
+    			add_location(figure, file$m, 230, 4, 7048);
     			attr_dev(div2, "slot", "background");
-    			add_location(div2, file$m, 205, 2, 6617);
+    			add_location(div2, file$m, 229, 2, 7019);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div2, anchor);
@@ -16817,16 +16889,16 @@ var app = (function () {
     		block,
     		id: create_background_slot.name,
     		type: "slot",
-    		source: "(206:2) ",
+    		source: "(230:2) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (232:2) 
+    // (258:2) 
     function create_foreground_slot(ctx) {
-    	let div4;
+    	let div7;
     	let section0;
     	let div0;
     	let p0;
@@ -16854,10 +16926,27 @@ var app = (function () {
     	let t12;
     	let strong3;
     	let t14;
+    	let t15;
+    	let section4;
+    	let div4;
+    	let p4;
+    	let t16;
+    	let strong4;
+    	let t18;
+    	let t19;
+    	let p5;
+    	let t21;
+    	let section5;
+    	let div5;
+    	let p6;
+    	let t23;
+    	let section6;
+    	let div6;
+    	let p7;
 
     	const block = {
     		c: function create() {
-    			div4 = element("div");
+    			div7 = element("div");
     			section0 = element("section");
     			div0 = element("div");
     			p0 = element("p");
@@ -16889,65 +16978,120 @@ var app = (function () {
     			strong3 = element("strong");
     			strong3.textContent = "remove data";
     			t14 = text(" to emphasize a narrative.");
-    			add_location(strong0, file$m, 235, 31, 7369);
-    			add_location(p0, file$m, 234, 8, 7333);
+    			t15 = space();
+    			section4 = element("section");
+    			div4 = element("div");
+    			p4 = element("p");
+    			t16 = text("We can also ");
+    			strong4 = element("strong");
+    			strong4.textContent = "focus on certain ranges on the x-axis";
+    			t18 = text(" which\r\n          in this case is years.");
+    			t19 = space();
+    			p5 = element("p");
+    			p5.textContent = "Here between 1980 and 2000. THe price of grocery increase, both on\r\n          average and for flowers.";
+    			t21 = space();
+    			section5 = element("section");
+    			div5 = element("div");
+    			p6 = element("p");
+    			p6.textContent = "The trend of flowers changes after 2000 and starts to stagnate.";
+    			t23 = space();
+    			section6 = element("section");
+    			div6 = element("div");
+    			p7 = element("p");
+    			p7.textContent = "In fact after 2010, flowers prices start dropping.";
+    			add_location(strong0, file$m, 261, 31, 7825);
+    			add_location(p0, file$m, 260, 8, 7789);
     			attr_dev(div0, "class", "col-medium");
-    			add_location(div0, file$m, 233, 6, 7299);
+    			add_location(div0, file$m, 259, 6, 7755);
     			attr_dev(section0, "data-id", "chart01");
-    			add_location(section0, file$m, 232, 4, 7264);
-    			add_location(strong1, file$m, 242, 14, 7546);
-    			add_location(p1, file$m, 241, 8, 7527);
+    			add_location(section0, file$m, 258, 4, 7720);
+    			add_location(strong1, file$m, 268, 14, 8002);
+    			add_location(p1, file$m, 267, 8, 7983);
     			attr_dev(div1, "class", "col-medium");
-    			add_location(div1, file$m, 240, 6, 7493);
+    			add_location(div1, file$m, 266, 6, 7949);
     			attr_dev(section1, "data-id", "chart02");
-    			add_location(section1, file$m, 239, 4, 7458);
-    			add_location(strong2, file$m, 250, 17, 7780);
-    			add_location(p2, file$m, 249, 8, 7758);
+    			add_location(section1, file$m, 265, 4, 7914);
+    			add_location(strong2, file$m, 276, 17, 8236);
+    			add_location(p2, file$m, 275, 8, 8214);
     			attr_dev(div2, "class", "col-medium");
-    			add_location(div2, file$m, 248, 6, 7724);
+    			add_location(div2, file$m, 274, 6, 8180);
     			attr_dev(section2, "data-id", "chart03");
-    			add_location(section2, file$m, 247, 4, 7689);
-    			add_location(strong3, file$m, 257, 17, 7972);
-    			add_location(p3, file$m, 256, 8, 7950);
+    			add_location(section2, file$m, 273, 4, 8145);
+    			add_location(strong3, file$m, 283, 17, 8428);
+    			add_location(p3, file$m, 282, 8, 8406);
     			attr_dev(div3, "class", "col-medium");
-    			add_location(div3, file$m, 255, 6, 7916);
+    			add_location(div3, file$m, 281, 6, 8372);
     			attr_dev(section3, "data-id", "chart04");
-    			add_location(section3, file$m, 254, 4, 7881);
-    			attr_dev(div4, "slot", "foreground");
-    			add_location(div4, file$m, 231, 2, 7235);
+    			add_location(section3, file$m, 280, 4, 8337);
+    			add_location(strong4, file$m, 290, 22, 8628);
+    			add_location(p4, file$m, 289, 8, 8601);
+    			add_location(p5, file$m, 293, 8, 8746);
+    			attr_dev(div4, "class", "col-medium");
+    			add_location(div4, file$m, 288, 6, 8567);
+    			attr_dev(section4, "data-id", "chart05");
+    			add_location(section4, file$m, 287, 4, 8532);
+    			add_location(p6, file$m, 301, 8, 8982);
+    			attr_dev(div5, "class", "col-medium");
+    			add_location(div5, file$m, 300, 6, 8948);
+    			attr_dev(section5, "data-id", "chart06");
+    			add_location(section5, file$m, 299, 4, 8913);
+    			add_location(p7, file$m, 306, 8, 9157);
+    			attr_dev(div6, "class", "col-medium");
+    			add_location(div6, file$m, 305, 6, 9123);
+    			attr_dev(section6, "data-id", "chart07");
+    			add_location(section6, file$m, 304, 4, 9088);
+    			attr_dev(div7, "slot", "foreground");
+    			add_location(div7, file$m, 257, 2, 7691);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, div4, anchor);
-    			append_dev(div4, section0);
+    			insert_dev(target, div7, anchor);
+    			append_dev(div7, section0);
     			append_dev(section0, div0);
     			append_dev(div0, p0);
     			append_dev(p0, t0);
     			append_dev(p0, strong0);
     			append_dev(p0, t2);
-    			append_dev(div4, t3);
-    			append_dev(div4, section1);
+    			append_dev(div7, t3);
+    			append_dev(div7, section1);
     			append_dev(section1, div1);
     			append_dev(div1, p1);
     			append_dev(p1, t4);
     			append_dev(p1, strong1);
     			append_dev(p1, t6);
-    			append_dev(div4, t7);
-    			append_dev(div4, section2);
+    			append_dev(div7, t7);
+    			append_dev(div7, section2);
     			append_dev(section2, div2);
     			append_dev(div2, p2);
     			append_dev(p2, t8);
     			append_dev(p2, strong2);
     			append_dev(p2, t10);
-    			append_dev(div4, t11);
-    			append_dev(div4, section3);
+    			append_dev(div7, t11);
+    			append_dev(div7, section3);
     			append_dev(section3, div3);
     			append_dev(div3, p3);
     			append_dev(p3, t12);
     			append_dev(p3, strong3);
     			append_dev(p3, t14);
+    			append_dev(div7, t15);
+    			append_dev(div7, section4);
+    			append_dev(section4, div4);
+    			append_dev(div4, p4);
+    			append_dev(p4, t16);
+    			append_dev(p4, strong4);
+    			append_dev(p4, t18);
+    			append_dev(div4, t19);
+    			append_dev(div4, p5);
+    			append_dev(div7, t21);
+    			append_dev(div7, section5);
+    			append_dev(section5, div5);
+    			append_dev(div5, p6);
+    			append_dev(div7, t23);
+    			append_dev(div7, section6);
+    			append_dev(section6, div6);
+    			append_dev(div6, p7);
     		},
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(div4);
+    			if (detaching) detach_dev(div7);
     		}
     	};
 
@@ -16955,14 +17099,14 @@ var app = (function () {
     		block,
     		id: create_foreground_slot.name,
     		type: "slot",
-    		source: "(232:2) ",
+    		source: "(258:2) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (272:0) <Section>
+    // (320:0) <Section>
     function create_default_slot$1(ctx) {
     	let h2;
     	let t1;
@@ -16975,8 +17119,8 @@ var app = (function () {
     			t1 = space();
     			p = element("p");
     			p.textContent = "Epsom Lorem ipsum dolor sit amet consectetur adipisicing elit. A magni\r\n    ducimus amet repellendus cupiditate? Ad optio saepe ducimus. At eveniet ad\r\n    delectus enim voluptatibus. Quaerat eligendi eaque corrupti possimus\r\n    molestiae?";
-    			add_location(h2, file$m, 272, 2, 8240);
-    			add_location(p, file$m, 273, 2, 8264);
+    			add_location(h2, file$m, 320, 2, 9414);
+    			add_location(p, file$m, 321, 2, 9438);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, h2, anchor);
@@ -16994,7 +17138,7 @@ var app = (function () {
     		block,
     		id: create_default_slot$1.name,
     		type: "slot",
-    		source: "(272:0) <Section>",
+    		source: "(320:0) <Section>",
     		ctx
     	});
 
@@ -17020,7 +17164,7 @@ var app = (function () {
     	divider0 = new Divider({ $$inline: true });
 
     	function scroller_id_binding(value) {
-    		/*scroller_id_binding*/ ctx[7](value);
+    		/*scroller_id_binding*/ ctx[10](value);
     	}
 
     	let scroller_props = {
@@ -17067,7 +17211,7 @@ var app = (function () {
     			t5 = text("step: ");
     			t6 = text(/*step*/ ctx[1]);
     			attr_dev(div, "class", "stickDev svelte-11mmfbg");
-    			add_location(div, file$m, 287, 0, 8663);
+    			add_location(div, file$m, 335, 0, 9837);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -17091,7 +17235,7 @@ var app = (function () {
     		p: function update(ctx, [dirty]) {
     			const scroller_changes = {};
 
-    			if (dirty & /*$$scope, data, groups_selected, step, yMin, id*/ 1048607) {
+    			if (dirty & /*$$scope, data, groups_selected, step, yMin, yMax, xMax, id*/ 8388735) {
     				scroller_changes.$$scope = { dirty, ctx };
     			}
 
@@ -17104,7 +17248,7 @@ var app = (function () {
     			scroller.$set(scroller_changes);
     			const section_changes = {};
 
-    			if (dirty & /*$$scope*/ 1048576) {
+    			if (dirty & /*$$scope*/ 8388608) {
     				section_changes.$$scope = { dirty, ctx };
     			}
 
@@ -17185,16 +17329,7 @@ var app = (function () {
     		codes.forEach(code => {
     			if (id[code] != idPrev[code]) {
     				// if caption id changes then run then run following code to update chart
-    				// console.log(
-    				//   ' -----------------------------Action Update -----------------------------'
-    				// );
-    				// console.log(id[code]);
-    				// console.log(idPrev[code]);
-    				// console.log(actions);
-    				// console.log(actions[code]);
-    				// console.log(actions[code][id[code]]);
     				if (actions[code][id[code]]) {
-    					// console.log('within');
     					actions[code][id[code]]();
     				}
 
@@ -17217,37 +17352,77 @@ var app = (function () {
     	let yMin = 0;
 
     	// In this fake data. flowers = 'philly' and apples = 'us average'
-    	let groups_all = ['apples', 'cherries', 'dates', 'flowers'];
+    	let groups_template = [
+    		{ group: 'apples', color: '#206095' },
+    		{ group: 'cherries', color: '#A8BD3A' },
+    		{ group: 'dates', color: '#003C57' },
+    		{ group: 'flowers', color: '#27A0CC' }
+    	];
 
-    	let groups_w_abnormal = ['apples', 'cherries', 'flowers'];
-    	let groups_normal = ['apples', 'cherries', 'dates'];
+    	let colors_all = groups_template.map(d => d.color);
+    	let groups_all = groups_template.map(d => d.group);
+    	let groups_normal = groups_all.filter(d => d != 'flowers');
     	let groups_selected = groups_normal;
+    	let xMax;
+    	let yMax = 85;
 
     	let actions = {
     		chart: {
     			chart01: () => {
     				$$invalidate(2, data);
     				$$invalidate(3, yMin = 0);
+    				$$invalidate(6, yMax = 85);
     				$$invalidate(4, groups_selected = groups_normal);
     				$$invalidate(1, step = 'chart01');
+    				$$invalidate(5, xMax = null);
     			},
     			chart02: () => {
     				$$invalidate(2, data);
     				$$invalidate(3, yMin = 65);
+    				$$invalidate(6, yMax = 85);
     				$$invalidate(4, groups_selected = groups_normal);
     				$$invalidate(1, step = 'chart02');
+    				$$invalidate(5, xMax = null);
     			},
     			chart03: () => {
     				$$invalidate(2, data);
     				$$invalidate(3, yMin = 65);
+    				$$invalidate(6, yMax = 85);
     				$$invalidate(4, groups_selected = groups_all);
     				$$invalidate(1, step = 'chart03');
+    				$$invalidate(5, xMax = null);
     			},
     			chart04: () => {
     				$$invalidate(2, data);
     				$$invalidate(3, yMin = 65);
-    				$$invalidate(4, groups_selected = ['apples', 'flowers']);
+    				$$invalidate(6, yMax = 85);
+    				$$invalidate(4, groups_selected = ['flowers']);
     				$$invalidate(1, step = 'chart04');
+    				$$invalidate(5, xMax = null);
+    			},
+    			chart05: () => {
+    				$$invalidate(2, data);
+    				$$invalidate(3, yMin = 70);
+    				$$invalidate(6, yMax = 75);
+    				$$invalidate(4, groups_selected = ['flowers']);
+    				$$invalidate(1, step = 'chart04');
+    				$$invalidate(5, xMax = 1998);
+    			},
+    			chart06: () => {
+    				$$invalidate(2, data);
+    				$$invalidate(3, yMin = 70);
+    				$$invalidate(6, yMax = 75);
+    				$$invalidate(4, groups_selected = ['flowers']);
+    				$$invalidate(1, step = 'chart04');
+    				$$invalidate(5, xMax = 2008);
+    			},
+    			chart07: () => {
+    				$$invalidate(2, data);
+    				$$invalidate(3, yMin = 70);
+    				$$invalidate(6, yMax = 75);
+    				$$invalidate(4, groups_selected = ['flowers']);
+    				$$invalidate(1, step = 'chart04');
+    				$$invalidate(5, xMax = null);
     			}
     		}
     	};
@@ -17256,11 +17431,6 @@ var app = (function () {
     	//   5.4 State
     	// # ============================================================================ #
     	//   5.5 Initialisation code (get data)
-    	// getData(`./data/data_line_wide.csv`).then((arr) => {
-    	// getData(`./data/data_le.csv`).then((arr) => {
-    	//   console.log('flat data');
-    	//   console.log(arr);
-    	// });
     	getData(`./data/data_le.csv`).then(arr => {
     		$$invalidate(2, data = arr);
     	});
@@ -17314,16 +17484,19 @@ var app = (function () {
     		step,
     		data,
     		yMin,
+    		groups_template,
+    		colors_all,
     		groups_all,
-    		groups_w_abnormal,
     		groups_normal,
     		groups_selected,
+    		xMax,
+    		yMax,
     		actions
     	});
 
     	$$self.$inject_state = $$props => {
     		if ('theme' in $$props) theme = $$props.theme;
-    		if ('animation' in $$props) $$invalidate(5, animation = $$props.animation);
+    		if ('animation' in $$props) $$invalidate(7, animation = $$props.animation);
     		if ('hover' in $$props) hover = $$props.hover;
     		if ('hovered' in $$props) hovered = $$props.hovered;
     		if ('hoveredScatter' in $$props) hoveredScatter = $$props.hoveredScatter;
@@ -17335,11 +17508,14 @@ var app = (function () {
     		if ('step' in $$props) $$invalidate(1, step = $$props.step);
     		if ('data' in $$props) $$invalidate(2, data = $$props.data);
     		if ('yMin' in $$props) $$invalidate(3, yMin = $$props.yMin);
-    		if ('groups_all' in $$props) $$invalidate(6, groups_all = $$props.groups_all);
-    		if ('groups_w_abnormal' in $$props) groups_w_abnormal = $$props.groups_w_abnormal;
+    		if ('groups_template' in $$props) groups_template = $$props.groups_template;
+    		if ('colors_all' in $$props) $$invalidate(8, colors_all = $$props.colors_all);
+    		if ('groups_all' in $$props) $$invalidate(9, groups_all = $$props.groups_all);
     		if ('groups_normal' in $$props) groups_normal = $$props.groups_normal;
     		if ('groups_selected' in $$props) $$invalidate(4, groups_selected = $$props.groups_selected);
-    		if ('actions' in $$props) $$invalidate(19, actions = $$props.actions);
+    		if ('xMax' in $$props) $$invalidate(5, xMax = $$props.xMax);
+    		if ('yMax' in $$props) $$invalidate(6, yMax = $$props.yMax);
+    		if ('actions' in $$props) $$invalidate(22, actions = $$props.actions);
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -17363,7 +17539,10 @@ var app = (function () {
     		data,
     		yMin,
     		groups_selected,
+    		xMax,
+    		yMax,
     		animation,
+    		colors_all,
     		groups_all,
     		scroller_id_binding
     	];
