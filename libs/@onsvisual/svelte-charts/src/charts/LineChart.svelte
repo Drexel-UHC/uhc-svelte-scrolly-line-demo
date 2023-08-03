@@ -80,8 +80,8 @@
   let customData;
   $: {
     console.log(` ******************* LineChart ${step}  `);
-    customFlatData = data.filter((d) => groups_selected.includes(d.group));
-    customFlatData = data.filter((d) => groups_selected.includes(d.group));
+    customFlatData = data;
+    customFlatData = data;
     // console.log(`groups_selected`);
     // console.log(groups_selected);
     // console.log(`data`);

@@ -40,19 +40,7 @@
   let prevWidth = $width;
   let coord_needs_update = false;
   let debounceTimer;
-  let debounceValue = 200;
-
-  // Initialize coord if needed
-
-  if (!$coords) {
-    console.log(`!$coords`);
-    debouncedSetCoords($custom.customData, $custom, $x, $y, $r, $width);
-  }
-
-  $: {
-    console.log(`************* Line ${$custom.step}`);
-    console.log($custom.customData);
-  }
+  let debounceValue = 100;
 
   $: {
     debouncedSetCoords($custom.customData, $custom, $x, $y, $r, $width);
@@ -94,11 +82,6 @@
   function debouncedSetCoords(data, custom, x, y, r, width) {
     clearTimeout(debounceTimer);
     debounceTimer = setTimeout(() => {
-      console.log(
-        `///////////////  Start debounced-setCoords()  Line.svelte ${custom.step}`
-      );
-      console.log(`original coords`);
-      console.log($coords);
       let mode = custom.mode;
       let padding = custom.padding;
       let duration =
@@ -118,11 +101,6 @@
         );
       }
       coords.set(newcoords, { duration });
-      console.log(`new coords`);
-      console.log(newcoords);
-      console.log(
-        `///////////////  END debounced-setCoords()  Line.svelte ${custom.step}`
-      );
     }, debounceValue); // Debounce time: 200 milliseconds (adjust as needed)
   }
 </script>

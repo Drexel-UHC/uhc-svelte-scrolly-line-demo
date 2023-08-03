@@ -96,20 +96,21 @@
   // let yKey = 'apples';
   let yMin = 0;
   let groups_all = ['apples', 'cherries', 'dates', 'flowers'];
-  let groups_subset = ['apples', 'cherries', 'dates'];
-  let groups_selected = groups_subset;
+  let groups_w_abnormal = ['apples', 'cherries', 'flowers'];
+  let groups_normal = ['apples', 'cherries', 'dates'];
+  let groups_selected = groups_normal;
   let actions = {
     chart: {
       chart01: () => {
         data = data;
         yMin = 0;
-        groups_selected = groups_subset;
+        groups_selected = groups_normal;
         step = 'chart01';
       },
       chart02: () => {
         data = data;
         yMin = 65;
-        groups_selected = groups_subset;
+        groups_selected = groups_normal;
         step = 'chart02';
       },
       chart03: () => {
