@@ -7,14 +7,14 @@
 .footer.svelte-7jvwfp{font-size:.8em;color:grey;margin-top:5px}
 .label.svelte-1ijkebl{font-size:0.8em}
 ul.legend.svelte-1w19nmy.svelte-1w19nmy.svelte-1w19nmy{margin:0;padding:0}ul.legend.svelte-1w19nmy li.svelte-1w19nmy.svelte-1w19nmy{display:inline;font-size:.8em}ul.legend.svelte-1w19nmy li.svelte-1w19nmy+li.svelte-1w19nmy{margin-left:8px}.bullet.svelte-1w19nmy.svelte-1w19nmy.svelte-1w19nmy{display:inline-block;vertical-align:middle}.round.svelte-1w19nmy.svelte-1w19nmy.svelte-1w19nmy{border-radius:50%}
-path.svelte-rh3b33{fill:none;stroke-linejoin:round;stroke-linecap:round}.path-hover.svelte-rh3b33{stroke:rgba(255,255,255,0);stroke-width:7}.path-line.svelte-rh3b33,.path-overlay.svelte-rh3b33{pointer-events:none}
+path.svelte-1gezi8j{fill:none;stroke-linejoin:round;stroke-linecap:round}.path-hover.svelte-1gezi8j{stroke:rgba(255, 255, 255, 0);stroke-width:7}.path-line.svelte-1gezi8j,.path-overlay.svelte-1gezi8j{pointer-events:none}
 .title.svelte-b06b69{font-size:1.1em;font-weight:bold;margin-bottom:10px}
 .voronoi-cell.svelte-169satm{fill:none;stroke:none;pointer-events:all}
 .layercake-container.svelte-vhzpsp,.layercake-container.svelte-vhzpsp *{box-sizing:border-box}.layercake-container.svelte-vhzpsp{width:100%;height:100%}
 div.svelte-1bu60uu,slot.svelte-1bu60uu{position:absolute;top:0;left:0}
 svg.svelte-6sm8ei{position:absolute;width:100%;height:100%;overflow:visible}svg.svelte-6sm8ei *{vector-effect:non-scaling-stroke}
 svg.svelte-u84d8d{position:absolute;top:0;left:0;overflow:visible}
-svelte-scroller-foreground{pointer-events:none !important}svelte-scroller-foreground section div{pointer-events:all !important}.chart.svelte-xshzp7{margin-top:45px;width:calc(100% - 5px)}
+svelte-scroller-foreground{pointer-events:none !important}svelte-scroller-foreground section div{pointer-events:all !important}.stickDev.svelte-11mmfbg{position:fixed;bottom:0;right:0;background-color:white;padding:10px}.chart.svelte-11mmfbg{margin-top:45px;width:calc(100% - 5px)}
 hr.svelte-1l2to1w{width:75px;border:none;border-top:2px solid;margin:40px auto -10px auto}
 section.svelte-1odf9sx{padding:36px 0}.short.svelte-1odf9sx{min-height:70vh}
 .short.svelte-14xpfcj{min-height:85vh}.v-padded.svelte-14xpfcj{box-sizing:border-box;padding:80px 0}
