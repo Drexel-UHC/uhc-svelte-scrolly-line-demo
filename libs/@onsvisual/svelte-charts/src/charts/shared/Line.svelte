@@ -43,7 +43,7 @@
   let debounceValue = 100;
 
   $: {
-    debouncedSetCoords($custom.customData, $custom, $x, $y, $r, $width);
+    debouncedSetCoords($data, $custom, $x, $y, $r, $width);
   }
   // Function to make SVG path
   const makePath = (group) => {

@@ -74,20 +74,12 @@
   export let colorHighlight = '#206095';
 
   // custom
-  export let groups_selected = null;
-  export let step = null;
-  let customFlatData = data;
-  let customData;
+  export let groups_selected;
+  export let step;
+
   $: {
     console.log(` ******************* LineChart ${step}  `);
-    customFlatData = data;
-    customFlatData = data;
-    // console.log(`groups_selected`);
-    // console.log(groups_selected);
-    // console.log(`data`);
-    // console.log(data);
-    // console.log(`customFlatData`);
-    // console.log(customFlatData);
+    console.log(groups_selected);
   }
 
   const tweenOptions = {
@@ -132,26 +124,14 @@
   $: yDomUpdate(data, mode, yKey, yMax);
 
   // Function to update zDomain
-  let zDomain = zKey ? data.map((d) => d[zKey]).filter(distinct) : null;
-  $: {
-    zDomain = zKey ? customFlatData.map((d) => d.group).filter(distinct) : null;
-    // console.log('zDomain');
-    // console.log(zDomain);
-    // console.log('end zDomain');
-  }
+  $: zDomain = zKey ? data.map((d) => d.group).filter(distinct) : null;
 
   // Create a data series for each zKey (group)
-  let groupedData =
+
+  $: groupedData =
     mode == 'stacked'
       ? stackData(data, zDomain, yKey, zKey)
       : groupData(data, zDomain, zKey);
-  $: {
-    groupedData =
-      mode == 'stacked'
-        ? stackData(customFlatData, zDomain, yKey, zKey)
-        : groupData(customFlatData, zDomain, zKey);
-    customData = groupedData;
-  }
 
   // console.log(data);
   // console.log(height);
@@ -193,8 +173,6 @@
       animation,
       duration,
       groups_selected: groups_selected,
-      customFlatData: customFlatData,
-      customData: customData,
       step: step,
     }}
     let:width
