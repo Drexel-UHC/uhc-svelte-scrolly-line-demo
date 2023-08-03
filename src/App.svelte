@@ -103,24 +103,28 @@
         yMin = 0;
         groups_selected = groups_normal;
         step = 'chart01';
+        xMax = null;
       },
       chart02: () => {
         data = data;
         yMin = 65;
         groups_selected = groups_normal;
         step = 'chart02';
+        xMax = null;
       },
       chart03: () => {
         data = data;
         yMin = 65;
         groups_selected = groups_all;
         step = 'chart03';
+        xMax = null;
       },
       chart04: () => {
         data = data;
         yMin = 65;
         groups_selected = ['apples', 'flowers'];
         step = 'chart04';
+        xMax = null;
       },
       chart05: () => {
         data = data;
