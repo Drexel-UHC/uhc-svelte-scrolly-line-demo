@@ -11,6 +11,7 @@
     x,
     y,
     r,
+    zRange,
     xGet,
     yGet,
     rGet,
@@ -43,7 +44,7 @@
   let debounceTimer;
   let debounceValue = 100;
   let coords_subset;
-
+  let colors_subset = $zRange;
   $: {
     debouncedSetCoords($data, $custom, $x, $y, $r, $width);
   }
@@ -51,23 +52,27 @@
   // Path subset logic here
   $: {
     groups_selected = $custom.groups_selected;
-    console.log(groups_all);
-    console.log(groups_selected);
+
     const index_to_include = groups_all
       .map((item, index) => (groups_selected.includes(item) ? index : -1))
       .filter((index) => index !== -1);
-    console.log(index_to_include);
+
     if ($coords) {
       coords_subset = index_to_include.map((index) => $coords[index]);
-      // console.log(`coords_subset_dev`);
-      // console.log(coords_subset_dev);
-      // if (groups_selected.includes('flowers')) {
-      //   coords_subset = $coords;
-      // } else {
-      //   coords_subset = $coords.slice(0, 3);
-      // }
+      colors_subset = index_to_include.map((index) => $zRange[index]);
     }
+    console.log(index_to_include);
+    console.log(coords_subset);
+    console.log(colors_subset);
   }
+
+  // $: {
+  //   console.log(`$config.z`);
+  //   console.log($config.z);
+  //   console.log(`$config.zRange`);
+  //   console.log($config.zRange);
+  // }
+
   // Function to make SVG path
   const makePath = (group) => {
     let path =
@@ -156,7 +161,7 @@
       <path
         class="path-line"
         d={makePath(group)}
-        stroke={$config.z ? $zGet($data[i][0]) : $config.zRange[0]}
+        stroke={colors_subset[i]}
         stroke-width={lineWidth}
         transition:fade={{ delay: 0, duration: 300 }}
       />

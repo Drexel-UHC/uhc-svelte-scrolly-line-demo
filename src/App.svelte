@@ -96,9 +96,16 @@
   // let yKey = 'apples';
   let yMin = 0;
   // In this fake data. flowers = 'philly' and apples = 'us average'
-  let groups_all = ['apples', 'cherries', 'dates', 'flowers'];
-  let groups_w_abnormal = ['apples', 'cherries', 'flowers'];
-  let groups_normal = ['apples', 'cherries', 'dates'];
+  let groups_template = [
+    { group: 'apples', color: '#206095' },
+    { group: 'cherries', color: '#A8BD3A' },
+    { group: 'dates', color: '#003C57' },
+    { group: 'flowers', color: '#27A0CC' },
+  ];
+  let colors_all = groups_template.map((d) => d.color);
+  let groups_all = groups_template.map((d) => d.group);
+  let groups_normal = groups_all.filter((d) => d != 'flowers');
+
   let groups_selected = groups_normal;
   let actions = {
     chart: {
@@ -214,6 +221,7 @@
               xKey="year"
               area={false}
               yKey="value"
+              colors={colors_all}
               {groups_all}
               {groups_selected}
               {step}

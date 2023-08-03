@@ -77,12 +77,8 @@
   export let groups_all;
   export let groups_selected;
   export let step;
-  console.log(data);
-
   $: {
     console.log(` ******************* LineChart ${step}  `);
-    console.log(groups_selected);
-    console.log(groupedData);
   }
 
   const tweenOptions = {
