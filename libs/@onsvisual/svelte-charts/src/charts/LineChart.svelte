@@ -1,7 +1,7 @@
 <svelte:options accessors={true} />
 
 <script>
-  import { LayerCake, Svg } from 'layercake';
+  import { LayerCake, Svg, Html } from 'layercake';
   import { scaleOrdinal, scaleLinear, scaleSymlog } from 'd3-scale';
   import { tweened } from 'svelte/motion';
   import { cubicInOut } from 'svelte/easing';
@@ -16,6 +16,7 @@
   import Title from './shared/Title.svelte';
   import Footer from './shared/Footer.svelte';
   import Labels from './shared/Labels.svelte';
+  import LabelsHTML from './shared/Labels-html.svelte';
 
   export let data;
   export let height = 250; // number of pixels or valid css height string
@@ -241,6 +242,9 @@
         {/if}
         <slot name="svg" />
       </Svg>
+      <Html>
+        <LabelsHTML />
+      </Html>
       <slot name="front" />
     {/if}
   </LayerCake>
