@@ -95,6 +95,7 @@
   let groups_all = groups_template.map((d) => d.group);
   let groups_normal = groups_all.filter((d) => d != 'flowers');
   let groups_selected = groups_normal;
+  let groups_to_label = null;
   let xMax;
   let yMax = 85;
   let actions = {
@@ -104,6 +105,7 @@
         yMin = 0;
         yMax = 85;
         groups_selected = groups_normal;
+        groups_to_label = null;
         step = 'chart01';
         xMax = null;
       },
@@ -112,6 +114,7 @@
         yMin = 65;
         yMax = 85;
         groups_selected = groups_normal;
+        groups_to_label = null;
         step = 'chart02';
         xMax = null;
       },
@@ -120,6 +123,7 @@
         yMin = 65;
         yMax = 85;
         groups_selected = groups_all;
+        groups_to_label = null;
         step = 'chart03';
         xMax = null;
       },
@@ -128,6 +132,7 @@
         yMin = 65;
         yMax = 85;
         groups_selected = ['flowers'];
+        groups_to_label = ['flowers'];
         step = 'chart04';
         xMax = null;
       },
@@ -136,6 +141,7 @@
         yMin = 70;
         yMax = 75;
         groups_selected = ['flowers'];
+        groups_to_label = ['flowers'];
         step = 'chart04';
         xMax = 1998;
       },
@@ -144,6 +150,7 @@
         yMin = 70;
         yMax = 75;
         groups_selected = ['flowers'];
+        groups_to_label = ['flowers'];
         step = 'chart04';
         xMax = 2008;
       },
@@ -152,6 +159,7 @@
         yMin = 70;
         yMax = 75;
         groups_selected = ['flowers'];
+        groups_to_label = ['flowers'];
         step = 'chart04';
         xMax = null;
       },
@@ -241,6 +249,7 @@
               colors={colors_all}
               {groups_all}
               {groups_selected}
+              {groups_to_label}
               {step}
               {yMin}
               {yMax}

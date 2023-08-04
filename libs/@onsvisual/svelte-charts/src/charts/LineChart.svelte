@@ -79,10 +79,10 @@
   // custom
   export let groups_all;
   export let groups_selected;
+  export let groups_to_label;
   export let step;
   $: {
     console.log(` ******************* LineChart ${step}  `);
-    console.log(`xMin: ${xMin}, xMax: ${xMax}`);
   }
 
   const tweenOptions = {
@@ -105,21 +105,16 @@
   // # ============================================================================ #
   // #   xDomain updates
   const xDomSet = (data, mode, xKey, xMin, xMax) => {
-    // console.log(`xDomSet() call: xMin: ${xMin}, xMax: ${xMax}`);
     const vec__all_x_values = data.map((d) => d[xKey]).filter(distinct);
     const new_x_max = xMax ? xMax : Math.max(...vec__all_x_values);
     const new_x_min = xMin
       ? xMin
       : Math.min(...data.map((d) => d[xKey]).filter(distinct));
     const newXDom = [new_x_min, new_x_max];
-    // console.log(`newXDom`);
-    // console.log(newXDom);
     return newXDom;
   };
   function xDomUpdate(data, mode, xKey, xMin, xMax) {
     let newXDom = xDomSet(data, mode, xKey, xMin, xMax);
-    console.log(`newXDom`);
-    console.log(newXDom);
     if (newXDom[0] != xDom[0] || newXDom[1] != xDom[1]) {
       xDomain.set(newXDom, { duration: animation ? duration : 0 });
       xDom = newXDom;
@@ -144,8 +139,6 @@
       : [yMin, Math.max(...data.map((d) => d[yKey]))];
   function yDomUpdate(data, mode, yKey, yMax) {
     let newYDom = yDomSet(data, mode, yKey, yMax);
-    console.log(`newYDom`);
-    console.log(newYDom);
     if (newYDom[0] != yDom[0] || newYDom[1] != yDom[1]) {
       yDomain.set(newYDom, { duration: animation ? duration : 0 });
       yDom = newYDom;
@@ -202,6 +195,7 @@
       duration,
       groups_all: groups_all,
       groups_selected: groups_selected,
+      groups_to_label: groups_to_label,
       step: step,
     }}
     let:width

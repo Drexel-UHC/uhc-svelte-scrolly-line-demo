@@ -112,7 +112,6 @@
   function debouncedSetCoords(data, custom, x, y, r, width) {
     clearTimeout(debounceTimer);
     debounceTimer = setTimeout(() => {
-      console.log('debouncedSetCoords() fires');
       let mode = custom.mode;
       let padding = custom.padding;
       let duration =
