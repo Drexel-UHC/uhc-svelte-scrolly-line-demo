@@ -23,7 +23,16 @@
   /* --------------------------------------------
    * Title case the first letter
    */
-  const cap = (val) => val.replace(/^\w/, (d) => d.toUpperCase());
+  const cap = (group) => {
+    const array = group.map((d) => d.group);
+
+    let uniqueArray = [...new Set(array)];
+    let groupKey = uniqueArray.join(', ');
+    console.log(`uniqueArray`);
+    console.log(uniqueArray);
+    const result = groupKey.replace(/^\w/, (d) => d.toUpperCase());
+    return result;
+  };
 
   /* --------------------------------------------
    * Put the label on the highest value
@@ -57,7 +66,7 @@
       left:{left(group) * 100}%;
     "
     >
-      {`cap(group.key)`}
+      {cap(group)}
     </div>
   {/each}
 {/if}
