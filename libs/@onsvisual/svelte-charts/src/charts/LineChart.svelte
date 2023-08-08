@@ -82,6 +82,7 @@
   export let groups_selected;
   export let groups_to_label;
   export let step;
+  export let longitudinal_annotation_layer;
   $: {
     console.log(` ******************* LineChart ${step}  `);
   }
@@ -198,6 +199,7 @@
       groups_selected: groups_selected,
       groups_to_label: groups_to_label,
       step: step,
+      longitudinal_annotation_layer: longitudinal_annotation_layer,
     }}
     let:width
   >

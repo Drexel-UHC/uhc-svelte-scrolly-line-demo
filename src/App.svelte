@@ -96,6 +96,7 @@
   let groups_normal = groups_all.filter((d) => d != 'flowers');
   let groups_selected = groups_normal;
   let groups_to_label = null;
+  let longitudinal_annotation_layer = false;
   let xMax;
   let yMax = 85;
   let actions = {
@@ -108,6 +109,7 @@
         groups_to_label = null;
         step = 'chart01';
         xMax = null;
+        longitudinal_annotation_layer = false;
       },
       chart02: () => {
         data = data;
@@ -117,6 +119,7 @@
         groups_to_label = null;
         step = 'chart02';
         xMax = null;
+        longitudinal_annotation_layer = false;
       },
       chart03: () => {
         data = data;
@@ -126,6 +129,7 @@
         groups_to_label = null;
         step = 'chart03';
         xMax = null;
+        longitudinal_annotation_layer = false;
       },
       chart04: () => {
         data = data;
@@ -135,6 +139,7 @@
         groups_to_label = null;
         step = 'chart04';
         xMax = null;
+        longitudinal_annotation_layer = false;
       },
       chart05: () => {
         data = data;
@@ -144,6 +149,7 @@
         groups_to_label = ['flowers'];
         step = 'chart05';
         xMax = 1998;
+        longitudinal_annotation_layer = false;
       },
       chart06: () => {
         data = data;
@@ -153,6 +159,7 @@
         groups_to_label = ['flowers'];
         step = 'chart06';
         xMax = 2008;
+        longitudinal_annotation_layer = false;
       },
       chart07: () => {
         data = data;
@@ -162,6 +169,7 @@
         groups_to_label = null;
         step = 'chart07';
         xMax = null;
+        longitudinal_annotation_layer = false;
       },
       chart08: () => {
         data = data;
@@ -169,8 +177,9 @@
         yMax = 75;
         groups_selected = ['flowers'];
         groups_to_label = null;
-        step = 'chart07';
+        step = 'chart08';
         xMax = null;
+        longitudinal_annotation_layer = true;
       },
     },
   };
@@ -266,6 +275,7 @@
               areaOpacity={0.3}
               {animation}
               zKey="group"
+              {longitudinal_annotation_layer}
             />
           {/if}
         </div>
