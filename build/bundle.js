@@ -6913,6 +6913,27 @@ var app = (function () {
       return max;
     }
 
+    function min(values, valueof) {
+      let min;
+      if (valueof === undefined) {
+        for (const value of values) {
+          if (value != null
+              && (min > value || (min === undefined && value >= value))) {
+            min = value;
+          }
+        }
+      } else {
+        let index = -1;
+        for (let value of values) {
+          if ((value = valueof(value, ++index, values)) != null
+              && (min > value || (min === undefined && value >= value))) {
+            min = value;
+          }
+        }
+      }
+      return min;
+    }
+
     function initRange(domain, range) {
       switch (arguments.length) {
         case 0: break;
@@ -14680,12 +14701,12 @@ var app = (function () {
 
     function get_each_context$6(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[22] = list[i];
-    	child_ctx[24] = i;
+    	child_ctx[24] = list[i];
+    	child_ctx[26] = i;
     	return child_ctx;
     }
 
-    // (64:0) {#if data_subset}
+    // (71:0) {#if data_subset}
     function create_if_block$b(ctx) {
     	let each_1_anchor;
     	let current;
@@ -14718,7 +14739,7 @@ var app = (function () {
     			current = true;
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*top, data_subset, left, cap*/ 519) {
+    			if (dirty & /*top, data_subset, left, cap*/ 1031) {
     				each_value = /*data_subset*/ ctx[0];
     				validate_each_argument(each_value);
     				let i;
@@ -14774,17 +14795,17 @@ var app = (function () {
     		block,
     		id: create_if_block$b.name,
     		type: "if",
-    		source: "(64:0) {#if data_subset}",
+    		source: "(71:0) {#if data_subset}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (65:2) {#each data_subset as group, i}
+    // (72:2) {#each data_subset as group, i}
     function create_each_block$6(ctx) {
     	let div;
-    	let t0_value = /*cap*/ ctx[9](/*group*/ ctx[22]) + "";
+    	let t0_value = /*cap*/ ctx[10](/*group*/ ctx[24]) + "";
     	let t0;
     	let t1;
     	let div_transition;
@@ -14796,11 +14817,11 @@ var app = (function () {
     			t0 = text(t0_value);
     			t1 = space();
     			attr_dev(div, "class", "label svelte-4q4ywr");
-    			set_style(div, "top", /*top*/ ctx[1](/*group*/ ctx[22]) * 100 + "%");
-    			set_style(div, "left", /*left*/ ctx[2](/*group*/ ctx[22]) * 100 + "%");
+    			set_style(div, "top", /*top*/ ctx[1](/*group*/ ctx[24]) * 100 + "%");
+    			set_style(div, "left", /*left*/ ctx[2](/*group*/ ctx[24]) * 100 + "%");
     			set_style(div, "font-size", "16px");
     			set_style(div, "font-weight", "600");
-    			add_location(div, file$m, 65, 4, 1939);
+    			add_location(div, file$m, 72, 4, 2157);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -14809,14 +14830,14 @@ var app = (function () {
     			current = true;
     		},
     		p: function update(ctx, dirty) {
-    			if ((!current || dirty & /*data_subset*/ 1) && t0_value !== (t0_value = /*cap*/ ctx[9](/*group*/ ctx[22]) + "")) set_data_dev(t0, t0_value);
+    			if ((!current || dirty & /*data_subset*/ 1) && t0_value !== (t0_value = /*cap*/ ctx[10](/*group*/ ctx[24]) + "")) set_data_dev(t0, t0_value);
 
     			if (!current || dirty & /*top, data_subset*/ 3) {
-    				set_style(div, "top", /*top*/ ctx[1](/*group*/ ctx[22]) * 100 + "%");
+    				set_style(div, "top", /*top*/ ctx[1](/*group*/ ctx[24]) * 100 + "%");
     			}
 
     			if (!current || dirty & /*left, data_subset*/ 5) {
-    				set_style(div, "left", /*left*/ ctx[2](/*group*/ ctx[22]) * 100 + "%");
+    				set_style(div, "left", /*left*/ ctx[2](/*group*/ ctx[24]) * 100 + "%");
     			}
     		},
     		i: function intro(local) {
@@ -14844,7 +14865,7 @@ var app = (function () {
     		block,
     		id: create_each_block$6.name,
     		type: "each",
-    		source: "(65:2) {#each data_subset as group, i}",
+    		source: "(72:2) {#each data_subset as group, i}",
     		ctx
     	});
 
@@ -14924,31 +14945,40 @@ var app = (function () {
     	let top;
     	let $yRange;
     	let $yScale;
+    	let $xDomain;
     	let $xRange;
     	let $xScale;
     	let $data;
     	let $custom;
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('Labels_html', slots, []);
-    	const { data, x, y, xScale, yScale, xRange, yRange, custom } = getContext('LayerCake');
+    	const { data, x, y, xDomain, xScale, yScale, xRange, yRange, custom } = getContext('LayerCake');
     	validate_store(data, 'data');
-    	component_subscribe($$self, data, value => $$invalidate(16, $data = value));
+    	component_subscribe($$self, data, value => $$invalidate(18, $data = value));
+    	validate_store(xDomain, 'xDomain');
+    	component_subscribe($$self, xDomain, value => $$invalidate(15, $xDomain = value));
     	validate_store(xScale, 'xScale');
-    	component_subscribe($$self, xScale, value => $$invalidate(15, $xScale = value));
+    	component_subscribe($$self, xScale, value => $$invalidate(17, $xScale = value));
     	validate_store(yScale, 'yScale');
-    	component_subscribe($$self, yScale, value => $$invalidate(13, $yScale = value));
+    	component_subscribe($$self, yScale, value => $$invalidate(14, $yScale = value));
     	validate_store(xRange, 'xRange');
-    	component_subscribe($$self, xRange, value => $$invalidate(14, $xRange = value));
+    	component_subscribe($$self, xRange, value => $$invalidate(16, $xRange = value));
     	validate_store(yRange, 'yRange');
-    	component_subscribe($$self, yRange, value => $$invalidate(12, $yRange = value));
+    	component_subscribe($$self, yRange, value => $$invalidate(13, $yRange = value));
     	validate_store(custom, 'custom');
-    	component_subscribe($$self, custom, value => $$invalidate(17, $custom = value));
+    	component_subscribe($$self, custom, value => $$invalidate(19, $custom = value));
     	let groups_all = $custom.groups_all;
     	let groups_selected = $custom.groups_selected;
     	let groups_to_label = $custom.groups_to_label;
     	let index_subset;
     	let data_subset;
 
+    	// console.log(`index_subset`);
+    	// console.log(index_subset);
+    	// console.log(`data_subset`);
+    	// console.log(data_subset);
+    	// console.log(`$xDomain`);
+    	// console.log(max($xDomain));
     	/* --------------------------------------------
      * Title case the first letter
      */
@@ -14969,10 +14999,13 @@ var app = (function () {
     	$$self.$capture_state = () => ({
     		getContext,
     		max,
+    		min,
     		fade,
+    		tweened,
     		data,
     		x,
     		y,
+    		xDomain,
     		xScale,
     		yScale,
     		xRange,
@@ -14988,6 +15021,7 @@ var app = (function () {
     		left,
     		$yRange,
     		$yScale,
+    		$xDomain,
     		$xRange,
     		$xScale,
     		$data,
@@ -14995,10 +15029,10 @@ var app = (function () {
     	});
 
     	$$self.$inject_state = $$props => {
-    		if ('groups_all' in $$props) $$invalidate(20, groups_all = $$props.groups_all);
+    		if ('groups_all' in $$props) $$invalidate(22, groups_all = $$props.groups_all);
     		if ('groups_selected' in $$props) groups_selected = $$props.groups_selected;
-    		if ('groups_to_label' in $$props) $$invalidate(10, groups_to_label = $$props.groups_to_label);
-    		if ('index_subset' in $$props) $$invalidate(11, index_subset = $$props.index_subset);
+    		if ('groups_to_label' in $$props) $$invalidate(11, groups_to_label = $$props.groups_to_label);
+    		if ('index_subset' in $$props) $$invalidate(12, index_subset = $$props.index_subset);
     		if ('data_subset' in $$props) $$invalidate(0, data_subset = $$props.data_subset);
     		if ('top' in $$props) $$invalidate(1, top = $$props.top);
     		if ('left' in $$props) $$invalidate(2, left = $$props.left);
@@ -15009,43 +15043,40 @@ var app = (function () {
     	}
 
     	$$self.$$.update = () => {
-    		if ($$self.$$.dirty & /*$custom, groups_to_label, index_subset, $data, data_subset*/ 199681) {
+    		if ($$self.$$.dirty & /*$custom, groups_to_label, index_subset, $data*/ 792576) {
     			 {
-    				$$invalidate(10, groups_to_label = $custom.groups_to_label);
+    				$$invalidate(11, groups_to_label = $custom.groups_to_label);
 
     				if (groups_to_label) {
-    					$$invalidate(11, index_subset = groups_all.map((item, index) => groups_to_label.includes(item) ? index : -1).filter(index => index !== -1));
+    					$$invalidate(12, index_subset = groups_all.map((item, index) => groups_to_label.includes(item) ? index : -1).filter(index => index !== -1));
     					$$invalidate(0, data_subset = index_subset.map(index => $data[index]));
     				} else {
-    					$$invalidate(11, index_subset = null);
+    					$$invalidate(12, index_subset = null);
     					$$invalidate(0, data_subset = null);
     				}
-
-    				console.log(`groups_to_label`);
-    				console.log(groups_to_label);
-    				console.log(`index_subset`);
-    				console.log(index_subset);
-    				console.log(`data_subset`);
-    				console.log(data_subset);
-    			}
+    			} // console.log(`groups_to_label`);
+    			// console.log(groups_to_label);
     		}
 
-    		if ($$self.$$.dirty & /*$xScale, $xRange*/ 49152) {
+    		if ($$self.$$.dirty & /*$xDomain, $xScale, $xRange*/ 229376) {
     			/* --------------------------------------------
      * Put the label on the highest value
      */
     			 $$invalidate(2, left = group => {
     				const x_values_all = group.map(d => d.year);
-    				const xMax = Math.max(...x_values_all);
+    				const xMax = max($xDomain);
     				const result = $xScale(xMax) / Math.max(...$xRange);
     				return result;
     			});
     		}
 
-    		if ($$self.$$.dirty & /*$yScale, $yRange*/ 12288) {
+    		if ($$self.$$.dirty & /*$xDomain, $yScale, $yRange*/ 57344) {
     			 $$invalidate(1, top = group => {
+    				const xMax = max($xDomain);
     				const y_values_all = group.map(d => d.value);
     				const yMax = Math.max(...y_values_all);
+    				console.log(`yMax`);
+    				console.log(yMax);
     				const result = $yScale(yMax) / Math.max(...$yRange);
     				return result;
     			});
@@ -15057,6 +15088,7 @@ var app = (function () {
     		top,
     		left,
     		data,
+    		xDomain,
     		xScale,
     		yScale,
     		xRange,
@@ -15067,6 +15099,7 @@ var app = (function () {
     		index_subset,
     		$yRange,
     		$yScale,
+    		$xDomain,
     		$xRange,
     		$xScale,
     		$data,
@@ -15088,10 +15121,241 @@ var app = (function () {
     	}
     }
 
+    /* libs\@onsvisual\svelte-charts\src\charts\custom\LongitudinalAnnotationLayer.svelte generated by Svelte v3.44.1 */
+    const file$n = "libs\\@onsvisual\\svelte-charts\\src\\charts\\custom\\LongitudinalAnnotationLayer.svelte";
+
+    // (11:0) {#if show_longitudinal_annotation_layer}
+    function create_if_block$c(ctx) {
+    	let div0;
+    	let div0_transition;
+    	let t0;
+    	let div1;
+    	let div1_transition;
+    	let t1;
+    	let div2;
+    	let div2_transition;
+    	let current;
+
+    	const block = {
+    		c: function create() {
+    			div0 = element("div");
+    			t0 = space();
+    			div1 = element("div");
+    			t1 = space();
+    			div2 = element("div");
+    			attr_dev(div0, "class", "label svelte-8as92t");
+    			set_style(div0, "left", "0%");
+    			set_style(div0, "width", "46%");
+    			set_style(div0, "height", "100%");
+    			set_style(div0, "background-color", "green");
+    			set_style(div0, "opacity", "0.3");
+    			add_location(div0, file$n, 11, 2, 343);
+    			attr_dev(div1, "class", "label svelte-8as92t");
+    			set_style(div1, "left", "46%");
+    			set_style(div1, "width", "30%");
+    			set_style(div1, "height", "100%");
+    			set_style(div1, "background-color", "yellow");
+    			set_style(div1, "opacity", "0.3");
+    			add_location(div1, file$n, 22, 2, 560);
+    			attr_dev(div2, "class", "label svelte-8as92t");
+    			set_style(div2, "left", "76%");
+    			set_style(div2, "width", "24%");
+    			set_style(div2, "height", "100%");
+    			set_style(div2, "background-color", "red");
+    			set_style(div2, "opacity", "0.3");
+    			add_location(div2, file$n, 33, 2, 779);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div0, anchor);
+    			insert_dev(target, t0, anchor);
+    			insert_dev(target, div1, anchor);
+    			insert_dev(target, t1, anchor);
+    			insert_dev(target, div2, anchor);
+    			current = true;
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+
+    			add_render_callback(() => {
+    				if (!div0_transition) div0_transition = create_bidirectional_transition(div0, fade, { delay: 0, duration: 300 }, true);
+    				div0_transition.run(1);
+    			});
+
+    			add_render_callback(() => {
+    				if (!div1_transition) div1_transition = create_bidirectional_transition(div1, fade, { delay: 0, duration: 300 }, true);
+    				div1_transition.run(1);
+    			});
+
+    			add_render_callback(() => {
+    				if (!div2_transition) div2_transition = create_bidirectional_transition(div2, fade, { delay: 0, duration: 300 }, true);
+    				div2_transition.run(1);
+    			});
+
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			if (!div0_transition) div0_transition = create_bidirectional_transition(div0, fade, { delay: 0, duration: 300 }, false);
+    			div0_transition.run(0);
+    			if (!div1_transition) div1_transition = create_bidirectional_transition(div1, fade, { delay: 0, duration: 300 }, false);
+    			div1_transition.run(0);
+    			if (!div2_transition) div2_transition = create_bidirectional_transition(div2, fade, { delay: 0, duration: 300 }, false);
+    			div2_transition.run(0);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div0);
+    			if (detaching && div0_transition) div0_transition.end();
+    			if (detaching) detach_dev(t0);
+    			if (detaching) detach_dev(div1);
+    			if (detaching && div1_transition) div1_transition.end();
+    			if (detaching) detach_dev(t1);
+    			if (detaching) detach_dev(div2);
+    			if (detaching && div2_transition) div2_transition.end();
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block$c.name,
+    		type: "if",
+    		source: "(11:0) {#if show_longitudinal_annotation_layer}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function create_fragment$o(ctx) {
+    	let if_block_anchor;
+    	let current;
+    	let if_block = /*show_longitudinal_annotation_layer*/ ctx[0] && create_if_block$c(ctx);
+
+    	const block = {
+    		c: function create() {
+    			if (if_block) if_block.c();
+    			if_block_anchor = empty();
+    		},
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+    		m: function mount(target, anchor) {
+    			if (if_block) if_block.m(target, anchor);
+    			insert_dev(target, if_block_anchor, anchor);
+    			current = true;
+    		},
+    		p: function update(ctx, [dirty]) {
+    			if (/*show_longitudinal_annotation_layer*/ ctx[0]) {
+    				if (if_block) {
+    					if (dirty & /*show_longitudinal_annotation_layer*/ 1) {
+    						transition_in(if_block, 1);
+    					}
+    				} else {
+    					if_block = create_if_block$c(ctx);
+    					if_block.c();
+    					transition_in(if_block, 1);
+    					if_block.m(if_block_anchor.parentNode, if_block_anchor);
+    				}
+    			} else if (if_block) {
+    				group_outros();
+
+    				transition_out(if_block, 1, 1, () => {
+    					if_block = null;
+    				});
+
+    				check_outros();
+    			}
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(if_block);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(if_block);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (if_block) if_block.d(detaching);
+    			if (detaching) detach_dev(if_block_anchor);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$o.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function instance$o($$self, $$props, $$invalidate) {
+    	let show_longitudinal_annotation_layer;
+    	let $custom;
+    	let { $$slots: slots = {}, $$scope } = $$props;
+    	validate_slots('LongitudinalAnnotationLayer', slots, []);
+    	const { data, x, y, xDomain, xScale, yScale, xRange, yRange, custom } = getContext('LayerCake');
+    	validate_store(custom, 'custom');
+    	component_subscribe($$self, custom, value => $$invalidate(2, $custom = value));
+    	const writable_props = [];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<LongitudinalAnnotationLayer> was created with unknown prop '${key}'`);
+    	});
+
+    	$$self.$capture_state = () => ({
+    		getContext,
+    		fade,
+    		data,
+    		x,
+    		y,
+    		xDomain,
+    		xScale,
+    		yScale,
+    		xRange,
+    		yRange,
+    		custom,
+    		show_longitudinal_annotation_layer,
+    		$custom
+    	});
+
+    	$$self.$inject_state = $$props => {
+    		if ('show_longitudinal_annotation_layer' in $$props) $$invalidate(0, show_longitudinal_annotation_layer = $$props.show_longitudinal_annotation_layer);
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	$$self.$$.update = () => {
+    		if ($$self.$$.dirty & /*$custom*/ 4) {
+    			 $$invalidate(0, show_longitudinal_annotation_layer = $custom.longitudinal_annotation_layer);
+    		}
+    	};
+
+    	return [show_longitudinal_annotation_layer, custom, $custom];
+    }
+
+    class LongitudinalAnnotationLayer extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$o, create_fragment$o, safe_not_equal, {});
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "LongitudinalAnnotationLayer",
+    			options,
+    			id: create_fragment$o.name
+    		});
+    	}
+    }
+
     /* libs\@onsvisual\svelte-charts\src\charts\LineChart.svelte generated by Svelte v3.44.1 */
 
     const { console: console_1$4 } = globals;
-    const file$n = "libs\\@onsvisual\\svelte-charts\\src\\charts\\LineChart.svelte";
+    const file$o = "libs\\@onsvisual\\svelte-charts\\src\\charts\\LineChart.svelte";
     const get_front_slot_changes = dirty => ({});
     const get_front_slot_context = ctx => ({});
     const get_svg_slot_changes = dirty => ({});
@@ -15101,7 +15365,7 @@ var app = (function () {
     const get_options_slot_changes = dirty => ({});
     const get_options_slot_context = ctx => ({});
 
-    // (164:0) {#if title}
+    // (166:0) {#if title}
     function create_if_block_8(ctx) {
     	let title_1;
     	let current;
@@ -15125,7 +15389,7 @@ var app = (function () {
     		p: function update(ctx, dirty) {
     			const title_1_changes = {};
 
-    			if (dirty[0] & /*title*/ 131072 | dirty[1] & /*$$scope*/ 1073741824) {
+    			if (dirty[0] & /*title*/ 131072 | dirty[2] & /*$$scope*/ 1) {
     				title_1_changes.$$scope = { dirty, ctx };
     			}
 
@@ -15149,14 +15413,14 @@ var app = (function () {
     		block,
     		id: create_if_block_8.name,
     		type: "if",
-    		source: "(164:0) {#if title}",
+    		source: "(166:0) {#if title}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (165:2) <Title>
+    // (167:2) <Title>
     function create_default_slot_4(ctx) {
     	let t;
 
@@ -15179,23 +15443,23 @@ var app = (function () {
     		block,
     		id: create_default_slot_4.name,
     		type: "slot",
-    		source: "(165:2) <Title>",
+    		source: "(167:2) <Title>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (203:4) {#if width > 80}
+    // (206:4) {#if width > 80}
     function create_if_block_2$2(ctx) {
     	let t0;
     	let svg;
     	let t1;
-    	let html;
     	let t2;
+    	let html;
     	let current;
-    	const back_slot_template = /*#slots*/ ctx[56].back;
-    	const back_slot = create_slot(back_slot_template, ctx, /*$$scope*/ ctx[61], get_back_slot_context);
+    	const back_slot_template = /*#slots*/ ctx[57].back;
+    	const back_slot = create_slot(back_slot_template, ctx, /*$$scope*/ ctx[62], get_back_slot_context);
 
     	svg = new Svg({
     			props: {
@@ -15206,6 +15470,9 @@ var app = (function () {
     			$$inline: true
     		});
 
+    	const front_slot_template = /*#slots*/ ctx[57].front;
+    	const front_slot = create_slot(front_slot_template, ctx, /*$$scope*/ ctx[62], get_front_slot_context);
+
     	html = new Html({
     			props: {
     				$$slots: { default: [create_default_slot_2] },
@@ -15214,18 +15481,15 @@ var app = (function () {
     			$$inline: true
     		});
 
-    	const front_slot_template = /*#slots*/ ctx[56].front;
-    	const front_slot = create_slot(front_slot_template, ctx, /*$$scope*/ ctx[61], get_front_slot_context);
-
     	const block = {
     		c: function create() {
     			if (back_slot) back_slot.c();
     			t0 = space();
     			create_component(svg.$$.fragment);
     			t1 = space();
-    			create_component(html.$$.fragment);
-    			t2 = space();
     			if (front_slot) front_slot.c();
+    			t2 = space();
+    			create_component(html.$$.fragment);
     		},
     		m: function mount(target, anchor) {
     			if (back_slot) {
@@ -15235,26 +15499,26 @@ var app = (function () {
     			insert_dev(target, t0, anchor);
     			mount_component(svg, target, anchor);
     			insert_dev(target, t1, anchor);
-    			mount_component(html, target, anchor);
-    			insert_dev(target, t2, anchor);
 
     			if (front_slot) {
     				front_slot.m(target, anchor);
     			}
 
+    			insert_dev(target, t2, anchor);
+    			mount_component(html, target, anchor);
     			current = true;
     		},
     		p: function update(ctx, dirty) {
     			if (back_slot) {
-    				if (back_slot.p && (!current || dirty[1] & /*$$scope*/ 1073741824)) {
+    				if (back_slot.p && (!current || dirty[2] & /*$$scope*/ 1)) {
     					update_slot_base(
     						back_slot,
     						back_slot_template,
     						ctx,
-    						/*$$scope*/ ctx[61],
+    						/*$$scope*/ ctx[62],
     						!current
-    						? get_all_dirty_from_scope(/*$$scope*/ ctx[61])
-    						: get_slot_changes(back_slot_template, /*$$scope*/ ctx[61], dirty, get_back_slot_changes),
+    						? get_all_dirty_from_scope(/*$$scope*/ ctx[62])
+    						: get_slot_changes(back_slot_template, /*$$scope*/ ctx[62], dirty, get_back_slot_changes),
     						get_back_slot_context
     					);
     				}
@@ -15263,47 +15527,48 @@ var app = (function () {
     			const svg_changes = {};
     			if (dirty[0] & /*interactive*/ 536870912) svg_changes.pointerEvents = /*interactive*/ ctx[29];
 
-    			if (dirty[0] & /*hovered, selected, labels, lineWidth, line, mode, areaOpacity, area, yTicks, yFormatTick, yAxis, xTicks, snapTicks, xPrefix, xAxis*/ 1408364547 | dirty[1] & /*$$scope, select, hover, highlighted, yPrefix, ySuffix, xSuffix*/ 1073741999) {
+    			if (dirty[0] & /*hovered, selected, labels, lineWidth, line, mode, areaOpacity, area, yTicks, yFormatTick, yAxis, xTicks, snapTicks, xPrefix, xAxis*/ 1408364547 | dirty[1] & /*select, hover, highlighted, yPrefix, ySuffix, xSuffix*/ 175 | dirty[2] & /*$$scope*/ 1) {
     				svg_changes.$$scope = { dirty, ctx };
     			}
 
     			svg.$set(svg_changes);
-    			const html_changes = {};
-
-    			if (dirty[1] & /*$$scope*/ 1073741824) {
-    				html_changes.$$scope = { dirty, ctx };
-    			}
-
-    			html.$set(html_changes);
 
     			if (front_slot) {
-    				if (front_slot.p && (!current || dirty[1] & /*$$scope*/ 1073741824)) {
+    				if (front_slot.p && (!current || dirty[2] & /*$$scope*/ 1)) {
     					update_slot_base(
     						front_slot,
     						front_slot_template,
     						ctx,
-    						/*$$scope*/ ctx[61],
+    						/*$$scope*/ ctx[62],
     						!current
-    						? get_all_dirty_from_scope(/*$$scope*/ ctx[61])
-    						: get_slot_changes(front_slot_template, /*$$scope*/ ctx[61], dirty, get_front_slot_changes),
+    						? get_all_dirty_from_scope(/*$$scope*/ ctx[62])
+    						: get_slot_changes(front_slot_template, /*$$scope*/ ctx[62], dirty, get_front_slot_changes),
     						get_front_slot_context
     					);
     				}
     			}
+
+    			const html_changes = {};
+
+    			if (dirty[2] & /*$$scope*/ 1) {
+    				html_changes.$$scope = { dirty, ctx };
+    			}
+
+    			html.$set(html_changes);
     		},
     		i: function intro(local) {
     			if (current) return;
     			transition_in(back_slot, local);
     			transition_in(svg.$$.fragment, local);
-    			transition_in(html.$$.fragment, local);
     			transition_in(front_slot, local);
+    			transition_in(html.$$.fragment, local);
     			current = true;
     		},
     		o: function outro(local) {
     			transition_out(back_slot, local);
     			transition_out(svg.$$.fragment, local);
-    			transition_out(html.$$.fragment, local);
     			transition_out(front_slot, local);
+    			transition_out(html.$$.fragment, local);
     			current = false;
     		},
     		d: function destroy(detaching) {
@@ -15311,9 +15576,9 @@ var app = (function () {
     			if (detaching) detach_dev(t0);
     			destroy_component(svg, detaching);
     			if (detaching) detach_dev(t1);
-    			destroy_component(html, detaching);
-    			if (detaching) detach_dev(t2);
     			if (front_slot) front_slot.d(detaching);
+    			if (detaching) detach_dev(t2);
+    			destroy_component(html, detaching);
     		}
     	};
 
@@ -15321,14 +15586,14 @@ var app = (function () {
     		block,
     		id: create_if_block_2$2.name,
     		type: "if",
-    		source: "(203:4) {#if width > 80}",
+    		source: "(206:4) {#if width > 80}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (208:8) {#if xAxis}
+    // (211:8) {#if xAxis}
     function create_if_block_7(ctx) {
     	let axisx;
     	let current;
@@ -15377,14 +15642,14 @@ var app = (function () {
     		block,
     		id: create_if_block_7.name,
     		type: "if",
-    		source: "(208:8) {#if xAxis}",
+    		source: "(211:8) {#if xAxis}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (211:8) {#if yAxis}
+    // (214:8) {#if yAxis}
     function create_if_block_6(ctx) {
     	let axisy;
     	let current;
@@ -15433,14 +15698,14 @@ var app = (function () {
     		block,
     		id: create_if_block_6.name,
     		type: "if",
-    		source: "(211:8) {#if yAxis}",
+    		source: "(214:8) {#if yAxis}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (219:8) {#if area}
+    // (222:8) {#if area}
     function create_if_block_5(ctx) {
     	let area_1;
     	let current;
@@ -15485,14 +15750,14 @@ var app = (function () {
     		block,
     		id: create_if_block_5.name,
     		type: "if",
-    		source: "(219:8) {#if area}",
+    		source: "(222:8) {#if area}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (222:8) {#if line}
+    // (225:8) {#if line}
     function create_if_block_4$1(ctx) {
     	let line_1;
     	let updating_selected;
@@ -15500,11 +15765,11 @@ var app = (function () {
     	let current;
 
     	function line_1_selected_binding(value) {
-    		/*line_1_selected_binding*/ ctx[57](value);
+    		/*line_1_selected_binding*/ ctx[58](value);
     	}
 
     	function line_1_hovered_binding(value) {
-    		/*line_1_hovered_binding*/ ctx[58](value);
+    		/*line_1_hovered_binding*/ ctx[59](value);
     	}
 
     	let line_1_props = {
@@ -15525,8 +15790,8 @@ var app = (function () {
     	line_1 = new Line({ props: line_1_props, $$inline: true });
     	binding_callbacks.push(() => bind(line_1, 'selected', line_1_selected_binding));
     	binding_callbacks.push(() => bind(line_1, 'hovered', line_1_hovered_binding));
-    	line_1.$on("hover", /*hover_handler*/ ctx[59]);
-    	line_1.$on("select", /*select_handler*/ ctx[60]);
+    	line_1.$on("hover", /*hover_handler*/ ctx[60]);
+    	line_1.$on("select", /*select_handler*/ ctx[61]);
 
     	const block = {
     		c: function create() {
@@ -15575,14 +15840,14 @@ var app = (function () {
     		block,
     		id: create_if_block_4$1.name,
     		type: "if",
-    		source: "(222:8) {#if line}",
+    		source: "(225:8) {#if line}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (234:8) {#if labels}
+    // (237:8) {#if labels}
     function create_if_block_3$1(ctx) {
     	let labels_1;
     	let current;
@@ -15627,14 +15892,14 @@ var app = (function () {
     		block,
     		id: create_if_block_3$1.name,
     		type: "if",
-    		source: "(234:8) {#if labels}",
+    		source: "(237:8) {#if labels}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (207:6) <Svg pointerEvents={interactive}>
+    // (210:6) <Svg pointerEvents={interactive}>
     function create_default_slot_3(ctx) {
     	let t0;
     	let t1;
@@ -15647,8 +15912,8 @@ var app = (function () {
     	let if_block2 = /*area*/ ctx[23] && create_if_block_5(ctx);
     	let if_block3 = /*line*/ ctx[22] && create_if_block_4$1(ctx);
     	let if_block4 = /*labels*/ ctx[20] && create_if_block_3$1(ctx);
-    	const svg_slot_template = /*#slots*/ ctx[56].svg;
-    	const svg_slot = create_slot(svg_slot_template, ctx, /*$$scope*/ ctx[61], get_svg_slot_context);
+    	const svg_slot_template = /*#slots*/ ctx[57].svg;
+    	const svg_slot = create_slot(svg_slot_template, ctx, /*$$scope*/ ctx[62], get_svg_slot_context);
 
     	const block = {
     		c: function create() {
@@ -15799,15 +16064,15 @@ var app = (function () {
     			}
 
     			if (svg_slot) {
-    				if (svg_slot.p && (!current || dirty[1] & /*$$scope*/ 1073741824)) {
+    				if (svg_slot.p && (!current || dirty[2] & /*$$scope*/ 1)) {
     					update_slot_base(
     						svg_slot,
     						svg_slot_template,
     						ctx,
-    						/*$$scope*/ ctx[61],
+    						/*$$scope*/ ctx[62],
     						!current
-    						? get_all_dirty_from_scope(/*$$scope*/ ctx[61])
-    						: get_slot_changes(svg_slot_template, /*$$scope*/ ctx[61], dirty, get_svg_slot_changes),
+    						? get_all_dirty_from_scope(/*$$scope*/ ctx[62])
+    						: get_slot_changes(svg_slot_template, /*$$scope*/ ctx[62], dirty, get_svg_slot_changes),
     						get_svg_slot_context
     					);
     				}
@@ -15851,38 +16116,49 @@ var app = (function () {
     		block,
     		id: create_default_slot_3.name,
     		type: "slot",
-    		source: "(207:6) <Svg pointerEvents={interactive}>",
+    		source: "(210:6) <Svg pointerEvents={interactive}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (239:6) <Html>
+    // (244:6) <Html>
     function create_default_slot_2(ctx) {
     	let labelshtml;
+    	let t;
+    	let longitudinalannotationlayer;
     	let current;
     	labelshtml = new Labels_html({ $$inline: true });
+    	longitudinalannotationlayer = new LongitudinalAnnotationLayer({ $$inline: true });
 
     	const block = {
     		c: function create() {
     			create_component(labelshtml.$$.fragment);
+    			t = space();
+    			create_component(longitudinalannotationlayer.$$.fragment);
     		},
     		m: function mount(target, anchor) {
     			mount_component(labelshtml, target, anchor);
+    			insert_dev(target, t, anchor);
+    			mount_component(longitudinalannotationlayer, target, anchor);
     			current = true;
     		},
     		i: function intro(local) {
     			if (current) return;
     			transition_in(labelshtml.$$.fragment, local);
+    			transition_in(longitudinalannotationlayer.$$.fragment, local);
     			current = true;
     		},
     		o: function outro(local) {
     			transition_out(labelshtml.$$.fragment, local);
+    			transition_out(longitudinalannotationlayer.$$.fragment, local);
     			current = false;
     		},
     		d: function destroy(detaching) {
     			destroy_component(labelshtml, detaching);
+    			if (detaching) detach_dev(t);
+    			destroy_component(longitudinalannotationlayer, detaching);
     		}
     	};
 
@@ -15890,18 +16166,18 @@ var app = (function () {
     		block,
     		id: create_default_slot_2.name,
     		type: "slot",
-    		source: "(239:6) <Html>",
+    		source: "(244:6) <Html>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (172:2) <LayerCake      {padding}      x={xKey}      y={yKey}      z={zKey}      xDomain={$xDomain}      yDomain={$yDomain}      yScale={yScale == 'log' ? scaleSymlog() : scaleLinear()}      zScale={scaleOrdinal()}      {zDomain}      zRange={colors}      data={groupedData}      flatData={data}      custom={{        type: 'line',        mode,        idKey,        labelKey,        coords,        colorSelect,        colorHover,        colorHighlight,        animation,        duration,        groups_all: groups_all,        groups_selected: groups_selected,        groups_to_label: groups_to_label,        step: step,      }}      let:width    >
+    // (174:2) <LayerCake      {padding}      x={xKey}      y={yKey}      z={zKey}      xDomain={$xDomain}      yDomain={$yDomain}      yScale={yScale == 'log' ? scaleSymlog() : scaleLinear()}      zScale={scaleOrdinal()}      {zDomain}      zRange={colors}      data={groupedData}      flatData={data}      custom={{        type: 'line',        mode,        idKey,        labelKey,        coords,        colorSelect,        colorHover,        colorHighlight,        animation,        duration,        groups_all: groups_all,        groups_selected: groups_selected,        groups_to_label: groups_to_label,        step: step,        longitudinal_annotation_layer: longitudinal_annotation_layer,      }}      let:width    >
     function create_default_slot_1(ctx) {
     	let if_block_anchor;
     	let current;
-    	let if_block = /*width*/ ctx[71] > 80 && create_if_block_2$2(ctx);
+    	let if_block = /*width*/ ctx[72] > 80 && create_if_block_2$2(ctx);
 
     	const block = {
     		c: function create() {
@@ -15914,11 +16190,11 @@ var app = (function () {
     			current = true;
     		},
     		p: function update(ctx, dirty) {
-    			if (/*width*/ ctx[71] > 80) {
+    			if (/*width*/ ctx[72] > 80) {
     				if (if_block) {
     					if_block.p(ctx, dirty);
 
-    					if (dirty[2] & /*width*/ 512) {
+    					if (dirty[2] & /*width*/ 1024) {
     						transition_in(if_block, 1);
     					}
     				} else {
@@ -15956,21 +16232,21 @@ var app = (function () {
     		block,
     		id: create_default_slot_1.name,
     		type: "slot",
-    		source: "(172:2) <LayerCake      {padding}      x={xKey}      y={yKey}      z={zKey}      xDomain={$xDomain}      yDomain={$yDomain}      yScale={yScale == 'log' ? scaleSymlog() : scaleLinear()}      zScale={scaleOrdinal()}      {zDomain}      zRange={colors}      data={groupedData}      flatData={data}      custom={{        type: 'line',        mode,        idKey,        labelKey,        coords,        colorSelect,        colorHover,        colorHighlight,        animation,        duration,        groups_all: groups_all,        groups_selected: groups_selected,        groups_to_label: groups_to_label,        step: step,      }}      let:width    >",
+    		source: "(174:2) <LayerCake      {padding}      x={xKey}      y={yKey}      z={zKey}      xDomain={$xDomain}      yDomain={$yDomain}      yScale={yScale == 'log' ? scaleSymlog() : scaleLinear()}      zScale={scaleOrdinal()}      {zDomain}      zRange={colors}      data={groupedData}      flatData={data}      custom={{        type: 'line',        mode,        idKey,        labelKey,        coords,        colorSelect,        colorHover,        colorHighlight,        animation,        duration,        groups_all: groups_all,        groups_selected: groups_selected,        groups_to_label: groups_to_label,        step: step,        longitudinal_annotation_layer: longitudinal_annotation_layer,      }}      let:width    >",
     		ctx
     	});
 
     	return block;
     }
 
-    // (246:0) {#if legend && zDomain}
+    // (251:0) {#if legend && zDomain}
     function create_if_block_1$6(ctx) {
     	let legend_1;
     	let current;
 
     	legend_1 = new Legend({
     			props: {
-    				domain: /*zDomain*/ ctx[44],
+    				domain: /*zDomain*/ ctx[45],
     				colors: /*colors*/ ctx[27],
     				line: /*line*/ ctx[22],
     				markerWidth: /*lineWidth*/ ctx[28]
@@ -15988,7 +16264,7 @@ var app = (function () {
     		},
     		p: function update(ctx, dirty) {
     			const legend_1_changes = {};
-    			if (dirty[1] & /*zDomain*/ 8192) legend_1_changes.domain = /*zDomain*/ ctx[44];
+    			if (dirty[1] & /*zDomain*/ 16384) legend_1_changes.domain = /*zDomain*/ ctx[45];
     			if (dirty[0] & /*colors*/ 134217728) legend_1_changes.colors = /*colors*/ ctx[27];
     			if (dirty[0] & /*line*/ 4194304) legend_1_changes.line = /*line*/ ctx[22];
     			if (dirty[0] & /*lineWidth*/ 268435456) legend_1_changes.markerWidth = /*lineWidth*/ ctx[28];
@@ -16012,15 +16288,15 @@ var app = (function () {
     		block,
     		id: create_if_block_1$6.name,
     		type: "if",
-    		source: "(246:0) {#if legend && zDomain}",
+    		source: "(251:0) {#if legend && zDomain}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (249:0) {#if footer}
-    function create_if_block$c(ctx) {
+    // (254:0) {#if footer}
+    function create_if_block$d(ctx) {
     	let footer_1;
     	let current;
 
@@ -16043,7 +16319,7 @@ var app = (function () {
     		p: function update(ctx, dirty) {
     			const footer_1_changes = {};
 
-    			if (dirty[0] & /*footer*/ 262144 | dirty[1] & /*$$scope*/ 1073741824) {
+    			if (dirty[0] & /*footer*/ 262144 | dirty[2] & /*$$scope*/ 1) {
     				footer_1_changes.$$scope = { dirty, ctx };
     			}
 
@@ -16065,16 +16341,16 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block$c.name,
+    		id: create_if_block$d.name,
     		type: "if",
-    		source: "(249:0) {#if footer}",
+    		source: "(254:0) {#if footer}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (250:2) <Footer>
+    // (255:2) <Footer>
     function create_default_slot(ctx) {
     	let t;
 
@@ -16097,14 +16373,14 @@ var app = (function () {
     		block,
     		id: create_default_slot.name,
     		type: "slot",
-    		source: "(250:2) <Footer>",
+    		source: "(255:2) <Footer>",
     		ctx
     	});
 
     	return block;
     }
 
-    function create_fragment$o(ctx) {
+    function create_fragment$p(ctx) {
     	let t0;
     	let t1;
     	let div;
@@ -16114,8 +16390,8 @@ var app = (function () {
     	let if_block2_anchor;
     	let current;
     	let if_block0 = /*title*/ ctx[17] && create_if_block_8(ctx);
-    	const options_slot_template = /*#slots*/ ctx[56].options;
-    	const options_slot = create_slot(options_slot_template, ctx, /*$$scope*/ ctx[61], get_options_slot_context);
+    	const options_slot_template = /*#slots*/ ctx[57].options;
+    	const options_slot = create_slot(options_slot_template, ctx, /*$$scope*/ ctx[62], get_options_slot_context);
 
     	layercake = new LayerCake({
     			props: {
@@ -16123,22 +16399,22 @@ var app = (function () {
     				x: /*xKey*/ ctx[6],
     				y: /*yKey*/ ctx[7],
     				z: /*zKey*/ ctx[8],
-    				xDomain: /*$xDomain*/ ctx[46],
-    				yDomain: /*$yDomain*/ ctx[47],
+    				xDomain: /*$xDomain*/ ctx[47],
+    				yDomain: /*$yDomain*/ ctx[48],
     				yScale: /*yScale*/ ctx[11] == 'log'
     				? symlog$1()
     				: linear$2(),
     				zScale: ordinal(),
-    				zDomain: /*zDomain*/ ctx[44],
+    				zDomain: /*zDomain*/ ctx[45],
     				zRange: /*colors*/ ctx[27],
-    				data: /*groupedData*/ ctx[45],
+    				data: /*groupedData*/ ctx[46],
     				flatData: /*data*/ ctx[2],
     				custom: {
     					type: 'line',
     					mode: /*mode*/ ctx[24],
     					idKey: /*idKey*/ ctx[9],
     					labelKey: /*labelKey*/ ctx[10],
-    					coords: /*coords*/ ctx[48],
+    					coords: /*coords*/ ctx[49],
     					colorSelect: /*colorSelect*/ ctx[37],
     					colorHover: /*colorHover*/ ctx[35],
     					colorHighlight: /*colorHighlight*/ ctx[39],
@@ -16147,13 +16423,14 @@ var app = (function () {
     					groups_all: /*groups_all*/ ctx[40],
     					groups_selected: /*groups_selected*/ ctx[41],
     					groups_to_label: /*groups_to_label*/ ctx[42],
-    					step: /*step*/ ctx[43]
+    					step: /*step*/ ctx[43],
+    					longitudinal_annotation_layer: /*longitudinal_annotation_layer*/ ctx[44]
     				},
     				$$slots: {
     					default: [
     						create_default_slot_1,
-    						({ width }) => ({ 71: width }),
-    						({ width }) => [0, 0, width ? 512 : 0]
+    						({ width }) => ({ 72: width }),
+    						({ width }) => [0, 0, width ? 1024 : 0]
     					]
     				},
     				$$scope: { ctx }
@@ -16161,8 +16438,8 @@ var app = (function () {
     			$$inline: true
     		});
 
-    	let if_block1 = /*legend*/ ctx[19] && /*zDomain*/ ctx[44] && create_if_block_1$6(ctx);
-    	let if_block2 = /*footer*/ ctx[18] && create_if_block$c(ctx);
+    	let if_block1 = /*legend*/ ctx[19] && /*zDomain*/ ctx[45] && create_if_block_1$6(ctx);
+    	let if_block2 = /*footer*/ ctx[18] && create_if_block$d(ctx);
 
     	const block = {
     		c: function create() {
@@ -16183,7 +16460,7 @@ var app = (function () {
     			? /*height*/ ctx[3] + 'px'
     			: /*height*/ ctx[3]);
 
-    			add_location(div, file$n, 167, 0, 5306);
+    			add_location(div, file$o, 169, 0, 5441);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -16231,15 +16508,15 @@ var app = (function () {
     			}
 
     			if (options_slot) {
-    				if (options_slot.p && (!current || dirty[1] & /*$$scope*/ 1073741824)) {
+    				if (options_slot.p && (!current || dirty[2] & /*$$scope*/ 1)) {
     					update_slot_base(
     						options_slot,
     						options_slot_template,
     						ctx,
-    						/*$$scope*/ ctx[61],
+    						/*$$scope*/ ctx[62],
     						!current
-    						? get_all_dirty_from_scope(/*$$scope*/ ctx[61])
-    						: get_slot_changes(options_slot_template, /*$$scope*/ ctx[61], dirty, get_options_slot_changes),
+    						? get_all_dirty_from_scope(/*$$scope*/ ctx[62])
+    						: get_slot_changes(options_slot_template, /*$$scope*/ ctx[62], dirty, get_options_slot_changes),
     						get_options_slot_context
     					);
     				}
@@ -16250,24 +16527,24 @@ var app = (function () {
     			if (dirty[0] & /*xKey*/ 64) layercake_changes.x = /*xKey*/ ctx[6];
     			if (dirty[0] & /*yKey*/ 128) layercake_changes.y = /*yKey*/ ctx[7];
     			if (dirty[0] & /*zKey*/ 256) layercake_changes.z = /*zKey*/ ctx[8];
-    			if (dirty[1] & /*$xDomain*/ 32768) layercake_changes.xDomain = /*$xDomain*/ ctx[46];
-    			if (dirty[1] & /*$yDomain*/ 65536) layercake_changes.yDomain = /*$yDomain*/ ctx[47];
+    			if (dirty[1] & /*$xDomain*/ 65536) layercake_changes.xDomain = /*$xDomain*/ ctx[47];
+    			if (dirty[1] & /*$yDomain*/ 131072) layercake_changes.yDomain = /*$yDomain*/ ctx[48];
 
     			if (dirty[0] & /*yScale*/ 2048) layercake_changes.yScale = /*yScale*/ ctx[11] == 'log'
     			? symlog$1()
     			: linear$2();
 
-    			if (dirty[1] & /*zDomain*/ 8192) layercake_changes.zDomain = /*zDomain*/ ctx[44];
+    			if (dirty[1] & /*zDomain*/ 16384) layercake_changes.zDomain = /*zDomain*/ ctx[45];
     			if (dirty[0] & /*colors*/ 134217728) layercake_changes.zRange = /*colors*/ ctx[27];
-    			if (dirty[1] & /*groupedData*/ 16384) layercake_changes.data = /*groupedData*/ ctx[45];
+    			if (dirty[1] & /*groupedData*/ 32768) layercake_changes.data = /*groupedData*/ ctx[46];
     			if (dirty[0] & /*data*/ 4) layercake_changes.flatData = /*data*/ ctx[2];
 
-    			if (dirty[0] & /*mode, idKey, labelKey, animation, duration*/ 16778800 | dirty[1] & /*colorSelect, colorHover, colorHighlight, groups_all, groups_selected, groups_to_label, step*/ 8016) layercake_changes.custom = {
+    			if (dirty[0] & /*mode, idKey, labelKey, animation, duration*/ 16778800 | dirty[1] & /*colorSelect, colorHover, colorHighlight, groups_all, groups_selected, groups_to_label, step, longitudinal_annotation_layer*/ 16208) layercake_changes.custom = {
     				type: 'line',
     				mode: /*mode*/ ctx[24],
     				idKey: /*idKey*/ ctx[9],
     				labelKey: /*labelKey*/ ctx[10],
-    				coords: /*coords*/ ctx[48],
+    				coords: /*coords*/ ctx[49],
     				colorSelect: /*colorSelect*/ ctx[37],
     				colorHover: /*colorHover*/ ctx[35],
     				colorHighlight: /*colorHighlight*/ ctx[39],
@@ -16276,10 +16553,11 @@ var app = (function () {
     				groups_all: /*groups_all*/ ctx[40],
     				groups_selected: /*groups_selected*/ ctx[41],
     				groups_to_label: /*groups_to_label*/ ctx[42],
-    				step: /*step*/ ctx[43]
+    				step: /*step*/ ctx[43],
+    				longitudinal_annotation_layer: /*longitudinal_annotation_layer*/ ctx[44]
     			};
 
-    			if (dirty[0] & /*interactive, hovered, selected, labels, lineWidth, line, mode, areaOpacity, area, yTicks, yFormatTick, yAxis, xTicks, snapTicks, xPrefix, xAxis*/ 1945235459 | dirty[1] & /*$$scope, select, hover, highlighted, yPrefix, ySuffix, xSuffix*/ 1073741999 | dirty[2] & /*width*/ 512) {
+    			if (dirty[0] & /*interactive, hovered, selected, labels, lineWidth, line, mode, areaOpacity, area, yTicks, yFormatTick, yAxis, xTicks, snapTicks, xPrefix, xAxis*/ 1945235459 | dirty[1] & /*select, hover, highlighted, yPrefix, ySuffix, xSuffix*/ 175 | dirty[2] & /*$$scope, width*/ 1025) {
     				layercake_changes.$$scope = { dirty, ctx };
     			}
 
@@ -16291,11 +16569,11 @@ var app = (function () {
     				: /*height*/ ctx[3]);
     			}
 
-    			if (/*legend*/ ctx[19] && /*zDomain*/ ctx[44]) {
+    			if (/*legend*/ ctx[19] && /*zDomain*/ ctx[45]) {
     				if (if_block1) {
     					if_block1.p(ctx, dirty);
 
-    					if (dirty[0] & /*legend*/ 524288 | dirty[1] & /*zDomain*/ 8192) {
+    					if (dirty[0] & /*legend*/ 524288 | dirty[1] & /*zDomain*/ 16384) {
     						transition_in(if_block1, 1);
     					}
     				} else {
@@ -16322,7 +16600,7 @@ var app = (function () {
     						transition_in(if_block2, 1);
     					}
     				} else {
-    					if_block2 = create_if_block$c(ctx);
+    					if_block2 = create_if_block$d(ctx);
     					if_block2.c();
     					transition_in(if_block2, 1);
     					if_block2.m(if_block2_anchor.parentNode, if_block2_anchor);
@@ -16371,7 +16649,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$o.name,
+    		id: create_fragment$p.name,
     		type: "component",
     		source: "",
     		ctx
@@ -16380,7 +16658,7 @@ var app = (function () {
     	return block;
     }
 
-    function instance$o($$self, $$props, $$invalidate) {
+    function instance$p($$self, $$props, $$invalidate) {
     	let zDomain;
     	let groupedData;
     	let $xDomain;
@@ -16450,6 +16728,7 @@ var app = (function () {
     	let { groups_selected } = $$props;
     	let { groups_to_label } = $$props;
     	let { step } = $$props;
+    	let { longitudinal_annotation_layer } = $$props;
     	const tweenOptions = { duration, easing: cubicInOut };
     	const coords = tweened(undefined, tweenOptions);
     	const distinct = (d, i, arr) => arr.indexOf(d) == i;
@@ -16492,7 +16771,7 @@ var app = (function () {
     	let xDom = xDomSet(data, mode, xKey, xMin, xMax);
     	const xDomain = tweened(xDom, tweenOptions);
     	validate_store(xDomain, 'xDomain');
-    	component_subscribe($$self, xDomain, value => $$invalidate(46, $xDomain = value));
+    	component_subscribe($$self, xDomain, value => $$invalidate(47, $xDomain = value));
 
     	// # ============================================================================ #
     	// #   yDomain updates
@@ -16517,7 +16796,7 @@ var app = (function () {
     	let yDom = yDomSet(data, mode, yKey, yMax);
     	const yDomain = tweened(yDom, tweenOptions);
     	validate_store(yDomain, 'yDomain');
-    	component_subscribe($$self, yDomain, value => $$invalidate(47, $yDomain = value));
+    	component_subscribe($$self, yDomain, value => $$invalidate(48, $yDomain = value));
 
     	const writable_props = [
     		'data',
@@ -16568,7 +16847,8 @@ var app = (function () {
     		'groups_all',
     		'groups_selected',
     		'groups_to_label',
-    		'step'
+    		'step',
+    		'longitudinal_annotation_layer'
     	];
 
     	Object.keys($$props).forEach(key => {
@@ -16605,10 +16885,10 @@ var app = (function () {
     		if ('labelKey' in $$props) $$invalidate(10, labelKey = $$props.labelKey);
     		if ('yScale' in $$props) $$invalidate(11, yScale = $$props.yScale);
     		if ('yFormatTick' in $$props) $$invalidate(12, yFormatTick = $$props.yFormatTick);
-    		if ('yMax' in $$props) $$invalidate(51, yMax = $$props.yMax);
-    		if ('yMin' in $$props) $$invalidate(52, yMin = $$props.yMin);
-    		if ('xMax' in $$props) $$invalidate(53, xMax = $$props.xMax);
-    		if ('xMin' in $$props) $$invalidate(54, xMin = $$props.xMin);
+    		if ('yMax' in $$props) $$invalidate(52, yMax = $$props.yMax);
+    		if ('yMin' in $$props) $$invalidate(53, yMin = $$props.yMin);
+    		if ('xMax' in $$props) $$invalidate(54, xMax = $$props.xMax);
+    		if ('xMin' in $$props) $$invalidate(55, xMin = $$props.xMin);
     		if ('xAxis' in $$props) $$invalidate(13, xAxis = $$props.xAxis);
     		if ('yAxis' in $$props) $$invalidate(14, yAxis = $$props.yAxis);
     		if ('xTicks' in $$props) $$invalidate(15, xTicks = $$props.xTicks);
@@ -16623,7 +16903,7 @@ var app = (function () {
     		if ('mode' in $$props) $$invalidate(24, mode = $$props.mode);
     		if ('areaOpacity' in $$props) $$invalidate(25, areaOpacity = $$props.areaOpacity);
     		if ('padding' in $$props) $$invalidate(26, padding = $$props.padding);
-    		if ('color' in $$props) $$invalidate(55, color = $$props.color);
+    		if ('color' in $$props) $$invalidate(56, color = $$props.color);
     		if ('colors' in $$props) $$invalidate(27, colors = $$props.colors);
     		if ('lineWidth' in $$props) $$invalidate(28, lineWidth = $$props.lineWidth);
     		if ('interactive' in $$props) $$invalidate(29, interactive = $$props.interactive);
@@ -16643,7 +16923,8 @@ var app = (function () {
     		if ('groups_selected' in $$props) $$invalidate(41, groups_selected = $$props.groups_selected);
     		if ('groups_to_label' in $$props) $$invalidate(42, groups_to_label = $$props.groups_to_label);
     		if ('step' in $$props) $$invalidate(43, step = $$props.step);
-    		if ('$$scope' in $$props) $$invalidate(61, $$scope = $$props.$$scope);
+    		if ('longitudinal_annotation_layer' in $$props) $$invalidate(44, longitudinal_annotation_layer = $$props.longitudinal_annotation_layer);
+    		if ('$$scope' in $$props) $$invalidate(62, $$scope = $$props.$$scope);
     	};
 
     	$$self.$capture_state = () => ({
@@ -16667,6 +16948,7 @@ var app = (function () {
     		Footer,
     		Labels,
     		LabelsHTML: Labels_html,
+    		LongitudinalAnnotationLayer,
     		data,
     		height,
     		animation,
@@ -16716,6 +16998,7 @@ var app = (function () {
     		groups_selected,
     		groups_to_label,
     		step,
+    		longitudinal_annotation_layer,
     		tweenOptions,
     		coords,
     		distinct,
@@ -16746,10 +17029,10 @@ var app = (function () {
     		if ('labelKey' in $$props) $$invalidate(10, labelKey = $$props.labelKey);
     		if ('yScale' in $$props) $$invalidate(11, yScale = $$props.yScale);
     		if ('yFormatTick' in $$props) $$invalidate(12, yFormatTick = $$props.yFormatTick);
-    		if ('yMax' in $$props) $$invalidate(51, yMax = $$props.yMax);
-    		if ('yMin' in $$props) $$invalidate(52, yMin = $$props.yMin);
-    		if ('xMax' in $$props) $$invalidate(53, xMax = $$props.xMax);
-    		if ('xMin' in $$props) $$invalidate(54, xMin = $$props.xMin);
+    		if ('yMax' in $$props) $$invalidate(52, yMax = $$props.yMax);
+    		if ('yMin' in $$props) $$invalidate(53, yMin = $$props.yMin);
+    		if ('xMax' in $$props) $$invalidate(54, xMax = $$props.xMax);
+    		if ('xMin' in $$props) $$invalidate(55, xMin = $$props.xMin);
     		if ('xAxis' in $$props) $$invalidate(13, xAxis = $$props.xAxis);
     		if ('yAxis' in $$props) $$invalidate(14, yAxis = $$props.yAxis);
     		if ('xTicks' in $$props) $$invalidate(15, xTicks = $$props.xTicks);
@@ -16764,7 +17047,7 @@ var app = (function () {
     		if ('mode' in $$props) $$invalidate(24, mode = $$props.mode);
     		if ('areaOpacity' in $$props) $$invalidate(25, areaOpacity = $$props.areaOpacity);
     		if ('padding' in $$props) $$invalidate(26, padding = $$props.padding);
-    		if ('color' in $$props) $$invalidate(55, color = $$props.color);
+    		if ('color' in $$props) $$invalidate(56, color = $$props.color);
     		if ('colors' in $$props) $$invalidate(27, colors = $$props.colors);
     		if ('lineWidth' in $$props) $$invalidate(28, lineWidth = $$props.lineWidth);
     		if ('interactive' in $$props) $$invalidate(29, interactive = $$props.interactive);
@@ -16784,10 +17067,11 @@ var app = (function () {
     		if ('groups_selected' in $$props) $$invalidate(41, groups_selected = $$props.groups_selected);
     		if ('groups_to_label' in $$props) $$invalidate(42, groups_to_label = $$props.groups_to_label);
     		if ('step' in $$props) $$invalidate(43, step = $$props.step);
+    		if ('longitudinal_annotation_layer' in $$props) $$invalidate(44, longitudinal_annotation_layer = $$props.longitudinal_annotation_layer);
     		if ('xDom' in $$props) xDom = $$props.xDom;
     		if ('yDom' in $$props) yDom = $$props.yDom;
-    		if ('zDomain' in $$props) $$invalidate(44, zDomain = $$props.zDomain);
-    		if ('groupedData' in $$props) $$invalidate(45, groupedData = $$props.groupedData);
+    		if ('zDomain' in $$props) $$invalidate(45, zDomain = $$props.zDomain);
+    		if ('groupedData' in $$props) $$invalidate(46, groupedData = $$props.groupedData);
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -16801,23 +17085,23 @@ var app = (function () {
     			}
     		}
 
-    		if ($$self.$$.dirty[0] & /*data, mode, xKey*/ 16777284 | $$self.$$.dirty[1] & /*xMin, xMax*/ 12582912) {
+    		if ($$self.$$.dirty[0] & /*data, mode, xKey*/ 16777284 | $$self.$$.dirty[1] & /*xMin, xMax*/ 25165824) {
     			 xDomUpdate(data, mode, xKey, xMin, xMax);
     		}
 
-    		if ($$self.$$.dirty[0] & /*data, mode, yKey*/ 16777348 | $$self.$$.dirty[1] & /*yMax*/ 1048576) {
+    		if ($$self.$$.dirty[0] & /*data, mode, yKey*/ 16777348 | $$self.$$.dirty[1] & /*yMax*/ 2097152) {
     			 yDomUpdate(data, mode, yKey, yMax);
     		}
 
     		if ($$self.$$.dirty[0] & /*zKey, data*/ 260) {
     			// # ============================================================================ #
     			// #   zDomain updates
-    			 $$invalidate(44, zDomain = zKey ? data.map(d => d.group).filter(distinct) : null);
+    			 $$invalidate(45, zDomain = zKey ? data.map(d => d.group).filter(distinct) : null);
     		}
 
-    		if ($$self.$$.dirty[0] & /*mode, data, yKey, zKey*/ 16777604 | $$self.$$.dirty[1] & /*zDomain*/ 8192) {
+    		if ($$self.$$.dirty[0] & /*mode, data, yKey, zKey*/ 16777604 | $$self.$$.dirty[1] & /*zDomain*/ 16384) {
     			// Create a data series for each zKey (group)
-    			 $$invalidate(45, groupedData = mode == 'stacked'
+    			 $$invalidate(46, groupedData = mode == 'stacked'
     			? stackData(data, zDomain, yKey, zKey)
     			: groupData(data, zDomain, zKey));
     		}
@@ -16868,6 +17152,7 @@ var app = (function () {
     		groups_selected,
     		groups_to_label,
     		step,
+    		longitudinal_annotation_layer,
     		zDomain,
     		groupedData,
     		$xDomain,
@@ -16896,8 +17181,8 @@ var app = (function () {
     		init(
     			this,
     			options,
-    			instance$o,
-    			create_fragment$o,
+    			instance$p,
+    			create_fragment$p,
     			safe_not_equal,
     			{
     				data: 2,
@@ -16911,10 +17196,10 @@ var app = (function () {
     				labelKey: 10,
     				yScale: 11,
     				yFormatTick: 12,
-    				yMax: 51,
-    				yMin: 52,
-    				xMax: 53,
-    				xMin: 54,
+    				yMax: 52,
+    				yMin: 53,
+    				xMax: 54,
+    				xMin: 55,
     				xAxis: 13,
     				yAxis: 14,
     				xTicks: 15,
@@ -16929,7 +17214,7 @@ var app = (function () {
     				mode: 24,
     				areaOpacity: 25,
     				padding: 26,
-    				color: 55,
+    				color: 56,
     				colors: 27,
     				lineWidth: 28,
     				interactive: 29,
@@ -16948,7 +17233,8 @@ var app = (function () {
     				groups_all: 40,
     				groups_selected: 41,
     				groups_to_label: 42,
-    				step: 43
+    				step: 43,
+    				longitudinal_annotation_layer: 44
     			},
     			null,
     			[-1, -1, -1]
@@ -16958,7 +17244,7 @@ var app = (function () {
     			component: this,
     			tagName: "LineChart",
     			options,
-    			id: create_fragment$o.name
+    			id: create_fragment$p.name
     		});
 
     		const { ctx } = this.$$;
@@ -16982,6 +17268,10 @@ var app = (function () {
 
     		if (/*step*/ ctx[43] === undefined && !('step' in props)) {
     			console_1$4.warn("<LineChart> was created without expected prop 'step'");
+    		}
+
+    		if (/*longitudinal_annotation_layer*/ ctx[44] === undefined && !('longitudinal_annotation_layer' in props)) {
+    			console_1$4.warn("<LineChart> was created without expected prop 'longitudinal_annotation_layer'");
     		}
     	}
 
@@ -17085,7 +17375,7 @@ var app = (function () {
     	}
 
     	get yMax() {
-    		return this.$$.ctx[51];
+    		return this.$$.ctx[52];
     	}
 
     	set yMax(yMax) {
@@ -17094,7 +17384,7 @@ var app = (function () {
     	}
 
     	get yMin() {
-    		return this.$$.ctx[52];
+    		return this.$$.ctx[53];
     	}
 
     	set yMin(yMin) {
@@ -17103,7 +17393,7 @@ var app = (function () {
     	}
 
     	get xMax() {
-    		return this.$$.ctx[53];
+    		return this.$$.ctx[54];
     	}
 
     	set xMax(xMax) {
@@ -17112,7 +17402,7 @@ var app = (function () {
     	}
 
     	get xMin() {
-    		return this.$$.ctx[54];
+    		return this.$$.ctx[55];
     	}
 
     	set xMin(xMin) {
@@ -17247,7 +17537,7 @@ var app = (function () {
     	}
 
     	get color() {
-    		return this.$$.ctx[55];
+    		return this.$$.ctx[56];
     	}
 
     	set color(color) {
@@ -17425,15 +17715,24 @@ var app = (function () {
     		this.$$set({ step });
     		flush();
     	}
+
+    	get longitudinal_annotation_layer() {
+    		return this.$$.ctx[44];
+    	}
+
+    	set longitudinal_annotation_layer(longitudinal_annotation_layer) {
+    		this.$$set({ longitudinal_annotation_layer });
+    		flush();
+    	}
     }
 
     /* src\App.svelte generated by Svelte v3.44.1 */
 
     const { Object: Object_1$1 } = globals;
-    const file$o = "src\\App.svelte";
+    const file$p = "src\\App.svelte";
 
-    // (242:10) {#if data && id && yMin >= 0}
-    function create_if_block$d(ctx) {
+    // (260:10) {#if data && id && yMin >= 0}
+    function create_if_block$e(ctx) {
     	let linechart;
     	let current;
 
@@ -17444,17 +17743,18 @@ var app = (function () {
     				xKey: "year",
     				area: false,
     				yKey: "value",
-    				colors: /*colors_all*/ ctx[9],
-    				groups_all: /*groups_all*/ ctx[10],
+    				colors: /*colors_all*/ ctx[10],
+    				groups_all: /*groups_all*/ ctx[11],
     				groups_selected: /*groups_selected*/ ctx[4],
     				groups_to_label: /*groups_to_label*/ ctx[5],
     				step: /*step*/ ctx[1],
     				yMin: /*yMin*/ ctx[3],
-    				yMax: /*yMax*/ ctx[7],
-    				xMax: /*xMax*/ ctx[6],
+    				yMax: /*yMax*/ ctx[8],
+    				xMax: /*xMax*/ ctx[7],
     				areaOpacity: 0.3,
-    				animation: /*animation*/ ctx[8],
-    				zKey: "group"
+    				animation: /*animation*/ ctx[9],
+    				zKey: "group",
+    				longitudinal_annotation_layer: /*longitudinal_annotation_layer*/ ctx[6]
     			},
     			$$inline: true
     		});
@@ -17474,8 +17774,9 @@ var app = (function () {
     			if (dirty & /*groups_to_label*/ 32) linechart_changes.groups_to_label = /*groups_to_label*/ ctx[5];
     			if (dirty & /*step*/ 2) linechart_changes.step = /*step*/ ctx[1];
     			if (dirty & /*yMin*/ 8) linechart_changes.yMin = /*yMin*/ ctx[3];
-    			if (dirty & /*yMax*/ 128) linechart_changes.yMax = /*yMax*/ ctx[7];
-    			if (dirty & /*xMax*/ 64) linechart_changes.xMax = /*xMax*/ ctx[6];
+    			if (dirty & /*yMax*/ 256) linechart_changes.yMax = /*yMax*/ ctx[8];
+    			if (dirty & /*xMax*/ 128) linechart_changes.xMax = /*xMax*/ ctx[7];
+    			if (dirty & /*longitudinal_annotation_layer*/ 64) linechart_changes.longitudinal_annotation_layer = /*longitudinal_annotation_layer*/ ctx[6];
     			linechart.$set(linechart_changes);
     		},
     		i: function intro(local) {
@@ -17494,23 +17795,23 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block$d.name,
+    		id: create_if_block$e.name,
     		type: "if",
-    		source: "(242:10) {#if data && id && yMin >= 0}",
+    		source: "(260:10) {#if data && id && yMin >= 0}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (238:2) 
+    // (256:2) 
     function create_background_slot(ctx) {
     	let div2;
     	let figure;
     	let div1;
     	let div0;
     	let current;
-    	let if_block = /*data*/ ctx[2] && /*id*/ ctx[0] && /*yMin*/ ctx[3] >= 0 && create_if_block$d(ctx);
+    	let if_block = /*data*/ ctx[2] && /*id*/ ctx[0] && /*yMin*/ ctx[3] >= 0 && create_if_block$e(ctx);
 
     	const block = {
     		c: function create() {
@@ -17520,12 +17821,12 @@ var app = (function () {
     			div0 = element("div");
     			if (if_block) if_block.c();
     			attr_dev(div0, "class", "chart svelte-11mmfbg");
-    			add_location(div0, file$o, 240, 8, 7398);
+    			add_location(div0, file$p, 258, 8, 8031);
     			attr_dev(div1, "class", "col-wide height-full");
-    			add_location(div1, file$o, 239, 6, 7354);
-    			add_location(figure, file$o, 238, 4, 7338);
+    			add_location(div1, file$p, 257, 6, 7987);
+    			add_location(figure, file$p, 256, 4, 7971);
     			attr_dev(div2, "slot", "background");
-    			add_location(div2, file$o, 237, 2, 7309);
+    			add_location(div2, file$p, 255, 2, 7942);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div2, anchor);
@@ -17544,7 +17845,7 @@ var app = (function () {
     						transition_in(if_block, 1);
     					}
     				} else {
-    					if_block = create_if_block$d(ctx);
+    					if_block = create_if_block$e(ctx);
     					if_block.c();
     					transition_in(if_block, 1);
     					if_block.m(div0, null);
@@ -17578,16 +17879,16 @@ var app = (function () {
     		block,
     		id: create_background_slot.name,
     		type: "slot",
-    		source: "(238:2) ",
+    		source: "(256:2) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (267:2) 
+    // (286:2) 
     function create_foreground_slot(ctx) {
-    	let div7;
+    	let div8;
     	let section0;
     	let div0;
     	let p0;
@@ -17632,10 +17933,21 @@ var app = (function () {
     	let section6;
     	let div6;
     	let p7;
+    	let t25;
+    	let section7;
+    	let div7;
+    	let p8;
+    	let t27;
+    	let ul;
+    	let li0;
+    	let t29;
+    	let li1;
+    	let t31;
+    	let li2;
 
     	const block = {
     		c: function create() {
-    			div7 = element("div");
+    			div8 = element("div");
     			section0 = element("section");
     			div0 = element("div");
     			p0 = element("p");
@@ -17688,81 +18000,108 @@ var app = (function () {
     			div6 = element("div");
     			p7 = element("p");
     			p7.textContent = "In fact after 2010, flowers prices start dropping.";
-    			add_location(strong0, file$o, 270, 31, 8148);
-    			add_location(p0, file$o, 269, 8, 8112);
+    			t25 = space();
+    			section7 = element("section");
+    			div7 = element("div");
+    			p8 = element("p");
+    			p8.textContent = "So overall we see three phases in trends in Life Expectancy";
+    			t27 = space();
+    			ul = element("ul");
+    			li0 = element("li");
+    			li0.textContent = "2000 - 1998 Increasing";
+    			t29 = space();
+    			li1 = element("li");
+    			li1.textContent = "1999 - 2009 Stagnation";
+    			t31 = space();
+    			li2 = element("li");
+    			li2.textContent = "2010 - 2018 Decreasing";
+    			add_location(strong0, file$p, 289, 31, 8828);
+    			add_location(p0, file$p, 288, 8, 8792);
     			attr_dev(div0, "class", "col-medium");
-    			add_location(div0, file$o, 268, 6, 8078);
+    			add_location(div0, file$p, 287, 6, 8758);
     			attr_dev(section0, "data-id", "chart01");
-    			add_location(section0, file$o, 267, 4, 8043);
-    			add_location(strong1, file$o, 277, 14, 8325);
-    			add_location(p1, file$o, 276, 8, 8306);
+    			add_location(section0, file$p, 286, 4, 8723);
+    			add_location(strong1, file$p, 296, 14, 9005);
+    			add_location(p1, file$p, 295, 8, 8986);
     			attr_dev(div1, "class", "col-medium");
-    			add_location(div1, file$o, 275, 6, 8272);
+    			add_location(div1, file$p, 294, 6, 8952);
     			attr_dev(section1, "data-id", "chart02");
-    			add_location(section1, file$o, 274, 4, 8237);
-    			add_location(strong2, file$o, 285, 17, 8559);
-    			add_location(p2, file$o, 284, 8, 8537);
+    			add_location(section1, file$p, 293, 4, 8917);
+    			add_location(strong2, file$p, 304, 17, 9239);
+    			add_location(p2, file$p, 303, 8, 9217);
     			attr_dev(div2, "class", "col-medium");
-    			add_location(div2, file$o, 283, 6, 8503);
+    			add_location(div2, file$p, 302, 6, 9183);
     			attr_dev(section2, "data-id", "chart03");
-    			add_location(section2, file$o, 282, 4, 8468);
-    			add_location(strong3, file$o, 292, 17, 8751);
-    			add_location(p3, file$o, 291, 8, 8729);
+    			add_location(section2, file$p, 301, 4, 9148);
+    			add_location(strong3, file$p, 311, 17, 9431);
+    			add_location(p3, file$p, 310, 8, 9409);
     			attr_dev(div3, "class", "col-medium");
-    			add_location(div3, file$o, 290, 6, 8695);
+    			add_location(div3, file$p, 309, 6, 9375);
     			attr_dev(section3, "data-id", "chart04");
-    			add_location(section3, file$o, 289, 4, 8660);
-    			add_location(strong4, file$o, 299, 22, 8951);
-    			add_location(p4, file$o, 298, 8, 8924);
-    			add_location(p5, file$o, 302, 8, 9069);
+    			add_location(section3, file$p, 308, 4, 9340);
+    			add_location(strong4, file$p, 318, 22, 9631);
+    			add_location(p4, file$p, 317, 8, 9604);
+    			add_location(p5, file$p, 321, 8, 9749);
     			attr_dev(div4, "class", "col-medium");
-    			add_location(div4, file$o, 297, 6, 8890);
+    			add_location(div4, file$p, 316, 6, 9570);
     			attr_dev(section4, "data-id", "chart05");
-    			add_location(section4, file$o, 296, 4, 8855);
-    			add_location(p6, file$o, 307, 8, 9243);
+    			add_location(section4, file$p, 315, 4, 9535);
+    			add_location(p6, file$p, 326, 8, 9923);
     			attr_dev(div5, "class", "col-medium");
-    			add_location(div5, file$o, 306, 6, 9209);
+    			add_location(div5, file$p, 325, 6, 9889);
     			attr_dev(section5, "data-id", "chart06");
-    			add_location(section5, file$o, 305, 4, 9174);
-    			add_location(p7, file$o, 312, 8, 9408);
+    			add_location(section5, file$p, 324, 4, 9854);
+    			add_location(p7, file$p, 331, 8, 10088);
     			attr_dev(div6, "class", "col-medium");
-    			add_location(div6, file$o, 311, 6, 9374);
+    			add_location(div6, file$p, 330, 6, 10054);
     			attr_dev(section6, "data-id", "chart07");
-    			add_location(section6, file$o, 310, 4, 9339);
-    			attr_dev(div7, "slot", "foreground");
-    			add_location(div7, file$o, 266, 2, 8014);
+    			add_location(section6, file$p, 329, 4, 10019);
+    			add_location(p8, file$p, 336, 8, 10250);
+    			set_style(li0, "color", "green");
+    			add_location(li0, file$p, 338, 10, 10342);
+    			set_style(li1, "color", "#FFBF00");
+    			add_location(li1, file$p, 339, 10, 10405);
+    			set_style(li2, "color", "red");
+    			add_location(li2, file$p, 340, 10, 10470);
+    			add_location(ul, file$p, 337, 8, 10326);
+    			attr_dev(div7, "class", "col-medium");
+    			add_location(div7, file$p, 335, 6, 10216);
+    			attr_dev(section7, "data-id", "chart08");
+    			add_location(section7, file$p, 334, 4, 10181);
+    			attr_dev(div8, "slot", "foreground");
+    			add_location(div8, file$p, 285, 2, 8694);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, div7, anchor);
-    			append_dev(div7, section0);
+    			insert_dev(target, div8, anchor);
+    			append_dev(div8, section0);
     			append_dev(section0, div0);
     			append_dev(div0, p0);
     			append_dev(p0, t0);
     			append_dev(p0, strong0);
     			append_dev(p0, t2);
-    			append_dev(div7, t3);
-    			append_dev(div7, section1);
+    			append_dev(div8, t3);
+    			append_dev(div8, section1);
     			append_dev(section1, div1);
     			append_dev(div1, p1);
     			append_dev(p1, t4);
     			append_dev(p1, strong1);
     			append_dev(p1, t6);
-    			append_dev(div7, t7);
-    			append_dev(div7, section2);
+    			append_dev(div8, t7);
+    			append_dev(div8, section2);
     			append_dev(section2, div2);
     			append_dev(div2, p2);
     			append_dev(p2, t8);
     			append_dev(p2, strong2);
     			append_dev(p2, t10);
-    			append_dev(div7, t11);
-    			append_dev(div7, section3);
+    			append_dev(div8, t11);
+    			append_dev(div8, section3);
     			append_dev(section3, div3);
     			append_dev(div3, p3);
     			append_dev(p3, t12);
     			append_dev(p3, strong3);
     			append_dev(p3, t14);
-    			append_dev(div7, t15);
-    			append_dev(div7, section4);
+    			append_dev(div8, t15);
+    			append_dev(div8, section4);
     			append_dev(section4, div4);
     			append_dev(div4, p4);
     			append_dev(p4, t16);
@@ -17770,17 +18109,28 @@ var app = (function () {
     			append_dev(p4, t18);
     			append_dev(div4, t19);
     			append_dev(div4, p5);
-    			append_dev(div7, t21);
-    			append_dev(div7, section5);
+    			append_dev(div8, t21);
+    			append_dev(div8, section5);
     			append_dev(section5, div5);
     			append_dev(div5, p6);
-    			append_dev(div7, t23);
-    			append_dev(div7, section6);
+    			append_dev(div8, t23);
+    			append_dev(div8, section6);
     			append_dev(section6, div6);
     			append_dev(div6, p7);
+    			append_dev(div8, t25);
+    			append_dev(div8, section7);
+    			append_dev(section7, div7);
+    			append_dev(div7, p8);
+    			append_dev(div7, t27);
+    			append_dev(div7, ul);
+    			append_dev(ul, li0);
+    			append_dev(ul, t29);
+    			append_dev(ul, li1);
+    			append_dev(ul, t31);
+    			append_dev(ul, li2);
     		},
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(div7);
+    			if (detaching) detach_dev(div8);
     		}
     	};
 
@@ -17788,14 +18138,14 @@ var app = (function () {
     		block,
     		id: create_foreground_slot.name,
     		type: "slot",
-    		source: "(267:2) ",
+    		source: "(286:2) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (326:0) <Section>
+    // (355:0) <Section>
     function create_default_slot$1(ctx) {
     	let h2;
     	let t1;
@@ -17808,8 +18158,8 @@ var app = (function () {
     			t1 = space();
     			p = element("p");
     			p.textContent = "Epsom Lorem ipsum dolor sit amet consectetur adipisicing elit. A magni\r\n    ducimus amet repellendus cupiditate? Ad optio saepe ducimus. At eveniet ad\r\n    delectus enim voluptatibus. Quaerat eligendi eaque corrupti possimus\r\n    molestiae?";
-    			add_location(h2, file$o, 326, 2, 9665);
-    			add_location(p, file$o, 327, 2, 9689);
+    			add_location(h2, file$p, 355, 2, 10734);
+    			add_location(p, file$p, 356, 2, 10758);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, h2, anchor);
@@ -17827,14 +18177,14 @@ var app = (function () {
     		block,
     		id: create_default_slot$1.name,
     		type: "slot",
-    		source: "(326:0) <Section>",
+    		source: "(355:0) <Section>",
     		ctx
     	});
 
     	return block;
     }
 
-    function create_fragment$p(ctx) {
+    function create_fragment$q(ctx) {
     	let divider0;
     	let t0;
     	let scroller;
@@ -17853,7 +18203,7 @@ var app = (function () {
     	divider0 = new Divider({ $$inline: true });
 
     	function scroller_id_binding(value) {
-    		/*scroller_id_binding*/ ctx[11](value);
+    		/*scroller_id_binding*/ ctx[12](value);
     	}
 
     	let scroller_props = {
@@ -17900,7 +18250,7 @@ var app = (function () {
     			t5 = text("step: ");
     			t6 = text(/*step*/ ctx[1]);
     			attr_dev(div, "class", "stickDev svelte-11mmfbg");
-    			add_location(div, file$o, 341, 0, 10088);
+    			add_location(div, file$p, 370, 0, 11157);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -17924,7 +18274,7 @@ var app = (function () {
     		p: function update(ctx, [dirty]) {
     			const scroller_changes = {};
 
-    			if (dirty & /*$$scope, data, groups_selected, groups_to_label, step, yMin, yMax, xMax, id*/ 16777471) {
+    			if (dirty & /*$$scope, data, groups_selected, groups_to_label, step, yMin, yMax, xMax, longitudinal_annotation_layer, id*/ 33554943) {
     				scroller_changes.$$scope = { dirty, ctx };
     			}
 
@@ -17937,7 +18287,7 @@ var app = (function () {
     			scroller.$set(scroller_changes);
     			const section_changes = {};
 
-    			if (dirty & /*$$scope*/ 16777216) {
+    			if (dirty & /*$$scope*/ 33554432) {
     				section_changes.$$scope = { dirty, ctx };
     			}
 
@@ -17978,7 +18328,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$p.name,
+    		id: create_fragment$q.name,
     		type: "component",
     		source: "",
     		ctx
@@ -17989,7 +18339,7 @@ var app = (function () {
 
     const threshold = 0.65;
 
-    function instance$p($$self, $$props, $$invalidate) {
+    function instance$q($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('App', slots, []);
     	let theme = 'light';
@@ -18053,6 +18403,7 @@ var app = (function () {
     	let groups_normal = groups_all.filter(d => d != 'flowers');
     	let groups_selected = groups_normal;
     	let groups_to_label = null;
+    	let longitudinal_annotation_layer = false;
     	let xMax;
     	let yMax = 85;
 
@@ -18061,65 +18412,82 @@ var app = (function () {
     			chart01: () => {
     				$$invalidate(2, data);
     				$$invalidate(3, yMin = 0);
-    				$$invalidate(7, yMax = 85);
+    				$$invalidate(8, yMax = 85);
     				$$invalidate(4, groups_selected = groups_normal);
     				$$invalidate(5, groups_to_label = null);
     				$$invalidate(1, step = 'chart01');
-    				$$invalidate(6, xMax = null);
+    				$$invalidate(7, xMax = null);
+    				$$invalidate(6, longitudinal_annotation_layer = false);
     			},
     			chart02: () => {
     				$$invalidate(2, data);
     				$$invalidate(3, yMin = 65);
-    				$$invalidate(7, yMax = 85);
+    				$$invalidate(8, yMax = 85);
     				$$invalidate(4, groups_selected = groups_normal);
     				$$invalidate(5, groups_to_label = null);
     				$$invalidate(1, step = 'chart02');
-    				$$invalidate(6, xMax = null);
+    				$$invalidate(7, xMax = null);
+    				$$invalidate(6, longitudinal_annotation_layer = false);
     			},
     			chart03: () => {
     				$$invalidate(2, data);
     				$$invalidate(3, yMin = 65);
-    				$$invalidate(7, yMax = 85);
+    				$$invalidate(8, yMax = 85);
     				$$invalidate(4, groups_selected = groups_all);
     				$$invalidate(5, groups_to_label = null);
     				$$invalidate(1, step = 'chart03');
-    				$$invalidate(6, xMax = null);
+    				$$invalidate(7, xMax = null);
+    				$$invalidate(6, longitudinal_annotation_layer = false);
     			},
     			chart04: () => {
     				$$invalidate(2, data);
     				$$invalidate(3, yMin = 65);
-    				$$invalidate(7, yMax = 85);
+    				$$invalidate(8, yMax = 85);
     				$$invalidate(4, groups_selected = ['flowers']);
-    				$$invalidate(5, groups_to_label = ['flowers']);
+    				$$invalidate(5, groups_to_label = null);
     				$$invalidate(1, step = 'chart04');
-    				$$invalidate(6, xMax = null);
+    				$$invalidate(7, xMax = null);
+    				$$invalidate(6, longitudinal_annotation_layer = false);
     			},
     			chart05: () => {
     				$$invalidate(2, data);
     				$$invalidate(3, yMin = 70);
-    				$$invalidate(7, yMax = 75);
+    				$$invalidate(8, yMax = 75);
     				$$invalidate(4, groups_selected = ['flowers']);
     				$$invalidate(5, groups_to_label = ['flowers']);
-    				$$invalidate(1, step = 'chart04');
-    				$$invalidate(6, xMax = 1998);
+    				$$invalidate(1, step = 'chart05');
+    				$$invalidate(7, xMax = 1998);
+    				$$invalidate(6, longitudinal_annotation_layer = false);
     			},
     			chart06: () => {
     				$$invalidate(2, data);
     				$$invalidate(3, yMin = 70);
-    				$$invalidate(7, yMax = 75);
+    				$$invalidate(8, yMax = 75);
     				$$invalidate(4, groups_selected = ['flowers']);
     				$$invalidate(5, groups_to_label = ['flowers']);
-    				$$invalidate(1, step = 'chart04');
-    				$$invalidate(6, xMax = 2008);
+    				$$invalidate(1, step = 'chart06');
+    				$$invalidate(7, xMax = 2008);
+    				$$invalidate(6, longitudinal_annotation_layer = false);
     			},
     			chart07: () => {
     				$$invalidate(2, data);
     				$$invalidate(3, yMin = 70);
-    				$$invalidate(7, yMax = 75);
+    				$$invalidate(8, yMax = 75);
     				$$invalidate(4, groups_selected = ['flowers']);
-    				$$invalidate(5, groups_to_label = ['flowers']);
-    				$$invalidate(1, step = 'chart04');
-    				$$invalidate(6, xMax = null);
+    				$$invalidate(5, groups_to_label = null);
+    				$$invalidate(1, step = 'chart07');
+    				$$invalidate(7, xMax = null);
+    				$$invalidate(6, longitudinal_annotation_layer = false);
+    			},
+    			chart08: () => {
+    				$$invalidate(2, data);
+    				$$invalidate(3, yMin = 70);
+    				$$invalidate(8, yMax = 75);
+    				$$invalidate(4, groups_selected = ['flowers']);
+    				$$invalidate(5, groups_to_label = null);
+    				$$invalidate(1, step = 'chart08');
+    				$$invalidate(7, xMax = null);
+    				$$invalidate(6, longitudinal_annotation_layer = true);
     			}
     		}
     	};
@@ -18187,6 +18555,7 @@ var app = (function () {
     		groups_normal,
     		groups_selected,
     		groups_to_label,
+    		longitudinal_annotation_layer,
     		xMax,
     		yMax,
     		actions
@@ -18194,7 +18563,7 @@ var app = (function () {
 
     	$$self.$inject_state = $$props => {
     		if ('theme' in $$props) theme = $$props.theme;
-    		if ('animation' in $$props) $$invalidate(8, animation = $$props.animation);
+    		if ('animation' in $$props) $$invalidate(9, animation = $$props.animation);
     		if ('hover' in $$props) hover = $$props.hover;
     		if ('hovered' in $$props) hovered = $$props.hovered;
     		if ('hoveredScatter' in $$props) hoveredScatter = $$props.hoveredScatter;
@@ -18207,14 +18576,15 @@ var app = (function () {
     		if ('data' in $$props) $$invalidate(2, data = $$props.data);
     		if ('yMin' in $$props) $$invalidate(3, yMin = $$props.yMin);
     		if ('groups_template' in $$props) groups_template = $$props.groups_template;
-    		if ('colors_all' in $$props) $$invalidate(9, colors_all = $$props.colors_all);
-    		if ('groups_all' in $$props) $$invalidate(10, groups_all = $$props.groups_all);
+    		if ('colors_all' in $$props) $$invalidate(10, colors_all = $$props.colors_all);
+    		if ('groups_all' in $$props) $$invalidate(11, groups_all = $$props.groups_all);
     		if ('groups_normal' in $$props) groups_normal = $$props.groups_normal;
     		if ('groups_selected' in $$props) $$invalidate(4, groups_selected = $$props.groups_selected);
     		if ('groups_to_label' in $$props) $$invalidate(5, groups_to_label = $$props.groups_to_label);
-    		if ('xMax' in $$props) $$invalidate(6, xMax = $$props.xMax);
-    		if ('yMax' in $$props) $$invalidate(7, yMax = $$props.yMax);
-    		if ('actions' in $$props) $$invalidate(23, actions = $$props.actions);
+    		if ('longitudinal_annotation_layer' in $$props) $$invalidate(6, longitudinal_annotation_layer = $$props.longitudinal_annotation_layer);
+    		if ('xMax' in $$props) $$invalidate(7, xMax = $$props.xMax);
+    		if ('yMax' in $$props) $$invalidate(8, yMax = $$props.yMax);
+    		if ('actions' in $$props) $$invalidate(24, actions = $$props.actions);
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -18239,6 +18609,7 @@ var app = (function () {
     		yMin,
     		groups_selected,
     		groups_to_label,
+    		longitudinal_annotation_layer,
     		xMax,
     		yMax,
     		animation,
@@ -18251,13 +18622,13 @@ var app = (function () {
     class App extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$p, create_fragment$p, safe_not_equal, {});
+    		init(this, options, instance$q, create_fragment$q, safe_not_equal, {});
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "App",
     			options,
-    			id: create_fragment$p.name
+    			id: create_fragment$q.name
     		});
     	}
     }
