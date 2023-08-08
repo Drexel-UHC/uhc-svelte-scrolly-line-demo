@@ -132,7 +132,7 @@
         yMin = 65;
         yMax = 85;
         groups_selected = ['flowers'];
-        groups_to_label = ['flowers'];
+        groups_to_label = null;
         step = 'chart04';
         xMax = null;
       },

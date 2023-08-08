@@ -1,8 +1,10 @@
 <script>
   import { getContext } from 'svelte';
-  import { max } from 'd3-array';
+  import { max, min } from 'd3-array';
   import { fade } from 'svelte/transition';
-  const { data, x, y, xScale, yScale, xRange, yRange, custom } =
+  import { tweened } from 'svelte/motion';
+
+  const { data, x, y, xDomain, xScale, yScale, xRange, yRange, custom } =
     getContext('LayerCake');
 
   let groups_all = $custom.groups_all;
@@ -23,12 +25,14 @@
       data_subset = null;
     }
 
-    console.log(`groups_to_label`);
-    console.log(groups_to_label);
-    console.log(`index_subset`);
-    console.log(index_subset);
-    console.log(`data_subset`);
-    console.log(data_subset);
+    // console.log(`groups_to_label`);
+    // console.log(groups_to_label);
+    // console.log(`index_subset`);
+    // console.log(index_subset);
+    // console.log(`data_subset`);
+    // console.log(data_subset);
+    // console.log(`$xDomain`);
+    // console.log(max($xDomain));
   }
   /* --------------------------------------------
    * Title case the first letter
@@ -48,14 +52,17 @@
 
   $: left = (group) => {
     const x_values_all = group.map((d) => d.year);
-    const xMax = Math.max(...x_values_all);
+    const xMax = max($xDomain);
     const result = $xScale(xMax) / Math.max(...$xRange);
     return result;
   };
 
   $: top = (group) => {
+    const xMax = max($xDomain);
     const y_values_all = group.map((d) => d.value);
     const yMax = Math.max(...y_values_all);
+    console.log(`yMax`);
+    console.log(yMax);
     const result = $yScale(yMax) / Math.max(...$yRange);
     return result;
   };
