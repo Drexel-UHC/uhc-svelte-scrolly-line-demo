@@ -17,6 +17,7 @@
   import Footer from './shared/Footer.svelte';
   import Labels from './shared/Labels.svelte';
   import LabelsHTML from './shared/Labels-html.svelte';
+  import LongitudinalAnnotationLayer from './custom/LongitudinalAnnotationLayer.svelte';
 
   export let data;
   export let height = 250; // number of pixels or valid css height string
@@ -236,10 +237,12 @@
         {/if}
         <slot name="svg" />
       </Svg>
-      <Html>
-        <LabelsHTML />
-      </Html>
+
       <slot name="front" />
+      <Html>
+        <!-- <LabelsHTML /> -->
+        <LongitudinalAnnotationLayer />
+      </Html>
     {/if}
   </LayerCake>
 </div>

@@ -163,6 +163,15 @@
         step = 'chart07';
         xMax = null;
       },
+      chart08: () => {
+        data = data;
+        yMin = 70;
+        yMax = 75;
+        groups_selected = ['flowers'];
+        groups_to_label = null;
+        step = 'chart07';
+        xMax = null;
+      },
     },
   };
 
@@ -311,6 +320,14 @@
     <section data-id="chart07">
       <div class="col-medium">
         <p>In fact after 2010, flowers prices start dropping.</p>
+      </div>
+    </section>
+    <section data-id="chart08">
+      <div class="col-medium">
+        <p>
+          So overall we see three phases. Green (increase), Yellow (stagnation)
+          and red (drop)
+        </p>
       </div>
     </section>
   </div>
