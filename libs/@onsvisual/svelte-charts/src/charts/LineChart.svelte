@@ -242,7 +242,7 @@
 
       <slot name="front" />
       <Html>
-        <!-- <LabelsHTML /> -->
+        <LabelsHTML />
         <LongitudinalAnnotationLayer />
       </Html>
     {/if}

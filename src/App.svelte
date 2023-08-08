@@ -334,10 +334,12 @@
     </section>
     <section data-id="chart08">
       <div class="col-medium">
-        <p>
-          So overall we see three phases. Green (increase), Yellow (stagnation)
-          and red (drop)
-        </p>
+        <p>So overall we see three phases in trends in Life Expectancy</p>
+        <ul>
+          <li style="color:green">2000 - 1998 Increasing</li>
+          <li style="color:#FFBF00">1999 - 2009 Stagnation</li>
+          <li style="color:red">2010 - 2018 Decreasing</li>
+        </ul>
       </div>
     </section>
   </div>
