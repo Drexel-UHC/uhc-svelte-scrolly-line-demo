@@ -142,7 +142,7 @@
         yMax = 75;
         groups_selected = ['flowers'];
         groups_to_label = ['flowers'];
-        step = 'chart04';
+        step = 'chart05';
         xMax = 1998;
       },
       chart06: () => {
@@ -151,7 +151,7 @@
         yMax = 75;
         groups_selected = ['flowers'];
         groups_to_label = ['flowers'];
-        step = 'chart04';
+        step = 'chart06';
         xMax = 2008;
       },
       chart07: () => {
@@ -160,7 +160,7 @@
         yMax = 75;
         groups_selected = ['flowers'];
         groups_to_label = ['flowers'];
-        step = 'chart04';
+        step = 'chart07';
         xMax = null;
       },
     },
