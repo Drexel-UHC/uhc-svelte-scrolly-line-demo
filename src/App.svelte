@@ -159,7 +159,7 @@
         yMin = 70;
         yMax = 75;
         groups_selected = ['flowers'];
-        groups_to_label = ['flowers'];
+        groups_to_label = null;
         step = 'chart07';
         xMax = null;
       },
